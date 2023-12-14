@@ -1,0 +1,2 @@
+# Ignore Mapbox access token
+*mapboxgl.accessToken = "pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ"*
