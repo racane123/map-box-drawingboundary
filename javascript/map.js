@@ -51,7 +51,7 @@ function saveData(name, featureType, coordinates) {
 
     var data = 'name=' + encodeURIComponent(name) +
     '&featureType=' + encodeURIComponent(featureType) +
-    '&coordinates=' + encodeURIComponent(JSON.stringify(coordinates));
+    '&coordinates=' + encodeURIComponent((coordinates));
 
     xhr.send(data);
 }
