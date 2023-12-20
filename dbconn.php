@@ -32,28 +32,11 @@ if (isset($_POST['name'], $_POST['featureType'], $_POST['coordinates'])) {
       exit;
   }
 
-  // Determine the GeoJSON type based on the feature type
-  $geojsonType = '';
-  switch ($featureType) {
-      case 'Point':
-          $geojsonType = 'Point';
-          break;
-      case 'LineString':
-          $geojsonType = 'LineString';
-          break;
-      case 'Polygon':
-          $geojsonType = 'Polygon';
-          break;
-      default:
-          echo "Error: Unknown feature type.";
-          exit;
-  }
-
   // Manually add the "type" property to the GeoJSON data
-  $geojson = '{"type": "' . $geojsonType . '", "coordinates": ' . json_encode($coordinates) . '}';
+  $geojson = '{"type": "' . $featureType . '", "coordinates": ' . json_encode($coordinates) . '}';
 
   // Insert data into the database using a prepared statement
-  $sql = "INSERT INTO drawn_features (name, feature_type, coordinates) VALUES ('$name', '$featureType', ST_SetSRID(ST_GeomFromGeoJSON('$geojson'), 4326))";
+  $sql = "INSERT INTO drawn_features (name, feature_type, coordinates) VALUES ('$name', '$featureType', ST_GeomFromGeoJSON('$geojson'))";
 
   // Execute the query
   $result = pg_query($conn, $sql);
