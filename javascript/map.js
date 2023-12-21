@@ -37,8 +37,8 @@ map.on('draw.create', function (event) {
 });
 
 function saveData(name, featureType, coordinates) {
-    var xhr = new XMLHttpRequest();
-    var url = 'dbconn.php';
+    var xhr = new XMLHttpRequest(); 
+    var url = 'postapi.php';
 
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
