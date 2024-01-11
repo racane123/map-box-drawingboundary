@@ -7,12 +7,10 @@ $database = 'localgovernment';
 $port = 5432;
 
 // Establish a connection to the database
-$conn = pg_connect("host=$host dbname=$database user=$username password=$password");
+$conn = pg_connect("host=$host port=$port dbname=$database user=$username password=$password");
 
 // Check the connection
 if (!$conn) {
     die("Connection failed: " . pg_last_error());
 }
-
-
 ?>

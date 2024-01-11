@@ -7,6 +7,13 @@ var map = new mapboxgl.Map({
   zoom: 13
 });
 
+
+var geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl
+});
+
+document.getElementById('geocoder-container').appendChild(geocoder.onAdd(map));
 var draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -33,6 +40,7 @@ map.on('draw.create', function (event) {
         var coordinates = JSON.stringify(event.features[0].geometry.coordinates);
         saveData(name, featureType, coordinates);
         hideSaveForm();
+        location.reload();
     });
 });
 
