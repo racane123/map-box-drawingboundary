@@ -3,17 +3,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v11',
-  center: [-74.5, 40],
-  zoom: 13
+  center: [120.96788000, 14.64953000],
+  zoom: 16
 });
-
-
-var geocoder = new MapboxGeocoder({
-  accessToken: mapboxgl.accessToken,
-  mapboxgl: mapboxgl
-});
-
-document.getElementById('geocoder-container').appendChild(geocoder.onAdd(map));
 var draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -25,7 +17,6 @@ var draw = new MapboxDraw({
 });
 
 map.addControl(draw);
-
 var saveForm = document.getElementById('saveForm');
 var drawingForm = document.getElementById('drawingForm');
 
@@ -64,14 +55,63 @@ function saveData(name, featureType, coordinates) {
     xhr.send(data);
 }
 
+map.on('load', function() {
+  fetch('polyapi.php')
+    .then(response => response.json())
+    .then(data => {
+      map.addSource('geojsonSource', {
+        type: 'geojson',
+        data: data,
+      });
 
-map.on('draw.create', function () {
-  showSaveForm();
+      map.addLayer({
+        id: 'points',
+        type: 'circle',
+        source: 'geojsonSource',
+        paint: {
+          'circle-radius': 6,
+          'circle-color': 'red'
+        },
+        filter: ['==', '$type', 'Point']
+      });
+
+      map.addLayer({
+        id: 'lines',
+        type: 'line',
+        source: 'geojsonSource',
+        layout: {},
+        paint: {
+          'line-color': 'blue',
+          'line-width': 2
+        },
+        filter: ['==', '$type', 'LineString']
+      });
+
+      map.addLayer({
+        id: 'polygons',
+        type: 'fill',
+        source: 'geojsonSource',
+        layout: {},
+        paint: {
+          'fill-color': 'green',
+          'fill-opacity': 0.5
+        },
+        filter: ['==', '$type', 'Polygon']
+      });
+
+      map.setLayoutProperty('points', 'visibility', 'visible');
+      map.setLayoutProperty('lines', 'visibility', 'visible');
+      map.setLayoutProperty('polygons', 'visibility', 'visible');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 });
 
-map.on('draw.update', function () {
-  showSaveForm();
-});
+
+
+
+
 
 function showSaveForm() {
   saveForm.style.display = 'block';
@@ -94,71 +134,6 @@ function cancelDrawing() {
 function hideSaveForm() {
   saveForm.style.display = 'none';
 }
-
-/***var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v11', // You can use your custom style
-  center: [-74.5, 40], // [longitude, latitude]
-  zoom: 9
-});
-
-// Add navigation control
-map.addControl(new mapboxgl.NavigationControl());
-
-// Initialize the draw control
-var draw = new MapboxDraw({
-  displayControlsDefault: false,
-  controls: {
-    point: true,
-    line_string: true,
-    polygon: true,
-    trash: true
-  }
-});
-
-map.addControl(draw);
-
-// Listen for draw.create or draw.update events
-map.on('draw.create', updateMap);
-map.on('draw.update', updateMap);
-
-function updateMap(event) {
-  var features = draw.getAll();
-  console.log(features);
-}
-
-// Add a line
-map.on('load', function () {
-  map.addLayer({
-    id: 'line',
-    type: 'line',
-    source: {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: [
-            [-74.5, 40],
-            [-74, 40.7],
-            [-73.5, 40.5]
-          ]
-        }
-      }
-    },
-    layout: {
-      'line-join': 'round',
-      'line-cap': 'round'
-    },
-    paint: {
-      'line-color': '#888',
-      'line-width': 4
-    }
-  });
-});
-
-***/
 
 
 
