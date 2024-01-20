@@ -20,7 +20,7 @@
   <style>
     
     body { margin: 0; padding: 0; }
-    #map {position:absolute;top: 56px; bottom: 0; width: 100%; }
+    #map {position:absolute;top: 76px; bottom: 0; width: 100%; }
     .mapboxgl-ctrl-group.mapboxgl-ctrl.mapboxgl-ctrl-group-active {
     }
     #saveForm {

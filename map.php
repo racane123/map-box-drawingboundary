@@ -1,4 +1,4 @@
-<div id="map-container">
+<div id="map-container mt-5">
       <div id="map"></div>
       <div id="saveForm">
         <h3>Save Drawing</h3>
