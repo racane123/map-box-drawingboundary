@@ -3,31 +3,75 @@ include 'header.php';
 
 ?>
 
-</head>
-<body>
 
 <aside class="text-light aside-bg" style="display: flex; flex-direction: column; align-items: center; padding: 20px;">
-  <a href="" class='nav-brand'><img src="images/logo-text.png" alt="logo" srcset="" class='logo-brand'></a>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link text-light" href="dashboard.php">Dashboard</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="index.php">Map</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#section3">Section 3</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-light" href="#section4">Section 4</a>
-    </li>
-  </ul>
+    <a href="" class='nav-brand'><img src="images/logo-text.png" alt="logo" srcset="" class='logo-brand'></a>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#" onclick="loadDashboardContent()">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#" onclick="loadAdminGeoData()">Geo Data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#" onclick="loadMap()">Map</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#section3">Section 3</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#section4">Section 4</a>
+        </li>
+    </ul>
 </aside>
 
 <div class="content">
-  <h2>Dashboard</h2>
-  <p>This is the main content area. You can add your page content here.</p>
 </div>
 
-</body>
-</html>
+<script>
+    // Function to fetch and update dashboard content
+    function updateDashboard() {
+        $.ajax({
+            url: 'usermap.php', // Replace with the actual server endpoint
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard
+                $('.content').html(data);
+            },
+            error: function(error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        });
+    }
+
+    // Function to load dashboard content
+    function loadDashboardContent() {
+        updateDashboard();
+    }
+
+    // Function to load Admin Geo Data content
+    function loadAdminGeoData() {
+        $.ajax({
+            url: 'admin-geodata.php', // Replace with the actual server endpoint
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard with Admin Geo Data
+                $('.content').html(data);
+            },
+            error: function(error) {
+                console.error('Error fetching Admin Geo Data:', error);
+            }
+        });
+    }
+
+    // Function to load Map content
+    function loadMap() {
+        // Add logic to load Map content if needed
+        // Example: $('.content').load('map.php');
+    }
+
+    // Initial load of the dashboard
+    loadDashboardContent();
+</script>

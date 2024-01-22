@@ -43,7 +43,7 @@ include 'map.php';
 ?>
   <div id="geocoder-container"></div>
   <script src="javascript/map.js"></script>
-  <script src="javascript/navbar.js"></script>
+  <script src="javascript/index.js"></script>
 </body>
 
 </html>
