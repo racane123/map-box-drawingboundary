@@ -32,7 +32,7 @@ include 'header.php';
     // Function to fetch and update dashboard content
     function updateDashboard() {
         $.ajax({
-            url: 'usermap.php', // Replace with the actual server endpoint
+            url: 'userAccounts.php', // Replace with the actual server endpoint
             method: 'GET',
             dataType: 'html',
             success: function(data) {
@@ -68,8 +68,18 @@ include 'header.php';
 
     // Function to load Map content
     function loadMap() {
-        // Add logic to load Map content if needed
-        // Example: $('.content').load('map.php');
+        $.ajax({
+            url: 'usermap.php', // Replace with the actual server endpoint
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard
+                $('.content').html(data);
+            },
+            error: function(error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        });
     }
 
     // Initial load of the dashboard

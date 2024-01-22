@@ -38,11 +38,8 @@
 <?php
 include 'navbar.php';
 ?>
-<?php
-include 'map.php';
-?>
+    <div id="map"></div>
   <div id="geocoder-container"></div>
-  <script src="javascript/map.js"></script>
   <script src="javascript/index.js"></script>
 </body>
 
