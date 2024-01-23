@@ -1,11 +1,18 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
-var map = new mapboxgl.Map({
+
+const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/traffic-day-v2',
+  style: 'mapbox://styles/mapbox/streets-v11',
   center: [120.96788000, 14.64953000],
   zoom: 16
-});
+  });
 
+map.addControl(
+  new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl
+  })
+  );
 
 map.on('load', function() {
     fetch('polyapi.php')
