@@ -82,6 +82,18 @@ include 'header.php';
         });
     }
 
+
+    function DisplayForm(){
+        document.getElementById("form-container").style.display="block"
+    }
+
+    function FromDisplay(){
+        document.getElementById("form-container").style.display="none"
+    }
+
     // Initial load of the dashboard
     loadDashboardContent();
+
+
+
 </script>
