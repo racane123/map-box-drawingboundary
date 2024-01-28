@@ -25,16 +25,16 @@
         </div>
 
         <div class="form-outline mb-4">
-            <input type="email" id="email" class="form-control" placeholder="Email" name="email">
+            <input type="email" id="email" class="form-control" placeholder="Email" name="email" required>
         </div>
 
         <div class="form-outline mb-4">
-            <input type="password" id="password" class="form-control" placeholder="Password" name="password">
+            <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
         </div>
 
         <div class="mb-4">
             <label for="role" class="form-label">Role:</label>
-            <select name="role" id="role" class="form-select" name="role">
+            <select name="role" id="role" class="form-select" name="role" required>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
             </select>
@@ -46,6 +46,22 @@
     </form>
 
     <div id="results"></div>
+    <!---Table of User Data-->
+    <div class="container mt-5">
+    <table class="table table-bordered" id="userTable">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody id="userData">
+        </tbody>
+    </table>
+</div>
 </div>
 
 <style>
@@ -58,11 +74,14 @@
     position: absolute;
     right:25%;
     display: none;
+    cursor: pointer;
 }
 </style>
 
 
 <script>
+
+
 function submitForm(event) {
     event.preventDefault();
 
@@ -93,6 +112,9 @@ function submitForm(event) {
 
 
 $('#form-container').submit(submitForm);
+
+
+
 function DisplayForm(){
     document.getElementById("form-container").style.display="block"
 }
@@ -100,4 +122,33 @@ function DisplayForm(){
 function FormClose(){
     document.getElementById("form-container").style.display="none"
 }
+
+
+
+function displayUsers() {
+            $.ajax({
+                url: 'displayUser.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Clear previous data
+                    $('#userData').empty();
+
+                    // Iterate through the received data and append to the table
+                    $.each(data, function(index, user) {
+                        $('#userData').append('<tr><td>' + user.first_name + '</td><td>' + user.last_name + '</td><td>' + user.email + '</td><td>' + user.password + '</td><td>' + user.role +'</td></tr>');
+                    });
+                },
+                error: function(error) {
+                    console.log('Error fetching data:', error);
+                }
+            });
+        }
+
+        // Call the function to display users when the page loads
+        $(document).ready(function() {
+            displayUsers();
+            });
+
+
 </script>

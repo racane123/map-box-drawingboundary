@@ -122,7 +122,6 @@ drawingForm.addEventListener('submit', function (e) {
   e.preventDefault();
   var features = draw.getAll();
   var name = document.getElementById('saveName').value;
-  // Add logic to save the features and name as needed
   console.log('Saving features:', features, 'with name:', name);
   hideSaveForm();
 });
