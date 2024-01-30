@@ -1,16 +1,16 @@
 <?php
 // Connection parameters
 $host = 'localhost';
-$username = 'postgres';
-$password = 'root';
+$username = 'root'; // Replace with your MySQL username
+$password = ''; // Replace with your MySQL password
 $database = 'localgovernment';
-$port = 5432;
+$port = 3308; // Add a semicolon here
 
 // Establish a connection to the database
-$conn = pg_connect("host=$host port=$port dbname=$database user=$username password=$password");
+$conn = mysqli_connect($host, $username, $password, $database, $port);
 
 // Check the connection
 if (!$conn) {
-    die("Connection failed: " . pg_last_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 ?>

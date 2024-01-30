@@ -2,11 +2,11 @@
 include 'dbconn.php';
 
 $sql = "SELECT id, name, feature_type, ST_AsGeoJSON(coordinates) AS geojson from drawn_features";
-$result = pg_query($conn, $sql);
+$result = mysqli_query($conn, $sql);
 
 $features = array('type' => 'FeatureCollection', 'features' => array());
 
-while ($row = pg_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     $feature = array(
         'type' => 'Feature',
         'geometry' => json_decode($row['geojson']),
@@ -22,4 +22,5 @@ $geojson_data = json_encode($features);
 
 echo $geojson_data;
 
-pg_close($conn);
+mysqli_close($conn);
+?>

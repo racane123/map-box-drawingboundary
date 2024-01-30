@@ -1,18 +1,19 @@
 <?php
 include 'dbconn.php';
 include 'header.php';
+
 $sql = "SELECT * FROM drawn_features";
-$result = pg_query($conn, $sql);
+$result = mysqli_query($conn, $sql);
 
 if ($result) {
-    if (pg_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         // Fetch and display results
         echo "<div class='container mt-4 table-container'>";
         echo "<div class='table-responsive'>";
         echo "<table class='table table-bordered'>";
         
         // Fetch the first row to get column names
-        $firstRow = pg_fetch_assoc($result);
+        $firstRow = mysqli_fetch_assoc($result);
         
         echo "<thead class='thead-dark'>";
         echo "<tr>";
@@ -24,11 +25,11 @@ if ($result) {
         echo "</thead>";
     
         // Reset the result pointer back to the beginning
-        pg_result_seek($result, 0);
+        mysqli_data_seek($result, 0);
     
         echo "<tbody>";
         // Display data rows
-        while ($row = pg_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             foreach ($row as $value) {
                 echo "<td>" . $value . "</td>";
@@ -48,6 +49,7 @@ if ($result) {
 } else {
     // Handle query execution error
     echo "<div class='container mt-4'>";
-    echo "<p>Error executing query: " . pg_last_error($connection) . "</p>";
+    echo "<p>Error executing query: " . mysqli_error($conn) . "</p>";
     echo "</div>";
-}?>
+}
+?>
