@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include 'header.php';
 
 ?>
@@ -8,19 +10,19 @@ include 'header.php';
     <a href="" class='nav-brand'><img src="images/logo-text.png" alt="logo" srcset="" class='logo-brand'></a>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-light" href="#" onclick="loadDashboardContent()">Users</a>
+            <a class="nav-link text-light" onclick="loadDashboardContent()">Users</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="#" onclick="loadAdminGeoData()">Geo Data</a>
+            <a class="nav-link text-light" onclick="loadAdminGeoData()">Geo Data</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="#" onclick="loadMap()">Map</a>
+            <a class="nav-link text-light" onclick="loadMap()">Map</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="#section3">Section 3</a>
+            <a class="nav-link text-light">Section 3</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-light" href="#section4">Section 4</a>
+            <a class="nav-link text-light">Section 4</a>
         </li>
     </ul>
 </aside>
@@ -80,15 +82,6 @@ include 'header.php';
                 console.error('Error fetching dashboard data:', error);
             }
         });
-    }
-
-
-    function DisplayForm(){
-        document.getElementById("form-container").style.display="block"
-    }
-
-    function FromDisplay(){
-        document.getElementById("form-container").style.display="none"
     }
 
     // Initial load of the dashboard
