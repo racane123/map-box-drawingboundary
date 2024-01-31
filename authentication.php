@@ -20,11 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = mysqli_fetch_assoc($result);
 
     if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
         // Successful login
         $response = [
             'message' => "Login successful! Welcome, $email!",
-            'role' => $user['role'] // Assuming the user role is stored in the 'role' column
+            'role' => $user['role'],
         ];
         echo json_encode($response);
     } else {

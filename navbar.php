@@ -19,7 +19,6 @@
 </style>
 
 
-<!-- Navigation bar code -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><img src="images/logo-text.png" alt="logo">TownTechInnovations</a>
@@ -27,7 +26,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <?php
                 // Check if the user is an admin to display the Dashboard link
                 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
@@ -35,14 +34,21 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick=showMap()>Map</a>
+                    <a class="nav-link" href="#" onclick="showMap()">Map</a>
                 </li>
 
-
+                <?php
+                if (isset($_SESSION['email'])) {
+                    echo '<li class="nav-item text-left"><a class="nav-link" href="#">'. $_SESSION["email"]. '</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>';
+                }
+                ?>
             </ul>
         </div>
     </div>
 </nav>
+
+
 
 
 

@@ -4,7 +4,7 @@ $host = 'localhost';
 $username = 'root'; // Replace with your MySQL username
 $password = ''; // Replace with your MySQL password
 $database = 'localgovernment';
-$port = 3308; // Add a semicolon here
+$port = 3306; // Add a semicolon here
 
 // Establish a connection to the database
 $conn = mysqli_connect($host, $username, $password, $database, $port);

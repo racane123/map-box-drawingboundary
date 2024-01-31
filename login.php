@@ -59,11 +59,14 @@ $(document).ready(function() {
 
                 if (response.message.includes("successful")) {
                     // Check the role and redirect accordingly
-                    if (response.role === 'admin') {
-                        window.location.href = 'dashboard.php';
+                    setTimeout(function (){
+                        if (response.role === 'admin') {
+                        window.location.href="dashboard.php";
                     } else if (response.role === 'user') {
-                        window.location.href = 'index.php';
+                       window.location.href="index.php";
                     }
+                    }, 2200);
+
                 }
             },
             error: function(error) {
