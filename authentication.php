@@ -21,10 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user && password_verify($password, $user['password'])) {
         // Successful login
-        echo "Login successful! Welcome, $email!";
+        $response = [
+            'message' => "Login successful! Welcome, $email!",
+            'role' => $user['role'] // Assuming the user role is stored in the 'role' column
+        ];
+        echo json_encode($response);
     } else {
         // Failed login
-        echo "Invalid username or password. Please try again.";
+        $response = ['message' => "Invalid username or password. Please try again."];
+        echo json_encode($response);
     }
 
     // Close the statement

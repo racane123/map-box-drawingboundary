@@ -14,47 +14,56 @@ include_once "header.php";
         <div class="text-logo">TownTech Innovations</div>
     </div>
 <form id="loginForm">
-        <label for="username">Username:</label> 
-        <input type="text" id="email" name="email" required><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-
+        <div class="mb-3">
+        <label for="username" class="form-label">Username:</label> 
+        <input type="text" id="email" class="form-control" name="email" required>
+        </div>
+        <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
         <input type="submit" class="btn btn-primary" value="Login">
+        </div>
+        
 </form>
 </div>
 </body>
 
 
 <script>
+
+
+
 $(document).ready(function() {
-        $('#loginForm').submit(function(e) {
-            e.preventDefault();
+    $('#loginForm').submit(function(e) {
+        e.preventDefault();
 
-            // Gather form data
-            var formData = $(this).serialize();
+        // Gather form data
+        var formData = $(this).serialize();
 
-            // Send AJAX request
-            $.ajax({
-                url: 'authentication.php',
-                type: 'POST',
-                data: formData,
-                dataType: 'text',
-                success: function(response) {
-                    // Display the result with Bootstrap alert styling
-                    var alertClass = response.includes("successful") ? 'alert-success' : 'alert-danger';
-                    var alertHTML = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">' +
-                        response +
-                        '<button type="button" class="btn-close text-left" data-bs-dismiss="alert" aria-label="Close" id="Close">X</button>' +
-                        '</div>';
+        // Send AJAX request
+        $.ajax({
+            url: 'authentication.php',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',  // Assuming the response is in JSON format
+            success: function(response) {
+                var alertClass = response.message.includes("successful") ? 'alert-success' : 'alert-danger';
+                var alertHTML = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert" id="Close">' +
+                    response.message +
+                    '<button type="button" class="btn-close text-left" data-bs-dismiss="alert" aria-label="Close" onclick="fClose()">X</button>' +
+                    '</div>';
 
                 $('#background').before(alertHTML);
 
-                // Redirect on successful login
-                if (response.includes("successful")) {
-                    setTimeout(function() {
-                            window.location.href = 'dashboard.php';
-                        }, 4000);
+                if (response.message.includes("successful")) {
+                    // Check the role and redirect accordingly
+                    if (response.role === 'admin') {
+                        window.location.href = 'dashboard.php';
+                    } else if (response.role === 'user') {
+                        window.location.href = 'index.php';
+                    }
                 }
             },
             error: function(error) {
@@ -63,6 +72,11 @@ $(document).ready(function() {
         });
     });
 });
+
+
+function fClose(){
+    document.getElementById('Close').style.display="none";
+}
 </script>
 
 <style>
@@ -76,25 +90,15 @@ $(document).ready(function() {
 
 }
 
+#loginForm{
+    padding-top: 80px;
+}
+
 .login-logo{
     font-family: "Bree Serif", serif;
     font-weight: 400;
     font-style: normal;
     font-size:50px;
-}
-
-#loginForm{
-    padding-top:80px;
-    display:flex;
-    flex-direction:column;
-    width:300px;
-    
-}
-
-#loginForm input{
-    padding:5px;
-    border-radius: 5px;
-    border:1px solid #000;
 }
 
 #background{
