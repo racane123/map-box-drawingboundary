@@ -108,6 +108,8 @@ function submitForm(event) {
             $('#results').text("Error Submitting the Data")
         }
     });
+
+    location.reload();
 }
 
 

@@ -5,18 +5,18 @@ if (isset($_GET['query'])) {
     $query = $_GET['query'];
 
     // Escape the input to prevent SQL injection
-    $query = pg_escape_string($query);
+    $query = mysqli_real_escape_string($conn, $query);
 
     // Construct the SQL query
-    $sql = "SELECT * FROM drawn_features WHERE name ILIKE '$query%' ";
+    $sql = "SELECT * FROM drawn_features WHERE name LIKE '$query%' ";
 
     // Execute the query
-    $result = pg_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
 
     if ($result) {
-        if (pg_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
             // Fetch and display results
-            while ($row = pg_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 // Output your results here
                 echo $row['name'] . "<br>";
                 echo $row['feature_type']. "<br>";
@@ -27,11 +27,9 @@ if (isset($_GET['query'])) {
         }
     } else {
         // Handle query execution error
-        echo "Error executing query: " . pg_last_error($connection);
+        echo "Error executing query: " . mysqli_error($conn);
     }
 } else {
     echo "Invalid search query.";
 }
-
-// Close the database connection (assuming $connection is your PostgreSQL connection)
 ?>

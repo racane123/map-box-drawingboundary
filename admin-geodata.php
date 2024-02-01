@@ -7,7 +7,7 @@ $result = mysqli_query($conn, $sql);
 
 if ($result) {
     if (mysqli_num_rows($result) > 0) {
-        // Fetch and display results
+        echo "<h1>This is the GeoCode data</h1>";
         echo "<div class='container mt-4 table-container'>";
         echo "<div class='table-responsive'>";
         echo "<table class='table table-bordered'>";
