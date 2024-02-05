@@ -15,8 +15,8 @@ include_once "header.php";
     </div>
 <form id="loginForm">
         <div class="mb-3">
-        <label for="username" class="form-label">Username:</label> 
-        <input type="text" id="email" class="form-control" name="email" required>
+        <label for="email" class="form-label">Username:</label> 
+        <input type="email" id="email" class="form-control" name="email" required>
         </div>
         <div class="mb-3">
         <label for="password" class="form-label">Password:</label>

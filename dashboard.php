@@ -43,7 +43,7 @@ include 'header.php';
     // Function to fetch and update dashboard content
     function updateDashboard() {
         $.ajax({
-            url: 'userAccounts.php', // Replace with the actual server endpoint
+            url: 'userAccounts.php',
             method: 'GET',
             dataType: 'html',
             success: function(data) {
@@ -51,7 +51,7 @@ include 'header.php';
                 $('.content').html(data);
             },
             error: function(error) {
-                console.error('Error fetching dashboard data:', error);
+                alert('Error fetching dashboard data:', error);
             }
         });
     }
@@ -64,7 +64,7 @@ include 'header.php';
     // Function to load Admin Geo Data content
     function loadAdminGeoData() {
         $.ajax({
-            url: 'admin-geodata.php', // Replace with the actual server endpoint
+            url: 'admin-geodata.php',
             method: 'GET',
             dataType: 'html',
             success: function(data) {
@@ -72,7 +72,7 @@ include 'header.php';
                 $('.content').html(data);
             },
             error: function(error) {
-                console.error('Error fetching Admin Geo Data:', error);
+                alert('Error fetching Admin Geo Data:', error);
             }
         });
     }
@@ -80,7 +80,7 @@ include 'header.php';
     // Function to load Map content
     function loadMap() {
         $.ajax({
-            url: 'usermap.php', // Replace with the actual server endpoint
+            url: 'usermap.php', 
             method: 'GET',
             dataType: 'html',
             success: function(data) {
@@ -88,7 +88,7 @@ include 'header.php';
                 $('.content').html(data);
             },
             error: function(error) {
-                console.error('Error fetching dashboard data:', error);
+                alert('Error fetching dashboard data:', error);
             }
         });
     }

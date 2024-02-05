@@ -72,12 +72,19 @@ map.on('load', function() {
         },
         filter: ['==', '$type', 'Polygon']
       });
-
-      map.setLayoutProperty('points', 'visibility', 'visible');
-      map.setLayoutProperty('lines', 'visibility', 'visible');
-      map.setLayoutProperty('polygons', 'visibility', 'visible');
+      
     })
+
+    
     .catch(error => {
       console.error('Error:', error);
     });
+
+    map.on('click', 'places', (e)=>{
+      alert("click click")
+    })
 });
+
+
+
+

@@ -24,6 +24,9 @@
     
     body { margin: 0; padding: 0; }
     #map {position:absolute;top: 76px; bottom: 0; width: 100%; }
+    .searchDesign{
+      position:absolute;
+    }
   </style>
 </head>
 <body>
@@ -32,6 +35,10 @@ include 'navbar.php';
 ?>
     <div id="map"></div>
   <div id="geocoder-container"></div>
+  <form class="searchDesign" action="search.php" method="GET">
+        <input type="text" name="query" placeholder="Enter your search query">
+        <button type="submit">Search</button>
+    </form>
   <script src="javascript/index.js"></script>
 </body>
 
