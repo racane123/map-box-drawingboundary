@@ -4,21 +4,22 @@ include 'dbconn.php';
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
 
-    // Escape the input to prevent SQL injection
-    $query = mysqli_real_escape_string($conn, $query);
-
-    // Construct the SQL query
-
-    $sql = "SELECT id, name, feature_type, ST_AsGeoJSON(coordinates) AS geojson from drawn_features WHERE name LIKE '$query'";
+    // Use prepared statements to prevent SQL injection
+    $stmt = $conn->prepare("SELECT id, name, feature_type, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features WHERE name LIKE ?");
+    
+    // Bind the parameter
+    $stmt->bind_param("s", $query);
     
     // Execute the query
-    $result = mysqli_query($conn, $sql);
+    $stmt->execute();
+    
+    // Get the result
+    $result = $stmt->get_result();
 
     $features = array('type' => 'FeatureCollection', 'features' => array());
     if ($result) {
-        if (mysqli_num_rows($result) > 0) {
-            
-            while ($row = mysqli_fetch_assoc($result)) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
                 $feature = array(
                     'type' => 'Feature',
                     'geometry' => json_decode($row['geojson']),
@@ -34,13 +35,20 @@ if (isset($_GET['query'])) {
 
             echo $geojson_data;
         } else {
-            echo "No results found.";
+            echo json_encode(array('message' => 'No results found.'));
         }
     } else {
-        // Handle query execution error
-        echo "Error executing query: " . mysqli_error($conn);
+        // Log the error instead of showing it to the user
+        error_log("Error executing query: " . $stmt->error);
+        echo json_encode(array('message' => 'Error retrieving data.'));
     }
+
+    // Close the statement
+    $stmt->close();
 } else {
-    echo "Invalid search query.";
+    echo json_encode(array('message' => 'Invalid search query.'));
 }
+
+// Close the database connection
+$conn->close();
 ?>
