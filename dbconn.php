@@ -4,7 +4,7 @@ $host = 'localhost';
 $username = 'root'; 
 $password = ''; 
 $database = 'localgovernment';
-$port = 3308; 
+$port = 3306; 
 
 
 $conn = mysqli_connect($host, $username, $password, $database, $port);

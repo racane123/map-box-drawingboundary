@@ -53,6 +53,163 @@ include "navbar.php";
       zoom: 16
     });
 
+    map.on('load', function () {
+    map.loadImage(
+    'images/hospital.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('hospital-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/bakery.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('bakery-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/cafe.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('cafe-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/barber-shop.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('barbershop-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/police-station.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('police-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/fire-station.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('fire-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'images/bank.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('bank-icon', image);
+    }
+  );
+  map.loadImage(
+    'images/grocery-cart.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('supermarket-icon', image);
+    }
+  );
+  map.loadImage(
+    'images/government.png',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('government-icon', image);
+    }
+  );
+
+  map.loadImage(
+    'https://placekitten.com/50/40',
+    (error, image) => {
+      if (error) {
+        console.error(error);
+      }
+      map.addImage('default-icon', image);
+    }
+  );
+
+  fetch('polyapi.php')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      map.addSource('features', {
+        type: 'geojson',
+        data: data
+      });
+
+      // Point Cutomization
+      map.addLayer({
+        id: 'mergedLayer',
+        type: 'symbol',
+        source: 'features',
+        layout: {
+          'icon-image': [
+            'match',
+            ['get', 'title'],
+            'hospital', 'hospital-icon',
+            'cafe', 'cafe-icon',
+            'bakeshop', 'bakery-icon',
+            'barbershop', 'barbershop-icon',
+            'police_station', 'police-icon',
+            'fire_station', 'fire-icon',
+            'bank', 'bank-icon',
+            'supermarket', 'supermarket-icon',
+            'government', 'government-icon',
+            'default-icon'
+          ],
+          'icon-size':[
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10, 0, // icon size is 0 at zoom level 10
+            15, 0.10 // icon size is 1 at zoom level 15
+          ],
+          'text-field': ['get', 'name'],
+          'text-size': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10, 0, // text size is 0 at zoom level 10
+            15, 12 // corrected, removed the trailing comma here
+          ],
+          'text-offset': [0, 1.5],
+          'text-allow-overlap': false,
+        },
+        paint: {
+          'text-color': '#000000'
+        },
+      });
+
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
+
     map.on('load', function() {
       document.getElementById('search-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -75,8 +232,6 @@ include "navbar.php";
               type: 'geojson',
               data: data
             });
-
-            
 
             // Add layer based on geometry type
             if (data.features.length > 0) {

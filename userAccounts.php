@@ -34,7 +34,7 @@
 
         <div class="mb-4">
             <label for="role" class="form-label">Role:</label>
-            <select name="role" id="role" class="form-select" name="role" required>
+            <select id="role" class="form-select" name="role" required>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
             </select>

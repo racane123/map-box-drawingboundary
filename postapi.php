@@ -1,7 +1,8 @@
 <?php
 include_once 'dbconn.php';
 
-if (isset($_POST['name'], $_POST['featureType'], $_POST['coordinates'])) {
+if (isset($_POST['title'],$_POST['name'], $_POST['featureType'], $_POST['coordinates'])) {
+    $title = $_POST['title'];
     $name = $_POST['name'];
     $featureType = $_POST['featureType'];
     $rawCoordinates = $_POST['coordinates'];
@@ -22,13 +23,13 @@ if (isset($_POST['name'], $_POST['featureType'], $_POST['coordinates'])) {
     $geojson = '{"type": "' . $featureType . '", "coordinates": ' . json_encode($coordinates) . '}';
   
     // Insert data into the database using a prepared statement
-    $sql = "INSERT INTO drawn_features (name, feature_type, coordinates) VALUES (?, ?, ST_GeomFromGeoJSON(?))";
+    $sql = "INSERT INTO drawn_features (title,name, feature_type, coordinates) VALUES (?, ?, ?, ST_GeomFromGeoJSON(?))";
   
     // Create a prepared statement
     $stmt = mysqli_prepare($conn, $sql);
 
     // Bind parameters to the prepared statement
-    mysqli_stmt_bind_param($stmt, "sss", $name, $featureType, $geojson);
+    mysqli_stmt_bind_param($stmt, "ssss",$title, $name, $featureType, $geojson);
   
     // Execute the query
     $result = mysqli_stmt_execute($stmt);

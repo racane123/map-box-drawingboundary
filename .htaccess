@@ -5,14 +5,4 @@ Options -Indexes
 DirectoryIndex login.php
 
 
-<Files "login.php">
-    Allow from all
-</Files>
-
-<Files "secure/*">
-    AuthType Basic
-    AuthName "Restricted Area"
-    AuthUserFile D:\xampp\htdocs\map-box-drawingboundary\.htpasswd
-    Require valid-user
-</Files>
 

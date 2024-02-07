@@ -68,15 +68,16 @@ map.on('draw.create', function (event) {
     drawingForm.addEventListener('submit', function (e) {
         e.preventDefault();
         var name = document.getElementById('saveName').value;
+        var title = document.querySelector('select[name = "title"]').value;
         var featureType = event.features[0].geometry.type;
         var coordinates = JSON.stringify(event.features[0].geometry.coordinates);
-        saveData(name, featureType, coordinates);
+        saveData(name, title, featureType, coordinates);
         hideSaveForm();
         location.reload();
     });
 });
 
-function saveData(name, featureType, coordinates) {
+function saveData(name, title, featureType, coordinates) {
     var xhr = new XMLHttpRequest(); 
     var url = 'postapi.php';
 
@@ -90,6 +91,7 @@ function saveData(name, featureType, coordinates) {
     };
 
     var data = 'name=' + encodeURIComponent(name) +
+    '&title=' + encodeURIComponent(title) +
     '&featureType=' + encodeURIComponent(featureType) +
     '&coordinates=' + encodeURIComponent(coordinates);
 
