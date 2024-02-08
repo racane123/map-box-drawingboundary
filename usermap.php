@@ -8,7 +8,7 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
     <style>
         body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0;right:1px; width: 85%; }
+        #map { position: absolute; top: 50px; bottom: 55px;right:1px; width: 100%; }
         #saveForm {
         display: none;
         position: absolute;

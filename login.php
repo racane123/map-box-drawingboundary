@@ -1,40 +1,54 @@
 <?php
 
-session_start();
-include_once "header.php";
-
+include "template.php";
 
 ?>
 
-<body id="background">
+<body class="hold-transition login-page" id="background">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>TownTech</b>Innovations</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
 
-<div class="login-form">
-    <div class="login-logo text-center">
-        <img src="images/logo-text.png" alt="Logo" >
-        <div class="text-logo">TownTech Innovations</div>
+      <form id="loginForm">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+        </div>
+      </form>
     </div>
-<form id="loginForm">
-        <div class="mb-3">
-        <label for="email" class="form-label">Username:</label> 
-        <input type="email" id="email" class="form-control" name="email" required>
-        </div>
-        <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-        </div>
-        <div class="mb-3">
-        <input type="submit" class="btn btn-primary" value="Login">
-        </div>
-        
-</form>
+  </div>
 </div>
-</body>
-
-
 <script>
-
-
-
 $(document).ready(function() {
     $('#loginForm').submit(function(e) {
         e.preventDefault();
@@ -82,37 +96,5 @@ function fClose(){
 }
 </script>
 
-<style>
+</body>
 
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-.login-form{
-    display:flex;
-    justify-content: space-around;
-    padding-top:100px;
-    flex-wrap:wrap;
-
-}
-
-#loginForm{
-    padding-top: 80px;
-}
-
-.login-logo{
-    font-family: "Bree Serif", serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size:50px;
-}
-
-#background{
-    color:#fff;
-    background-color:#001845;
-    height:650px;
-}
-
-#Close{
-    border:none;
-}
-
-
-</style>

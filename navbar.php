@@ -45,9 +45,6 @@
         <li class="nav-item">
           <a class="nav-link text-dark" href="#" onclick="showMap()">Map</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="#" onclick="showMap()">Map</a>
-        </li>
 
         <?php
         if (isset($_SESSION['email'])) {
@@ -63,8 +60,7 @@
     </div>
   </div>
 </nav>
->
-</nav>
+
 
 
 <script>

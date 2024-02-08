@@ -4,7 +4,6 @@ include 'header.php';
 
 ?>
 
-
 <div id="map-container mt-5">
       <div id="map"></div>
       <div class="container mt-5">
@@ -22,6 +21,7 @@ include 'header.php';
               <option value="bank">Bank</option>
               <option value="supermarket">Super Market</option>
               <option value="government">Government</option>
+              <option value="none">None</option>
           </select>
         <label for="saveName" class="form-label">Name:</label>
         <input type="text" class="form-control" id="saveName" name="saveName" required>
