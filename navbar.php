@@ -1,84 +1,66 @@
 <?php
-
-
+include "template.php";
 ?>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-  img{
-    width: 100px;
-    height: 50px;
-  }
+<nav class="navbar navbar-expand navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.php" class="nav-link">Home</a>
+      </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
 
-  .navbar-brand{
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: bold;
-    font-style: normal;
-  }
- li{
-    color:black;
-  }
-</style>
+      <a class="nav-link" data-toggle="dropdown" href="#">
+            <?php
+            if (isset($_SESSION['email'])) {
+                echo $_SESSION['email'];
+            }
+            ?>
+            <i class="fas fa-caret-down"></i>
+        </a>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-blue">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand text-dark" href="#"><img src="images/logo-text.png" alt="logo">TownTechInnovations</a>
-    <!-- Toggle button for mobile view -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Navigation links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <?php
-        // Check if the user is an admin to display the Dashboard link
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-          echo '<li class="nav-item"><a class="nav-link text-dark" href="dashboard.php">Dashboard</a></li>';
-        }
-        ?>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="#" onclick="showMap()">Chloropleth</a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <a href="#" class="dropdown-item">
+                <!-- Dropdown Start -->
+                <?php
+                 // Check if the user is an admin to display the Dashboard link
+                 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                echo '<a class="nav-link text-dark" href="dashboard.php">Dashboard</a>';
+                }
+                ?>
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item dropdown-item-title text-dark mr-5" href="logout.php">
+                    <span class="">
+                        Logout
+                        <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                </a>
+            </a>
+        </div>
+
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="#" onclick="showMap()">Map</a>
-        </li>
-
-        <?php
-        if (isset($_SESSION['email'])) {
-          echo '<li class="nav-item dropdown">';
-          echo '<a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" aria-expanded="false">' . $_SESSION["email"] . '</a>';
-          echo '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">';
-          echo '<a class="dropdown-item text-dark" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>';
-          echo '</div>';
-          echo '</li>';
-        }
-        ?>
-      </ul>
-    </div>
-  </div>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
 </nav>
 
 
-
 <script>
-
-const dropdownToggle = document.querySelector('.dropdown-toggle');
-
-// Add a click event listener to the dropdown toggle button
-dropdownToggle.addEventListener('click', function() {
-  // Get the dropdown menu element
-  const dropdownMenu = document.querySelector('.dropdown-menu');
-
-  // Toggle the 'show' class on the dropdown menu
-  dropdownMenu.classList.toggle('show');
+   
+// Activate dropdown toggle
+$(document).ready(function(){
+    $('.dropdown-toggle').dropdown();
 });
-
 </script>
-
-
-
-
-

@@ -23,9 +23,9 @@
   <style>
     
     body { margin: 0; padding: 0; }
-    #map {position:absolute;top: 76px; bottom: 0; width: 100%; }
+    #map {position:absolute;top: 55px; bottom: 0; width: 100%; }
     .contain { display: flex; justify-content: flex-end; width: 100%; }
-    #search-form { width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    #search-form {top:20px; width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
   </style>
 </head>
 <body>
@@ -45,7 +45,7 @@ include "navbar.php";
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
     var map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [120.96788000, 14.64953000],
       zoom: 16
     });
