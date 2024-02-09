@@ -24,13 +24,8 @@
     
     body { margin: 0; padding: 0; }
     #map {position:absolute;top: 76px; bottom: 0; width: 100%; }
-    #search-form{
-      position:absolute;
-      width:300px;
-      left:750px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      top: 100px;
-    }
+    .contain { display: flex; justify-content: flex-end; width: 100%; }
+    #search-form { width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
   </style>
 </head>
 <body>
@@ -40,10 +35,12 @@ include "navbar.php";
 
 ?>
     <div id="map"></div>
-  <form id="search-form" class="input-group rounded">
-    <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
-    <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
-  </form>
+    <div class="contain">
+      <form id="search-form" class="input-group rounded">
+         <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
+         <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
+       </form>
+    </div> 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
     var map = new mapboxgl.Map({
