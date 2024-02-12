@@ -4,10 +4,14 @@ include "template.php";
 
 ?>
 
+<style>
+
+</style>
+
 <body class="hold-transition login-page" id="background">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>TownTech</b>Innovations</a>
+    <a href="login.php"><b>TownTech</b>Innovations</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

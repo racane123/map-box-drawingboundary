@@ -27,6 +27,9 @@
     .filter-form { position: absolute; background: white; padding: 10px; }
     .contain { display: flex; justify-content: flex-end; width: 100%; }
     #search-form {top:20px; width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    .card-sad{
+      position: absolute;
+    }
   </style>
 </head>
 <body>
@@ -36,6 +39,7 @@ include "navbar.php";
 
 ?>
     <div id="map"></div>
+<div class="contain">
 <div class="filter-form">
   <h3>Filter Options</h3>
   <form id="filterForm">
@@ -53,12 +57,20 @@ include "navbar.php";
     </select>
   </form>
 </div>
-    <div class="contain">
-      <form id="search-form" class="input-group rounded">
-         <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
-         <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
-       </form>
-    </div> 
+</div>
+<div class="contain">
+    <form id="search-form" class="input-group rounded">
+      <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
+      <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
+    </form>
+</div>
+<div class="card-sad">
+<div id="feature-card">
+
+    
+</div>
+</div>
+
 <script>
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
@@ -69,7 +81,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
       zoom: 16
     });
 
-    map.on('load', function () {
+map.on('load', function () {
     map.loadImage(
     'images/hospital.png',
     (error, image) => {
@@ -171,12 +183,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
   fetch('polyapi.php')
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       map.addSource('features', {
         type: 'geojson',
         data: data
       });
-
       // Point Cutomization
       map.addLayer({
         id: 'mergedLayer',
@@ -220,11 +230,48 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
         },
       });
 
+    function updateCard(properties) {
+    // Select the card element
+    var card = document.getElementById('feature-card');
+
+    // Clear previous content
+    card.innerHTML = '';
+
+    // Create elements to display the feature properties
+    var title = document.createElement('h3');
+    title.textContent = properties.name;
+
+    var address = document.createElement('p');
+    address.textContent = properties.title;
+
+    // Append elements to the card
+    card.appendChild(title);
+    card.appendChild(address);
+    }
+
+    map.on('click', 'mergedLayer', function (e) {
+    // Get the properties of the clicked feature
+    var featureProperties = e.features[0].properties;
+      console.log(featureProperties)
+    // Update the card content with the feature properties
+    updateCard(featureProperties);
+    });
+
+            // Change the cursor to a pointer when the mouse is over the mergedLayer
+      map.on('mouseenter', 'mergedLayer', function () {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+            // Change it back to a pointer when it leaves.
+      map.on('mouseleave', 'mergedLayer', function () {
+      map.getCanvas().style.cursor = '';
+      });
+
     })
     .catch(error => {
       console.error('Error:', error);
     });
-});
+  });
 
     map.on('load', function() {
       document.getElementById('search-form').addEventListener('submit', function(event) {
@@ -303,10 +350,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
                       .setLngLat(coordinates)
                       .setHTML('Name: ' + name)
                       .addTo(map);
-                  });
+                });
               }
             }
-            
           })
           .catch(error => {
             console.error('Error:', error);
