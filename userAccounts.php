@@ -1,5 +1,4 @@
-<div>
-<h1>This is the user Account Management Area</h1>
+<div class="text-center">
 <div class="text-right">
     <button type="button" class="btn btn-primary" onclick="DisplayForm()"><i class="fas fa-plus"></i> Add Users</button>
 </div>

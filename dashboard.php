@@ -268,14 +268,14 @@ include 'template.php';
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
+</section>
 
     <!-- Main content -->
     <section class="content-creation">
 
     </section>
     <!-- /.content -->
-  </div>
+</div>
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
@@ -311,7 +311,10 @@ include 'template.php';
 
     // Function to load dashboard content
     function loadDashboardContent() {
+
         updateDashboard();
+
+        $('h1').text('Account Management');
     }
 
     // Function to load Admin Geo Data content
@@ -323,6 +326,7 @@ include 'template.php';
             success: function(data) {
                 // Update the content of the dashboard with Admin Geo Data
                 $('.content-creation').html(data);
+                $('h1').text('Geo Data');
             },
             error: function(error) {
                 alert('Error fetching Admin Geo Data:', error);
@@ -339,6 +343,7 @@ include 'template.php';
             success: function(data) {
                 // Update the content of the dashboard
                 $('.content-creation').html(data);
+                $('h1').text('Map');
             },
             error: function(error) {
                 alert('Error fetching dashboard data:', error);
