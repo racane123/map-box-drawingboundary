@@ -11,10 +11,10 @@ include 'header.php';
 
 #customAlert {
     position: absolute;
-    right: 20px; /* Adjust the left position as needed */
-    top: 10%; /* Adjust the top position if necessary */
-    transform: translateY(50%); /* Center vertically */
-    z-index: 1000; /* Ensure the alert is on top of other elements */
+    right: 20px; 
+    top: 10%; 
+    transform: translateY(50%); 
+    z-index: 1000; 
 }
 
 </style>
