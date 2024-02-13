@@ -39,7 +39,7 @@ include "navbar.php";
 
 ?>
     <div id="map"></div>
-<div class="contain">
+<!--<div class="contain">
 <div class="filter-form">
   <h3>Filter Options</h3>
   <form id="filterForm">
@@ -57,7 +57,7 @@ include "navbar.php";
     </select>
   </form>
 </div>
-</div>
+</div>-->
 <div class="contain">
     <form id="search-form" class="input-group rounded">
       <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
@@ -77,7 +77,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v10',
-      center: [120.96788000, 14.64953000],
+      center: [121.04207,14.75782],
       zoom: 16
     });
 
@@ -176,59 +176,63 @@ map.on('load', function () {
       if (error) {
         console.error(error);
       }
-      map.addImage('default-icon', image);
     }
   );
-
+  
   fetch('polyapi.php')
-    .then(response => response.json())
-    .then(data => {
-      map.addSource('features', {
-        type: 'geojson',
-        data: data
-      });
-      // Point Cutomization
-      map.addLayer({
-        id: 'mergedLayer',
-        type: 'symbol',
-        source: 'features',
-        layout: {
-          'icon-image': [
-            'match',
-            ['get', 'title'],
-            'hospital', 'hospital-icon',
-            'cafe', 'cafe-icon',
-            'bakeshop', 'bakery-icon',
-            'barbershop', 'barbershop-icon',
-            'police_station', 'police-icon',
-            'fire_station', 'fire-icon',
-            'bank', 'bank-icon',
-            'supermarket', 'supermarket-icon',
-            'government', 'government-icon',
-            'default-icon'
-          ],
-          'icon-size':[
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            10, 0, // icon size is 0 at zoom level 10
-            15, 0.10 // icon size is 1 at zoom level 15
-          ],
-          'text-field': ['get', 'name'],
-          'text-size': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            10, 0, // text size is 0 at zoom level 10
-            15, 12 // corrected, removed the trailing comma here
-          ],
-          'text-offset': [0, 1.5],
-          'text-allow-overlap': false,
-        },
-        paint: {
-          'text-color': '#000000'
-        },
-      });
+  .then(response => response.json())
+  .then(data => {
+    map.addSource('features', {
+      type: 'geojson',
+      data: data
+    });
+    // Point Customization
+    map.addLayer({
+      id: 'mergedLayer',
+      type: 'symbol',
+      source: 'features',
+      layout: {
+        'icon-image': [
+          'match',
+          ['get', 'title'],
+          'hospital', 'hospital-icon',
+          'cafe', 'cafe-icon',
+          'bakeshop', 'bakery-icon',
+          'barbershop', 'barbershop-icon',
+          'police_station', 'police-icon',
+          'fire_station', 'fire-icon',
+          'bank', 'bank-icon',
+          'supermarket', 'supermarket-icon',
+          'government', 'government-icon',
+          'default-icon'
+        ],
+        'icon-size': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          10, 0, // icon size is 0 at zoom level 10
+          15, 0.10 // icon size is 1 at zoom level 15
+        ],
+        'text-field': [
+          'case',
+          ['==', ['get', 'title'], 'none'], '', // If title is none, show empty string
+          ['get', 'name'] // Otherwise, show name
+        ],
+        'text-size': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          10, 0, // text size is 0 at zoom level 10
+          15, 12 // text size is 12 at zoom level 15
+        ],
+        'text-offset': [0, 1.5],
+        'text-allow-overlap': false,
+      },
+      paint: {
+        'text-color': '#000000'
+      },
+    });
+
 
     function updateCard(properties) {
     // Select the card element
@@ -277,7 +281,7 @@ map.on('load', function () {
       document.getElementById('search-form').addEventListener('submit', function(event) {
         event.preventDefault();
         var query = document.getElementById('search-input').value;
-        fetch('http://localhost/map-box-drawingboundary/search.php?query=' + query)
+        fetch('search.php?query=' + query)
           .then(response => response.json())
           .then(data => {
             // Check if the source and layer already exist, and remove them if they do
@@ -321,10 +325,6 @@ map.on('load', function () {
                   // Calculate the centroid of the polygon
                   var centroid = turf.centroid(e.features[0].geometry);
 
-                  new mapboxgl.Popup()
-                  .setLngLat(centroid.geometry.coordinates)
-                  .setHTML('Name: ' + name)
-                  .addTo(map);
                   });
                 
               } else if (data.features[0].geometry.type === 'Point') {
@@ -346,10 +346,6 @@ map.on('load', function () {
                   var coordinates = e.features[0].geometry.coordinates.slice();
                   var name = e.features[0].properties.name;
 
-                  new mapboxgl.Popup()
-                      .setLngLat(coordinates)
-                      .setHTML('Name: ' + name)
-                      .addTo(map);
                 });
               }
             }

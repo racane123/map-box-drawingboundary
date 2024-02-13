@@ -43,8 +43,8 @@ include 'map.php';
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/traffic-day-v2',
-  center: [120.96788000, 14.64953000],
+  style: 'mapbox://styles/mapbox/satellite-streets-v11',
+  center: [121.04207,14.75782],
   zoom: 16
 });
 var draw = new MapboxDraw({

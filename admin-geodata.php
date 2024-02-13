@@ -2,53 +2,187 @@
 include 'dbconn.php';
 include 'header.php';
 
-$sql = "SELECT * FROM drawn_features";
-$result = mysqli_query($conn, $sql);
-
-if ($result) {
-    if (mysqli_num_rows($result) > 0) {
-        echo "<div class='container mt-4 table-container'>";
-        echo "<div class='table-responsive'>";
-        echo "<table class='table table-bordered'>";
-        
-        // Fetch the first row to get column names
-        $firstRow = mysqli_fetch_assoc($result);
-        
-        echo "<thead class='thead-dark'>";
-        echo "<tr>";
-        // Display table headers based on column names
-        foreach ($firstRow as $columnName => $value) {
-            echo "<th scope='col'>" . $columnName . "</th>";
-        }
-        echo "</tr>";
-        echo "</thead>";
-    
-        // Reset the result pointer back to the beginning
-        mysqli_data_seek($result, 0);
-    
-        echo "<tbody>";
-        // Display data rows
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            foreach ($row as $value) {
-                echo "<td>" . $value . "</td>";
-            }
-            echo "</tr>";
-        }
-        echo "</tbody>";
-    
-        echo "</table>";
-        echo "</div>"; // Close the table-responsive div
-        echo "</div>"; // Close the container div
-    } else {
-        echo "<div class='container mt-4'>";
-        echo "<p>No results found.</p>";
-        echo "</div>";
-    }
-} else {
-    // Handle query execution error
-    echo "<div class='container mt-4'>";
-    echo "<p>Error executing query: " . mysqli_error($conn) . "</p>";
-    echo "</div>";
-}
 ?>
+<style>
+
+.parent-alert {
+    position: relative; /* Ensure the parent container has a relative position */
+}
+
+#customAlert {
+    position: absolute;
+    right: 20px; /* Adjust the left position as needed */
+    top: 10%; /* Adjust the top position if necessary */
+    transform: translateY(50%); /* Center vertically */
+    z-index: 1000; /* Ensure the alert is on top of other elements */
+}
+
+</style>
+
+<body>
+<div class="parent-alert">
+    <div id="customAlert" class="alert" role="alert" style="display: none;position:absolute;">
+    </div>
+</div>
+<form id="drawingForm" style="display:none;">
+  <input type="hidden" id="featureId" name="id">
+  <div class="mb-3">
+    <label for="saveName" class="form-label">Name:</label>
+    <input type="text" class="form-control" id="saveName" name="name" required>
+  </div>
+  <div class="mb-3">
+    <label for="title" class="form-label">Title:</label>
+    <select class="form-control" id="title" name="title">
+      <option value="bakeshop">Bake shop</option>
+      <option value="barbershop">Barbershop</option>
+      <option value="cafe">Cafe/Restaurant</option>
+      <option value="hospital">Hospital</option>
+      <option value="police_station">Police Station</option>
+      <option value="fire_station">Fire Station</option>
+      <option value="bank">Bank</option>
+      <option value="supermarket">Super Market</option>
+      <option value="government">Government</option>
+      <option value="none">None</option>
+    </select>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary">Confirm</button>
+    <button type="button" class="btn btn-secondary" onclick="cancelDrawing()">Cancel</button>
+  </div>
+</form>
+
+
+<div class="container mt-5">
+  <h2>Feature Table</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Feature Type</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="featureTableBody">
+    </tbody>
+  </table>
+</div>
+
+
+
+</body>
+
+
+
+<script>
+$(document).ready(function(){
+  // Fetch data from PHP script and render table
+  $.ajax({
+    url: 'polyapi.php',
+    dataType: 'json',
+    success: function(data){
+      $.each(data.features, function(index, feature){
+        var row = '<tr><td>' + feature.properties.id + '</td><td>' + feature.properties.name + '</td><td>' + feature.properties.title + '</td><td>' + feature.properties.feature_type + '</td>';
+        row += '<td><button class="btn btn-primary btn-sm mr-1 update-btn" data-id="' + feature.properties.id + '">Edit</button><button class="btn btn-danger btn-sm delete-btn" data-id="' + feature.properties.id + '">Delete</button></td></tr>';
+        $('#featureTableBody').append(row);
+      });
+    }
+  });
+});
+
+  // Update button click event
+  $(document).on('click', '.update-btn', function(){
+  var id = $(this).data('id');
+  
+  // Fetch data for the selected feature
+  $.ajax({
+    url: 'fetch_feature.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {id: id},
+    success: function(feature){
+      // Populate form fields with fetched data
+      $('#featureId').val(feature.id);
+      $('#saveName').val(feature.name);
+      $('#title').val(feature.title);
+
+      // Hide only the row corresponding to the clicked update button
+      $(this).closest('tr').hide(); // Add this line
+
+      // Show form
+      $('#drawingForm').show();
+    },
+    error: function(xhr, status, error){
+      alert('Error: ' + error);
+    }
+  });
+});
+
+  // Form submission event
+  $('#drawingForm').submit(function(event){
+  event.preventDefault();
+
+  // Serialize form data
+  var formData = $(this).serialize();
+
+  // AJAX call to update_data.php
+  $.ajax({
+    url: 'update_data.php',
+    type: 'POST',
+    dataType: 'json',
+    data: formData,
+    success: function(response){
+      if (response.success) {
+        $('#customAlert').removeClass('alert-danger').addClass('alert-success').text(response.message).show();
+        setTimeout(function(){
+          $('#customAlert').hide();
+          location.reload(); // Refresh page to reflect changes
+        }, 3000); // Hide after 3 seconds
+      } else {
+        $('#customAlert').removeClass('alert-success').addClass('alert-danger').text(response.message).show();
+      }
+    },
+    error: function(xhr, status, error){
+      $('#customAlert').removeClass('alert-success').addClass('alert-danger').text('Error: ' + error).show();
+    }
+  });
+});
+
+
+  // Cancel button click event
+  function cancelDrawing() {
+    $('#featureTableBody').show();
+    $('#drawingForm').hide();
+  }
+// Delete button click event
+$(document).on('click', '.delete-btn', function(){
+  var id = $(this).data('id');
+  
+  // Confirm with the user before deleting
+  if(confirm('Are you sure you want to delete this item?')) {
+    $.ajax({
+      url: 'delete_data.php',
+      type: 'POST',
+      dataType: 'json',
+      data: {id: id},
+      success: function(response){
+        if (response.success) {
+          $('#customAlert').removeClass('alert-danger').addClass('alert-success').text(response.message).show();
+          setTimeout(function(){
+            $('#customAlert').hide();
+          }, 3000); // Hide after 3 seconds
+        } else {
+          $('#customAlert').removeClass('alert-success').addClass('alert-danger').text(response.message).show();
+        }
+      },
+      error: function(xhr, status, error){
+        $('#customAlert').removeClass('alert-success').addClass('alert-danger').text('Error: ' + error).show();
+      }
+    });
+  }
+});
+
+
+</script>
+
