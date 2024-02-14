@@ -16,46 +16,57 @@ if (!is_user_logged_in()) {
     
     body { margin: 0; padding: 0; }
     #map {position:absolute;top: 55px; bottom: 0; width: 100%; }
-    .filter-form { position: absolute; background: white; padding: 10px; }
+    .form-display{display:none;}
     .contain { display: flex; justify-content: flex-end; width: 100%; }
-    #search-form {top:20px; width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    #search-form {top:20px; width: 400px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
     .card-sad{
       position: absolute;
     }
+    #filterDropdown {
+    top: 220%;
+    transform: translate(-80%, -50%);
+  }
   </style>
 
 <body>
 <?php
-include 'header.php';
+
 include "navbar.php";
 
 ?>
-    <div id="map"></div>
-<!--<div class="contain">
-<div class="filter-form">
-  <h3>Filter Options</h3>
-  <form id="filterForm">
-    <select id="filterOptions" onchange="filterMarkers()">
-              <option value="bakeshop">Bake shop</option>
-              <option value="barbershop">Barbershop</option>
-              <option value="cafe">Cafe/Restaurant</option>
-              <option value="hospital">Hospital</option>
-              <option value="police_station">Police Station</option>
-              <option value="fire_station">Fire Station</option>
-              <option value="bank">Bank</option>
-              <option value="supermarket">Super Market</option>
-              <option value="government">Government</option>
-              <option value="none">None</option>
-    </select>
+<!--<div id="map"></div>-->
+
+<div class="contain">
+  <form id="search-form" class="input-group rounded">
+    <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" aria-label="Search" aria-describedby="search-addon">
+    <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" onclick="toggleFilterForm()">
+        Filter
+      </button>
+      <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton" id="filterDropdown">
+        <p class="dropdown-item-text">Filter</p>
+        <hr class="dropdown-divider">
+        <form id="filterForm">
+          <select id="filterOptions" onchange="filterMarkers()" class="form-select">
+            <option value="all">All</option>
+            <option value="bakeshop">Bake shop</option>
+            <option value="barbershop">Barbershop</option>
+            <option value="cafe">Cafe/Restaurant</option>
+            <option value="hospital">Hospital</option>
+            <option value="police_station">Police Station</option>
+            <option value="fire_station">Fire Station</option>
+            <option value="bank">Bank</option>
+            <option value="supermarket">Super Market</option>
+            <option value="government">Government</option>
+          </select>
+        </form>
+      </div>
+    </div>
   </form>
 </div>
-</div>-->
-<div class="contain">
-    <form id="search-form" class="input-group rounded">
-      <input type="text" id="search-input" placeholder="Enter search query" class="form-control rounded" arial-label="Search" aria-describedby="search-addon" >
-      <button type="submit" class="border-0"><span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></button>
-    </form>
-</div>
+
+
 <div class="card-sad">
 <div id="feature-card">   
 </div>
@@ -355,32 +366,86 @@ function fetchMarkerData(callback) {
 }
 
 // Function to filter markers based on selected category
+// Filter markers based on selected category
 function filterMarkers() {
   var category = document.getElementById('filterOptions').value;
+  if (category === 'none') {
+    // If "None" is selected, clear the filter
+    clearFilter();
+  } else {
+    fetchMarkerData(function(data) {
+      // Check if the layer already exists and remove it if it does
+      if (map.getLayer('mergedLayer')) {
+        map.removeLayer('mergedLayer');
+      }
+      // Check if the source already exists and remove it if it does
+      if (map.getSource('features')) {
+        map.removeSource('features');
+      }
+
+      // Filter features based on category
+      var filteredFeatures = data.features.filter(function(feature) {
+        return category === 'all' || feature.properties.title === category;
+      });
+
+      // Add filtered features to the map
+      map.addSource('features', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: filteredFeatures
+        }
+      });
+
+      // Add layer to the map
+      map.addLayer({
+        id: 'mergedLayer',
+        type: 'symbol',
+        source: 'features',
+        layout: {
+          'icon-image': ['concat', ['get', 'title'], '-icon'],
+          'icon-size': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10, 0, // icon size is 0 at zoom level 10
+            15, 0.08
+          ],
+          'text-field': ['get', 'name'],
+          'text-size': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            10,
+            0,
+            15,
+            12
+          ],
+          'text-offset': [0, 1.5],
+          'text-allow-overlap': false
+        },
+        paint: {
+          'text-color': '#000000'
+        }
+      });
+    });
+  }
+}
+
+// Clear filter
+function clearFilter() {
   fetchMarkerData(function(data) {
-    
-    // Check if the layer already exists and remove it if it does
+    // Remove existing layer and source
     if (map.getLayer('mergedLayer')) {
       map.removeLayer('mergedLayer');
     }
-    // Check if the source already exists and remove it if it does
     if (map.getSource('features')) {
       map.removeSource('features');
     }
-
-
-    // Filter features based on category
-    var filteredFeatures = data.features.filter(function(feature) {
-      return category === 'all' || feature.properties.title === category;
-    });
-
-    // Add filtered features to the map
+    // Add all features back to the map
     map.addSource('features', {
       type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: filteredFeatures
-      }
+      data: data
     });
 
     // Add layer to the map
@@ -416,5 +481,14 @@ function filterMarkers() {
     });
   });
 }
+function toggleFilterForm() {
+  var filterDropdown = document.getElementById('filterDropdown');
+  if (filterDropdown.style.display === 'none' || !filterDropdown.style.display) {
+    filterDropdown.style.display = 'block';
+  } else {
+    filterDropdown.style.display = 'none';
+  }
+}
+
 </script>
 </body>
