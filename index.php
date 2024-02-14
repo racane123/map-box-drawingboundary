@@ -34,7 +34,7 @@ if (!is_user_logged_in()) {
 include "navbar.php";
 
 ?>
-<!--<div id="map"></div>-->
+<div id="map"></div>
 
 <div class="contain">
   <form id="search-form" class="input-group rounded">
