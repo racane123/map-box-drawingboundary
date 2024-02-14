@@ -83,7 +83,7 @@ $(document).ready(function(){
     dataType: 'json',
     success: function(data){
       $.each(data.features, function(index, feature){
-        var row = '<tr><td>' + feature.properties.id + '</td><td>' + feature.properties.name + '</td><td>' + feature.properties.title + '</td><td>' + feature.properties.feature_type + '</td>';
+        var row = '<tr><td>' + feature.properties.id + '</td><td>' + feature.properties.name + '</td><td>' + feature.properties.title + '</td><td>' + feature.geometry.type + '</td>';
         row += '<td><button class="btn btn-primary btn-sm mr-1 update-btn" data-id="' + feature.properties.id + '">Edit</button><button class="btn btn-danger btn-sm delete-btn" data-id="' + feature.properties.id + '">Delete</button></td></tr>';
         $('#featureTableBody').append(row);
       });
