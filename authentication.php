@@ -1,12 +1,4 @@
 <?php
-session_set_cookie_params([
-    'lifetime' => 86400, // 1 day (in seconds)
-    'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'], // Use current domain
-    'secure' => true, // Use HTTPS
-    'httponly' => true, // Cannot be accessed through JavaScript
-    'samesite' => 'Lax' // Protect against CSRF attacks
-]);
 
 session_start();
 include_once "dbconn.php";
