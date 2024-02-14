@@ -1,7 +1,14 @@
 <?php
-  session_start();
+session_start();
+function is_user_logged_in() {
 
-  include 'header.php';
+  return isset($_SESSION['email']);
+}
+
+if (!is_user_logged_in()) {
+  header("Location: login.php"); // Change 'login.php' to your actual login page
+  exit();
+}
   
 ?>
 
@@ -19,6 +26,7 @@
 
 <body>
 <?php
+include 'header.php';
 include "navbar.php";
 
 ?>
@@ -49,9 +57,7 @@ include "navbar.php";
     </form>
 </div>
 <div class="card-sad">
-<div id="feature-card">
-
-    
+<div id="feature-card">   
 </div>
 </div>
 
