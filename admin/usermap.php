@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Mapbox Traffic Example</title>
+    <title>Group 68</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
@@ -34,7 +34,7 @@
 <body>
 
 <?php
-include 'header.php';
+include '../includes/header.php';
 include 'map.php';
 
 ?>
@@ -79,7 +79,7 @@ map.on('draw.create', function (event) {
 
 function saveData(name, title, featureType, coordinates) {
     var xhr = new XMLHttpRequest(); 
-    var url = 'postapi.php';
+    var url = '../api/postapi.php';
 
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -100,7 +100,7 @@ function saveData(name, title, featureType, coordinates) {
 
 
 map.on('load', function() {
-  fetch('polyapi.php')
+  fetch('../api/polyapi.php')
     .then(response => response.json())
     .then(data => {
       map.addSource('features', {

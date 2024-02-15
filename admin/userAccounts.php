@@ -94,7 +94,7 @@ function submitForm(event) {
 
     $.ajax({
         type: 'POST',
-        url: 'register_account.php', 
+        url: '../auth/register_account.php', 
         data: formData,
         dataType: 'json',
         encode: true,
@@ -127,29 +127,29 @@ function FormClose(){
 
 
 function displayUsers() {
-            $.ajax({
-                url: 'displayUser.php',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    // Clear previous data
-                    $('#userData').empty();
+    $.ajax({
+        url: '../displayUser.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Clear previous data
+            $('#userData').empty();
 
-                    // Iterate through the received data and append to the table
-                    $.each(data, function(index, user) {
-                        $('#userData').append('<tr><td>' + user.first_name + '</td><td>' + user.last_name + '</td><td>' + user.email + '</td><td>' + user.password + '</td><td>' + user.role +'</td></tr>');
-                    });
-                },
-                error: function(error) {
-                    console.log('Error fetching data:', error);
-                }
-            });
-        }
+            // Iterate through the received data and append to the table
+            $.each(data, function(index, user) {
+                $('#userData').append('<tr><td>' + user.first_name + '</td><td>' + user.last_name + '</td><td>' + user.email + '</td><td>' + user.password + '</td><td>' + user.role +'</td></tr>');
+                });
+        },
+            error: function(error) {
+                console.log('Error fetching data:', error);
+            }
+        });
+}
 
         // Call the function to display users when the page loads
-        $(document).ready(function() {
-            displayUsers();
-            });
+    $(document).ready(function() {
+        displayUsers();
+    });
 
 
 </script>

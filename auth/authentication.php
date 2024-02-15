@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once "dbconn.php";
+include ('../db/dbconn.php');
 
 if (!$conn) {
     die("Connection to the Database is not established: " . mysqli_connect_error());

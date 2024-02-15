@@ -1,12 +1,12 @@
   <?php
 
-  include "template.php";
+  include ("../includes/template.php");
 
 session_start();
 if(isset($_SESSION['email'])) {
     // If already logged in, redirect to the appropriate page based on role
     if ($_SESSION['role'] === 'admin') {
-        header("Location: dashboard.php");
+        header("Location: ../admin/dashboard.php");
         exit;
     } else if ($_SESSION['role'] === 'user') {
         header("Location: index.php");
@@ -94,9 +94,9 @@ $(document).ready(function() {
                     // Check the role and redirect accordingly
                     setTimeout(function (){
                         if (response.role === 'admin') {
-                            window.location.href="dashboard.php";
+                            window.location.href="../admin/dashboard.php";
                         } else if (response.role === 'user') {
-                            window.location.href="index.php";
+                            window.location.href="../index.php";
                         }
                     }, 2200);
                 }

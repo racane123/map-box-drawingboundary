@@ -1,6 +1,6 @@
 <?php
-include 'dbconn.php';
-include 'header.php';
+include ('../db/dbconn.php');
+include '../includes/header.php';
 
 ?>
 <style>
@@ -79,7 +79,7 @@ include 'header.php';
 $(document).ready(function(){
   // Fetch data from PHP script and render table
   $.ajax({
-    url: 'polyapi.php',
+    url: '../api/polyapi.php',
     dataType: 'json',
     success: function(data){
       $.each(data.features, function(index, feature){
@@ -97,7 +97,7 @@ $(document).ready(function(){
   
   // Fetch data for the selected feature
   $.ajax({
-    url: 'fetch_feature.php',
+    url: '../fetch_feature.php',
     type: 'POST',
     dataType: 'json',
     data: {id: id},
@@ -128,7 +128,7 @@ $(document).ready(function(){
 
   // AJAX call to update_data.php
   $.ajax({
-    url: 'update_data.php',
+    url: '../update_data.php',
     type: 'POST',
     dataType: 'json',
     data: formData,
@@ -162,7 +162,7 @@ $(document).on('click', '.delete-btn', function(){
   // Confirm with the user before deleting
   if(confirm('Are you sure you want to delete this item?')) {
     $.ajax({
-      url: 'delete_data.php',
+      url: '../delete_data.php',
       type: 'POST',
       dataType: 'json',
       data: {id: id},

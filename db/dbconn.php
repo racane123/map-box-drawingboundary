@@ -7,6 +7,7 @@ $database = 'grou_localgovernment';
 
 
 
+
 $conn = mysqli_connect($host, $username, $password, $database);
 
 

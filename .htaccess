@@ -1,8 +1,2 @@
-# Disable directory listing
-Options -Indexes
 
-# Set the default page to index.html
-DirectoryIndex login.php
-
-# Redirect from HTTP to HTTPS
 

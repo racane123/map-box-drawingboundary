@@ -15,7 +15,7 @@ map.addControl(
 );
 
 map.on('load', function() {
-  fetch('polyapi.php')
+  fetch('api/polyapi.php')
     .then(response => response.json())
     .then(data => {
       map.addSource('geojsonSource', {

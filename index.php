@@ -6,7 +6,7 @@ function is_user_logged_in() {
 }
 
 if (!is_user_logged_in()) {
-  header("Location: login.php"); // Change 'login.php' to your actual login page
+  header("Location: ./auth/login.php");
   exit();
 }
   
@@ -31,7 +31,7 @@ if (!is_user_logged_in()) {
 <body>
 <?php
 
-include "navbar.php";
+include "includes/navbar.php";
 
 ?>
 <div id="map"></div>
@@ -180,7 +180,7 @@ map.on('load', function () {
     }
   );
   
-  fetch('polyapi.php')
+  fetch('api/polyapi.php')
   .then(response => response.json())
   .then(data => {
     map.addSource('features', {
@@ -359,7 +359,7 @@ map.on('load', function () {
     });
 // Function to fetch marker data from polyapi.php
 function fetchMarkerData(callback) {
-  fetch('polyapi.php')
+  fetch('api/polyapi.php')
     .then(response => response.json())
     .then(data => callback(data))
     .catch(error => console.error('Error fetching marker data:', error));
