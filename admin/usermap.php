@@ -9,25 +9,18 @@
     <style>
         body { margin: 0; padding: 0; }
         #map { position: absolute; top: 120px; bottom: 55px;right:1px; width: 100%; }
-        #saveForm {
-        display: none;
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 10px;
-        z-index: 1;
-        max-width: 90%;
-        width: 300px;
-        text-align: center;
+        .form-container {
+          position: absolute;
+          top: 50%;
+          right: 50%;
+          transform: translate(50%, -50%);
+          width: 30%;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
-
-    @media (max-width: 768px) {
-        #saveForm {
-        width: 90%;
-        }
-    }  
+        .form-container form { display: none; background-color:#fff; padding:40px;border-radius:10px;}
     </style>
 
 </head>
@@ -47,6 +40,8 @@ var map = new mapboxgl.Map({
   center: [121.04207,14.75782],
   zoom: 16
 });
+
+
 var draw = new MapboxDraw({
   displayControlsDefault: false,
   controls: {
@@ -58,45 +53,88 @@ var draw = new MapboxDraw({
 });
 
 map.addControl(draw);
-var saveForm = document.getElementById('saveForm');
-var drawingForm = document.getElementById('drawingForm');
 
-map.on('draw.create', function (event) {
-    showSaveForm();
-    
+function storeFormData(formId, title, name, geojson) {
+  var xhr = new XMLHttpRequest(); 
+  var url = '../api/postapi.php';
 
-    drawingForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var name = document.getElementById('saveName').value;
-        var title = document.querySelector('select[name = "title"]').value;
-        var featureType = event.features[0].geometry.type;
-        var coordinates = JSON.stringify(event.features[0].geometry.coordinates);
-        saveData(name, title, featureType, coordinates);
-        hideSaveForm();
-        location.reload();
-    });
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      console.log(xhr.responseText);
+    }
+  };
+
+  var data = 'formId=' + encodeURIComponent(formId) +
+    '&title=' + encodeURIComponent(title) +
+    '&name=' + encodeURIComponent(name) +
+    '&featureType=' + encodeURIComponent(formId.replace('-form', '')) +
+    '&coordinates=' + encodeURIComponent(JSON.stringify(geojson));
+
+
+  xhr.send(data);
+}
+
+// Show the appropriate form based on user selection
+map.on('draw.create', function(event) {
+  var selectedMode = draw.getMode();
+  if (selectedMode === 'draw_point') {
+    document.getElementById('point-form').style.display = 'block';
+    document.getElementById('line-form').style.display = 'none';
+    document.getElementById('polygon-form').style.display = 'none';
+  } else if (selectedMode === 'draw_line_string') {
+    document.getElementById('line-form').style.display = 'block';
+    document.getElementById('point-form').style.display = 'none';
+    document.getElementById('polygon-form').style.display = 'none';
+  } else if (selectedMode === 'draw_polygon') {
+    document.getElementById('polygon-form').style.display = 'block';
+    document.getElementById('point-form').style.display = 'none';
+    document.getElementById('line-form').style.display = 'none';
+  }
 });
 
-function saveData(name, title, featureType, coordinates) {
-    var xhr = new XMLHttpRequest(); 
-    var url = '../api/postapi.php';
+map.on('draw.delete', function() {
+  document.getElementById('point-form').style.display = 'none';
+  document.getElementById('line-form').style.display = 'none';
+  document.getElementById('polygon-form').style.display = 'none';
+});
 
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+map.on('draw.selectionchange', function(event) {
+  if (!event.features.length) {
+    document.getElementById('point-form').style.display = 'none';
+    document.getElementById('line-form').style.display = 'none';
+    document.getElementById('polygon-form').style.display = 'none';
+  }
+});
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText);
-        }
-    };
+document.getElementById('point-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var title = document.getElementById('title').value;
+  var name = document.getElementById('saveName').value;
+  var geojson = draw.getAll();
+  console.log(title,name,geojson)
+  storeFormData('point-form', title, name, geojson);
+});
 
-    var data = 'name=' + encodeURIComponent(name) +
-    '&title=' + encodeURIComponent(title) +
-    '&featureType=' + encodeURIComponent(featureType) +
-    '&coordinates=' + encodeURIComponent(coordinates);
+document.getElementById('line-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var title = document.getElementById('title').value;
+  var name = document.getElementById('saveName').value;
+  var geojson = draw.getAll();
+  console.log(title,name,geojson)
+  storeFormData('line-form', title, name, geojson);
+});
 
-    xhr.send(data);
-}
+document.getElementById('polygon-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var title = document.getElementById('title').value;
+  var name = document.getElementById('saveName').value;
+  var geojson = draw.getAll();
+  console.log(title,name,geojson)
+  storeFormData('polygon-form', title, name, geojson);
+});
 
 
 map.on('load', function() {
@@ -191,30 +229,6 @@ map.on('mouseleave', 'features', function () {
       console.error('Error:', error);
     });
 });
-
-
-
-
-function showSaveForm() {
-  saveForm.style.display = 'block';
-}
-
-drawingForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  var features = draw.getAll();
-  var name = document.getElementById('saveName').value;
-  console.log('Saving features:', features, 'with name:', name);
-  hideSaveForm();
-});
-
-function cancelDrawing() {
-  draw.deleteAll();
-  hideSaveForm();
-}
-
-function hideSaveForm() {
-  saveForm.style.display = 'none';
-}
 
 </script>
 </body>
