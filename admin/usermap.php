@@ -54,46 +54,80 @@ var draw = new MapboxDraw({
 
 map.addControl(draw);
 
-function storeFormData(formId, title, name, geojson) {
-  var xhr = new XMLHttpRequest(); 
-  var url = '../api/postapi.php';
-
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      console.log(xhr.responseText);
-    }
-  };
-
-  var data = 'formId=' + encodeURIComponent(formId) +
-    '&title=' + encodeURIComponent(title) +
-    '&name=' + encodeURIComponent(name) +
-    '&featureType=' + encodeURIComponent(formId.replace('-form', '')) +
-    '&coordinates=' + encodeURIComponent(JSON.stringify(geojson));
-
-
-  xhr.send(data);
-}
-
 // Show the appropriate form based on user selection
 map.on('draw.create', function(event) {
   var selectedMode = draw.getMode();
+  var drawingForm = null;
+  var formData = {}; // Initialize an empty object to store the form data
+
   if (selectedMode === 'draw_point') {
+    drawingForm = document.getElementById('point-form');
     document.getElementById('point-form').style.display = 'block';
     document.getElementById('line-form').style.display = 'none';
     document.getElementById('polygon-form').style.display = 'none';
+
+    // Store the form selection options for point form
+    formData.formType = 'point';
+    formData.title = document.getElementById('point-title').value;
   } else if (selectedMode === 'draw_line_string') {
+    drawingForm = document.getElementById('line-form');
     document.getElementById('line-form').style.display = 'block';
     document.getElementById('point-form').style.display = 'none';
     document.getElementById('polygon-form').style.display = 'none';
+
+    // Store the form selection options for line form
+    formData.formType = 'line';
+    formData.title = document.getElementById('line-title').value;
   } else if (selectedMode === 'draw_polygon') {
+    drawingForm = document.getElementById('polygon-form');
     document.getElementById('polygon-form').style.display = 'block';
     document.getElementById('point-form').style.display = 'none';
     document.getElementById('line-form').style.display = 'none';
+
+    // Store the form selection options for polygon form
+    formData.formType = 'polygon';
+    formData.title = document.getElementById('polygon-title').value;
+  }
+
+  if (drawingForm) {
+    drawingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nameInputId = formData.formType + '-saveName';
+      var name = document.getElementById(nameInputId).value;
+      var titleInputId = formData.formType+'-title';
+      var title = document.getElementById(titleInputId).value;
+      var geojson = draw.getAll();
+      var featureType = geojson.features[0].geometry.type;
+      var coordinates = JSON.stringify(geojson.features[0].geometry.coordinates);
+      console.log(geojson)
+      console.log(featureType,coordinates);
+      storeFormData(title, name, featureType, coordinates, );
+    });
   }
 });
+
+function storeFormData(title, name, featureType, coordinates) {
+    var xhr = new XMLHttpRequest();
+    var url = '../api/postapi.php';
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+            console.log(title, name, featureType, coordinates)
+        }
+    };
+
+    var data ='&title=' + encodeURIComponent(title) +
+        '&name=' + encodeURIComponent(name) +
+        '&featureType=' + encodeURIComponent(featureType) +
+        '&coordinates=' + encodeURIComponent(coordinates);
+
+    xhr.send(data);
+}
+
 
 map.on('draw.delete', function() {
   document.getElementById('point-form').style.display = 'none';
@@ -109,32 +143,7 @@ map.on('draw.selectionchange', function(event) {
   }
 });
 
-document.getElementById('point-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  var title = document.getElementById('title').value;
-  var name = document.getElementById('saveName').value;
-  var geojson = draw.getAll();
-  console.log(title,name,geojson)
-  storeFormData('point-form', title, name, geojson);
-});
 
-document.getElementById('line-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  var title = document.getElementById('title').value;
-  var name = document.getElementById('saveName').value;
-  var geojson = draw.getAll();
-  console.log(title,name,geojson)
-  storeFormData('line-form', title, name, geojson);
-});
-
-document.getElementById('polygon-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  var title = document.getElementById('title').value;
-  var name = document.getElementById('saveName').value;
-  var geojson = draw.getAll();
-  console.log(title,name,geojson)
-  storeFormData('polygon-form', title, name, geojson);
-});
 
 
 map.on('load', function() {
