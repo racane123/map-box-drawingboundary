@@ -1,5 +1,5 @@
 <?php
-include_once 'dbconn.php';
+include ('../db/dbconn.php');
 
 if (isset($_POST['title'],$_POST['name'], $_POST['featureType'], $_POST['coordinates'])) {
     $title = $_POST['title'];

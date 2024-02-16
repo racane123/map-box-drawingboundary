@@ -1,8 +1,6 @@
 <?php
 session_start();
-include 'template.php';
-
-
+include ('../includes/template.php');
 
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -16,7 +14,7 @@ include 'template.php';
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.php" class="nav-link">Home</a>
+        <a href="../index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -149,8 +147,8 @@ include 'template.php';
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="images/logo-text.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
+    <a href="../index.php" class="brand-link">
+      <img src="../images/logo-text.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
       <span class="brand-text font-weight-light">TownTechInnovations</span>
     </a>
 
@@ -159,7 +157,7 @@ include 'template.php';
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="images/avatar.png" class="img-circle elevation-2" alt="User Image">
+          <img src="../images/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
@@ -245,7 +243,7 @@ include 'template.php';
 
     <div class="sidebar-custom">
       <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
-      <a href="logout.php" class="btn btn-secondary hide-on-collapse pos-right"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="../auth/logout.php" class="btn btn-secondary hide-on-collapse pos-right"><i class="fas fa-sign-out-alt"></i></a>
     </div>
     <!-- /.sidebar-custom -->
   </aside>
@@ -277,13 +275,6 @@ include 'template.php';
     <!-- /.content -->
 </div>
   <!-- /.content-wrapper -->
-
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0.0
-    </div>
-    <strong>Copyright &copy; 2014-2021 <a href="towntechinnovation.com">towntechinnovation.com</a>.</strong> All rights reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

@@ -1,5 +1,5 @@
 <?php
-include 'dbconn.php';
+include ('../db/dbconn.php');
 
 $sql = "SELECT id, name, title, feature_type, ST_AsGeoJSON(coordinates) AS geojson from drawn_features";
 $result = mysqli_query($conn, $sql);

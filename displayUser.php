@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-include_once "dbconn.php";
+include_once "db/dbconn.php";
 
 if (!$conn) {
     die("Error connecting to the database");

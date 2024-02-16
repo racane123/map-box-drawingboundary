@@ -1,6 +1,6 @@
 <?php
 // Include database connection file
-include 'dbconn.php';
+include 'db/dbconn.php';
 
 // Check if ID parameter is provided
 if(isset($_POST['id'])) {

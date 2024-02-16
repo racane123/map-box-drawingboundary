@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('dbconn.php');
+include_once('../db/dbconn.php');
 
 if (isset($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'], $_POST['role'])) {
 

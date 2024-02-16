@@ -1,5 +1,5 @@
 <?php
-include 'dbconn.php';
+include 'db/dbconn.php';
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];

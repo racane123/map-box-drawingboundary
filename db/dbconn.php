@@ -1,9 +1,10 @@
 <?php
 // Connection parameters
 $host = 'localhost';
-$username = 'root'; 
-$password = ''; 
-$database = 'localgovernment';
+$username = 'grou_racane123'; 
+$password = '045ExxP-3O3p4@xu'; 
+$database = 'grou_localgovernment';
+
 
 
 

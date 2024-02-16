@@ -34,17 +34,14 @@ include "template.php";
                 <?php
                  // Check if the user is an admin to display the Dashboard link
                  if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-                echo '<a class="nav-link text-dark" href="dashboard.php">Dashboard</a>';
+                echo '<a class="nav-link text-dark" href="admin/dashboard.php">Dashboard</a>';
                 }
                 ?>
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item dropdown-item-title text-dark mr-5" href="logout.php">
-                    <span class="">
-                        Logout
-                        <i class="fas fa-sign-out-alt"></i>
-                    </span>
-                </a>
+                <?php
+                echo '<a class="dropdown-item dropdown-item-title text-dark mr-5" href="' . $_SERVER['REQUEST_URI'] . '/../auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>';
+                ?>
             </a>
         </div>
 
