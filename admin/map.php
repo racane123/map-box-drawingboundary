@@ -1,16 +1,16 @@
 <?php
-include '../includes/header.php';
 ?>
 
 <div id="map-container mt-5">
   <div id="map"></div>
-  <div class="form-container">
+  <div class="form-container text-center">
     
     <form id="point-form">
+      <div class="form-group">
       <h1>Input Form</h1>
-      <div class="mb-3">
+      <div class="form-group">
         <label for="point-title" class="form-label">Title:</label>
-        <select name="title" id="point-title" class="form-select">
+        <select name="title" id="point-title" class="custom-select form-control-border">
           <option value="bakeshop">Bake shop</option>
           <option value="barbershop">Barbershop</option>
           <option value="cafe">Cafe/Restaurant</option>
@@ -22,6 +22,7 @@ include '../includes/header.php';
           <option value="government">Government</option>
           <option value="none">None</option>
         </select>
+       </div>  
       </div>
       <div class="mb-3">
         <label for="point-saveName" class="form-label">Name:</label>
@@ -36,7 +37,7 @@ include '../includes/header.php';
     <form id="line-form">
       <h1>Input Form</h1>
       <label for="line-title">Title:</label>
-      <select name="line-title" id="line-title" class="form-select">
+      <select name="line-title" id="line-title" class="custom-select form-control-border">
         <option value="street">street</option>
         <option value="rivers">River</option>
         <option value="none">None</option>
@@ -55,7 +56,7 @@ include '../includes/header.php';
       <h1>Input Form</h1>
       <div class="mb-3">
       <label for="polygon-title">Title:</label>
-      <select name="title" id="polygon-title" class="form-select">
+      <select name="title" id="polygon-title" class="custom-select form-control-border">
         <option value="building">Building</option>
         <option value="openlot">Open Lot</option>
         <option value="residential_area">Residential Area</option>

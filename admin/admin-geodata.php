@@ -1,12 +1,10 @@
 <?php
 include ('../db/dbconn.php');
-include '../includes/header.php';
-
+include '../includes/template.php';
 ?>
 <style>
-
 .parent-alert {
-    position: relative; /* Ensure the parent container has a relative position */
+    position: relative;
 }
 
 #customAlert {
@@ -16,9 +14,7 @@ include '../includes/header.php';
     transform: translateY(50%); 
     z-index: 1000; 
 }
-
 </style>
-
 <body>
 <div class="parent-alert">
     <div id="customAlert" class="alert" role="alert" style="display: none;position:absolute;">
@@ -51,29 +47,34 @@ include '../includes/header.php';
   </div>
 </form>
 
-
-<div class="container mt-5">
-  <h2>Feature Table</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Title</th>
-        <th>Feature Type</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="featureTableBody">
-    </tbody>
-  </table>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><strong>Geo-Data</strong></h3>
+    <div class="card-tools">
+      <div class="input-group input-group-sm" style="width: 150px;">
+        <div class="input-group-append">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body table-responsive p-0" style="height: 300px;">
+    <table class="table table-head-fixed text-nowrap">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Title</th>
+          <th>Feature Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="featureTableBody">
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
-
 </body>
-
-
 
 <script>
 $(document).ready(function(){
@@ -91,8 +92,8 @@ $(document).ready(function(){
   });
 });
 
-  // Update button click event
-  $(document).on('click', '.update-btn', function(){
+// Update button click event
+$(document).on('click', '.update-btn', function(){
   var id = $(this).data('id');
   
   // Fetch data for the selected feature
@@ -119,8 +120,8 @@ $(document).ready(function(){
   });
 });
 
-  // Form submission event
-  $('#drawingForm').submit(function(event){
+// Form submission event
+$('#drawingForm').submit(function(event){
   event.preventDefault();
 
   // Serialize form data
@@ -149,12 +150,12 @@ $(document).ready(function(){
   });
 });
 
+// Cancel button click event
+function cancelDrawing() {
+  $('#featureTableBody').show();
+  $('#drawingForm').hide();
+}
 
-  // Cancel button click event
-  function cancelDrawing() {
-    $('#featureTableBody').show();
-    $('#drawingForm').hide();
-  }
 // Delete button click event
 $(document).on('click', '.delete-btn', function(){
   var id = $(this).data('id');
@@ -182,7 +183,4 @@ $(document).on('click', '.delete-btn', function(){
     });
   }
 });
-
-
 </script>
-
