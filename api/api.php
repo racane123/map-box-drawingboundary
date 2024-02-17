@@ -1,7 +1,22 @@
 <?php
+// Allowed domains
+$allowed_domains = array('https://example.com', 'https://subdomain.example.com');
+
+// Check if the request origin is allowed
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+if (!in_array($origin, $allowed_domains)) {
+    header('HTTP/1.1 403 Forbidden');
+    exit;
+}
+
+// Allow requests from approved domains
+header('Access-Control-Allow-Origin: ' . $origin);
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Headers: Content-Type');
+
 // Ensure this script is accessed via HTTPS
 if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-    header('Status: 403 Forbidden');
+    header('HTTP/1.1 403 Forbidden');
     echo 'HTTPS is required for this API.';
     exit;
 }
@@ -22,9 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         while ($row = mysqli_fetch_assoc($result)) {
             $feature = array(
                 'type' => 'Feature',
-                'title' => $row['title'],
-                'name' => $row['name'],
                 'geometry' => json_decode($row['geojson']),
+                'properties' => array(
+                    'title' => $row['title'],
+                    'name' => $row['name']
+                )
             );
             // Push each feature into the $features array
             array_push($features['features'], $feature);
@@ -40,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } else {
     // Handle unsupported HTTP methods
-    header('Status: 405 Method Not Allowed');
+    header('HTTP/1.1 405 Method Not Allowed');
     echo 'Unsupported request method.';
 }
 
