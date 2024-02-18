@@ -1,34 +1,11 @@
 <?php
 
-
-// Allowed domains
-$allowed_domains = array('');
-
-// Check if the request origin is allowed
-$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-if (!in_array($origin, $allowed_domains)) {
-    header('HTTP/1.1 403 Forbidden');
-    exit;
-}
-
-header('Access-Control-Allow-Methods: GET');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Ensure this script is accessed via HTTPS
-if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-    header('HTTP/1.1 403 Forbidden');
-    echo 'HTTPS is required for this API.';
-    exit;
-}
-
 include('../db/dbconn.php');
 
 
 
 // Check if the request method is GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Allow requests from specific origins, you can replace '*' with your domain
-    header('Access-Control-Allow-Origin: ' . $origin);
 
     // SQL query to fetch name and coordinates as GeoJSON from database
     $query = "SELECT feature_type, name, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features";
@@ -101,6 +78,3 @@ function calculatePolygonArea($coordinates) {
     // Return total area
     return $totalArea;
 }
-
-
-?>
