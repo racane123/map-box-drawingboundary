@@ -257,20 +257,22 @@ map.on('load', function () {
     map.on('click', 'mergedLayer', function (e) {
     // Get the properties of the clicked feature
     var featureProperties = e.features[0].properties;
-      console.log(featureProperties)
-    // Update the card content with the feature properties
     updateCard(featureProperties);
     });
 
-            // Change the cursor to a pointer when the mouse is over the mergedLayer
-      map.on('mouseenter', 'mergedLayer', function () {
-        map.getCanvas().style.cursor = 'pointer';
-      });
+    map.on('touchend', 'mergedLayer', function (e) {
+    var featureProperties = e.features[0].properties;
+    updateCard(featureProperties);
+    });
 
-            // Change it back to a pointer when it leaves.
-      map.on('mouseleave', 'mergedLayer', function () {
-      map.getCanvas().style.cursor = '';
-      });
+      // Change the cursor to a pointer when the mouse is over the mergedLayer
+    map.on('mouseenter', 'mergedLayer', function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'mergedLayer', function () {
+    map.getCanvas().style.cursor = '';
+    });
 
     })
     .catch(error => {
