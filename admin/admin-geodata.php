@@ -29,12 +29,12 @@ include '../includes/template.php';
   <div class="mb-3">
     <label for="title" class="form-label">Title:</label>
     <select class="form-control" id="title" name="title">
-      <option value="bakeshop">Bake shop</option>
+      <option value="bakery">Bake shop</option>
       <option value="barbershop">Barbershop</option>
       <option value="cafe">Cafe/Restaurant</option>
       <option value="hospital">Hospital</option>
-      <option value="police_station">Police Station</option>
-      <option value="fire_station">Fire Station</option>
+      <option value="police">Police Station</option>
+      <option value="fire">Fire Station</option>
       <option value="bank">Bank</option>
       <option value="supermarket">Super Market</option>
       <option value="government">Government</option>
@@ -172,7 +172,7 @@ $(document).on('click', '.delete-btn', function(){
           $('#customAlert').removeClass('alert-danger').addClass('alert-success').text(response.message).show();
           setTimeout(function(){
             $('#customAlert').hide();
-          }, 3000); // Hide after 3 seconds
+          }, 3000);
         } else {
           $('#customAlert').removeClass('alert-success').addClass('alert-danger').text(response.message).show();
         }

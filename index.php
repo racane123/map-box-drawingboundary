@@ -50,12 +50,12 @@ include "includes/navbar.php";
         <form id="filterForm">
           <select id="filterOptions" onchange="filterMarkers()" class="form-select">
             <option value="all">All</option>
-            <option value="bakeshop">Bake shop</option>
+            <option value="bakery">Bake shop</option>
             <option value="barbershop">Barbershop</option>
             <option value="cafe">Cafe/Restaurant</option>
             <option value="hospital">Hospital</option>
-            <option value="police_station">Police Station</option>
-            <option value="fire_station">Fire Station</option>
+            <option value="police">Police Station</option>
+            <option value="fire">Fire Station</option>
             <option value="bank">Bank</option>
             <option value="supermarket">Super Market</option>
             <option value="government">Government</option>
@@ -198,10 +198,10 @@ map.on('load', function () {
           ['get', 'title'],
           'hospital', 'hospital-icon',
           'cafe', 'cafe-icon',
-          'bakeshop', 'bakery-icon',
+          'bakery', 'bakery-icon',
           'barbershop', 'barbershop-icon',
-          'police_station', 'police-icon',
-          'fire_station', 'fire-icon',
+          'police', 'police-icon',
+          'fire', 'fire-icon',
           'bank', 'bank-icon',
           'supermarket', 'supermarket-icon',
           'government', 'government-icon',
