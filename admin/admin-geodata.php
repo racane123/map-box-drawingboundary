@@ -16,6 +16,23 @@ include '../includes/template.php';
 }
 </style>
 <body>
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <h2>  </h2>
+      </div>
+  </nav>
+  <!--navbar-->
+
+
+
+
+
+
 <div class="parent-alert">
     <div id="customAlert" class="alert" role="alert" style="display: none;position:absolute;">
     </div>
@@ -74,6 +91,12 @@ include '../includes/template.php';
     </table>
   </div>
 </div>
+
+
+
+</div><!-- /.container-fluid -->
+
+
 </body>
 
 <script>

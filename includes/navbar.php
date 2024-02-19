@@ -6,10 +6,12 @@ include "template.php";
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link">TownTechInnovations</a>
+      </li>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.php" class="nav-link">Home</a>
+        <a href="userView.php" class="nav-link" >OtherMap</a>
       </li>
     </ul>
     <!-- Right navbar links -->
@@ -37,7 +39,6 @@ include "template.php";
                 echo '<a class="nav-link text-dark" href="admin/dashboard.php">Dashboard</a>';
                 }
                 ?>
-
                 <div class="dropdown-divider"></div>
                 <?php
                 echo '<a class="dropdown-item dropdown-item-title text-dark mr-5" href="' . $_SERVER['REQUEST_URI'] . '/../auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>';
@@ -53,11 +54,14 @@ include "template.php";
       </li>
 </nav>
 
-
 <script>
    
 // Activate dropdown toggle
 $(document).ready(function(){
     $('.dropdown-toggle').dropdown();
 });
+
+
 </script>
+
+

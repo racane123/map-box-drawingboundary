@@ -133,12 +133,22 @@ ol.inherits(appss.ModifyFeatureApp, ol.control.Control);
 //
 // view
 //
+var cityCenter = [13473779.769599514, 1659650.641159134];
+var radius = 5000; 
+var extent = [
+  cityCenter[0] - radius, 
+  cityCenter[1] - radius, 
+  cityCenter[0] + radius, 
+  cityCenter[1] + radius
+];
+
 var myview = new ol.View({
   projection: 'EPSG:3857',
   zoom: 14,
-  center: [13473779.769599514, 1659650.641159134],
+  center: cityCenter,
   minZoom: 14,
-  maxZoom: 20
+  maxZoom: 20,
+   extent: extent 
 });
 
 
@@ -181,7 +191,7 @@ var featureLayerSource = new ol.source.Vector();
 
 function featureIdbyType(featureType){
   featureLayerSource.clear();
-  fetch('../api.php?type=' + featureType)
+  fetch('../apiFolder/api.php?type=' + featureType)
   .then(function (response) {
     return response.json();
   })
@@ -212,14 +222,22 @@ function getallfeature(){
   });  
 }
 
-document.getElementById('featureType').addEventListener('change', function() {
-  var selectedFeature = this.value;
-  if (selectedFeature === 'all') {
-    getallfeature();
-  } else {
-    featureIdbyType(selectedFeature);
-  }
-});
+
+document.getElementById('getallfeature').addEventListener('click',function(){ getallfeature() })
+document.getElementById('Residential').addEventListener('click',function(){ featureIdbyType('Residential') })
+document.getElementById('BarberShop').addEventListener('click',function(){ featureIdbyType('BarberShop') })
+document.getElementById('School').addEventListener('click',function(){ featureIdbyType('School') })
+document.getElementById('Church').addEventListener('click',function(){ featureIdbyType('Church') })
+document.getElementById('Police Station').addEventListener('click',function(){ featureIdbyType('Police Station') })
+document.getElementById('Barangay Station').addEventListener('click',function(){ featureIdbyType('Barangay Station') }) 
+document.getElementById('Clinic').addEventListener('click',function(){ featureIdbyType('Clinic') }) 
+document.getElementById('Karinderya').addEventListener('click',function(){ featureIdbyType('Karinderya') }) 
+document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('MilkTea Shop') }) 
+document.getElementById('Repair Shop').addEventListener('click',function(){ featureIdbyType('Police Station') }) 
+document.getElementById('Empty Lot').addEventListener('click',function(){ featureIdbyType('Empty Lot') }) 
+document.getElementById('Playground').addEventListener('click',function(){ featureIdbyType('Playground') }) 
+document.getElementById('Boundary').addEventListener('click',function(){ featureIdbyType('Boundary') })  
+document.getElementById('Evacuation Area').addEventListener('click',function(){ featureIdbyType('Evacuation Area') })  
 
 
 document.getElementById("refreshButton").addEventListener("click", function() {
@@ -650,7 +668,7 @@ popup.show(coordinates, content);
          console.log(Feature_id)
 
          $.ajax({
-          url: 'apiFolder/viewresidentapi.php',
+          url: '../apiFolder/viewresidentapi.php',
           type: 'POST',
           data: {
               feature_id: Feature_id
@@ -703,70 +721,6 @@ function removeViewRes() {
   $('#myModals').modal('hide');
   //$('#resident-table tbody').empty(); // Clear the table body
 }
-
-//coordinates ng boundary para sa filter mask 
-/*
-let dep =      {
-  "type": "Feature",
-  "geometry": {
-      "type": "Polygon",
-      "coordinates": [
-          [
-              [
-                  13469794.274080126,
-                  1660798.9084294834
-              ],
-              [
-                  13472194.396666227,
-                  1661838.4519704243
-              ],
-              [
-                  13474907.911461934,
-                  1661104.6566884161
-              ],
-              [
-                  13476444.295613833,
-                  1659652.3530052057
-              ],
-              [
-                  13475320.671531308,
-                  1658215.336348593
-              ],
-              [
-                  13472905.261262545,
-                  1657810.2207401667
-              ],
-              [
-                  13469985.366650838,
-                  1659400.1108701816
-              ],
-              [
-                  13469794.274080126,
-                  1660798.9084294834
-              ]
-          ]
-      ]
-  },
-  "properties": {
-      "type": "Boundary",
-      "name": "TRYCROP"
-  }
-};
-var coords = dep.geometry.coordinates;
-var f = new ol.Feature(new ol.geom.Polygon(coords));
-
-var mask= new ol.filter.Mask({ 
-  feature: f, 
-  wrapX: true,
-  inner: false,
-  fill: new ol.style.Fill({ color: [0, 0, 255, 0.2] }),
-  shadowWidth: 10,
-  shadowColor: [0, 0, 0, 1]
-});
-baselayer.addFilter(mask);
-
-*/
-
 
 // FUNCTION TO START DRAWING FEATURES
       function startDraw(geomType){
@@ -993,7 +947,9 @@ function editResident(id, name, age, gender, height, weight) {
   document.getElementById('editHeight').value = height;
   document.getElementById('editWeight').value = weight;
   $('#editinfo').modal('show');
+  $('#viewresident').modal('hide');
   $('#viewResidentChart_Table').modal('hide');
+  
 }
 
 // SAVE EDITED RESIDENT INFO TO DB

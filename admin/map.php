@@ -1,6 +1,17 @@
 <?php
 ?>
 
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <h2>  </h2>
+      </div>
+  </nav>
+  <!--navbar-->
+
 <div id="map-container mt-5">
   <div id="map"></div>
   <div class="form-container text-center">
@@ -73,3 +84,6 @@
     </form>
   </div>
 </div>
+
+
+</div><!-- /.container-fluid -->

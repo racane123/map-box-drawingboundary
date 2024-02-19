@@ -1,3 +1,14 @@
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <h2>  </h2>
+      </div>
+  </nav>
+  <!--navbar-->
+
 <div class="text-center">
 <div class="text-right">
     <button type="button" class="btn btn-primary" onclick="DisplayForm()"><i class="fas fa-plus"></i> Add Users</button>
@@ -62,6 +73,8 @@
     </table>
 </div>
 </div>
+
+</div><!-- /.container-fluid -->
 
 <style>
 .form-container {
