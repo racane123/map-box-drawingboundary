@@ -1,0 +1,51 @@
+.map{
+    width:100vw;
+    height:90vh;
+}
+/*
+.map2{
+    width: 1000vw;
+    height:500vh ;
+    background-color: lightcoral;
+}
+*/
+
+ /* popup style */
+ .ol-popup {
+    max-width:300px;
+    min-width:100px;
+    min-height:1em;
+  }
+
+.draw-app{
+    top: 65px;
+    left: .5em;
+}
+.ol-touch .draw-app {
+    top: 80px;
+  }
+  .tooltip-inner {
+    white-space: nowrap;
+  }
+
+  .modal-container {
+    max-width: 100%;
+    padding: 0 10px; /* Add some padding to the sides for better spacing */
+  }
+
+  .card {
+    border: none; /* Remove the card border */
+  }
+
+  canvas {
+    width: 100%; /* Make the canvas responsive */
+    height: auto; /* Allow the height to adjust accordingly */
+  }
+  
+
+  @media only screen and (max-width: 800px) {
+    /* Adjust the max-width value based on your design needs */
+    .map {
+        height: 90vh; /* Use viewport height (vh) instead of a fixed percentage */
+    }
+}
