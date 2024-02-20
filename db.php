@@ -12,7 +12,7 @@ $server = 'localhost';
 $db_name = 'gis';
 $username = 'root';
 $password = '';
-$port = '3390';
+$port = '3308';
 
 // Create connection
 $dbconn = new mysqli($server, $username, $password, $db_name, $port);
