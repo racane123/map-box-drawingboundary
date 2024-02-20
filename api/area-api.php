@@ -1,37 +1,29 @@
 <?php
 
+include('./db/dbconn.php');
 
-// Allowed domains
-$allowed_domains = array('');
+// Set response header to JSON
+header('Content-Type: application/json');
 
-// Check if the request origin is allowed
-$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-if (!in_array($origin, $allowed_domains)) {
-    header('HTTP/1.1 403 Forbidden');
+// Check if the request method is OPTIONS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Allow requests from any origin
+    header('Access-Control-Allow-Origin: *');
+    // Allow the GET method
+    header('Access-Control-Allow-Methods: GET');
+    // Allow content type application/json
+    header('Access-Control-Allow-Headers: Content-Type');
+    // End the script for OPTIONS requests
     exit;
 }
-
-header('Access-Control-Allow-Methods: GET');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Ensure this script is accessed via HTTPS
-if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-    header('HTTP/1.1 403 Forbidden');
-    echo 'HTTPS is required for this API.';
-    exit;
-}
-
-include('../db/dbconn.php');
-
-
 
 // Check if the request method is GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Allow requests from specific origins, you can replace '*' with your domain
-    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Origin: *');
 
     // SQL query to fetch name and coordinates as GeoJSON from database
-    $query = "SELECT feature_type, name, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features";
+    $query = "SELECT name, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features";
 
     // Execute the query
     $result = $conn->query($query);
@@ -42,25 +34,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Iterate through the result set
     while ($row = mysqli_fetch_assoc($result)) {
         // Decode the GeoJSON coordinates
-        $coord = json_decode($row['geojson'], true);
+        $coord = json_decode($row['geojson'], true); // Decode as associative array
         $name = $row['name'];
-        $featureType = $row['feature_type'];
-    
-        // Check if coordinates exist and are an array
-        if (!isset($coord['type']) || $coord['type'] !== 'Polygon' || !isset($coord['coordinates'][0]) || !is_array($coord['coordinates'][0])) {
-            continue; // Skip this iteration if it's not a valid Polygon
-        }
-    
+
+        // Extract coordinates
         $coordinates = $coord['coordinates'][0];
-    
+
+        // Ensure coordinates are in array format
+        if (!is_array($coordinates)) {
+            continue; // Skip this polygon if coordinates are not in expected format
+        }
+
         // Calculate area using Haversine formula
         $area = calculatePolygonArea($coordinates);
-    
+
         // Add area to response
-        $response[] = array('name' => $name, 'featureType' => $featureType, 'area' => $area);
+        $response[] = array('name' => $name, 'area' => $area);
     }
-    
-    
+
     // Encode the response as JSON and echo it
     echo json_encode($response);
 }
@@ -68,12 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // Function to calculate area of a polygon
 function calculatePolygonArea($coordinates) {
     $totalArea = 0;
-    
-    // Ensure $coordinates is always an array
-    if (!is_array($coordinates)) {
-        $coordinates = [$coordinates]; // Convert single coordinate to an array
-    }
-    
     $numVertices = count($coordinates);
 
     if ($numVertices < 3) {
@@ -101,6 +86,5 @@ function calculatePolygonArea($coordinates) {
     // Return total area
     return $totalArea;
 }
-
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // Allowed domains
-$allowed_domains = array('');
+$allowed_domains = array('https://example.com', 'https://subdomain.example.com');
 
 // Check if the request origin is allowed
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';

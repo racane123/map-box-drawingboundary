@@ -1,37 +1,36 @@
 <?php
-// Include database connection or any necessary configurations
-include('db/dbconn.php');
-
-// Check if the ID parameter is sent via POST request
+include 'db/dbconn.php';
 if(isset($_POST['id'])) {
-    // Sanitize the received ID to prevent SQL injection
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $id = $_POST['id'];
+    
+    // Prepare and execute statement to delete the item
+    $sql = "DELETE FROM drawn_features WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
 
-    // Prepare the DELETE query
-    $sql = "DELETE FROM drawn_features WHERE id = '$id'";
+    // Execute the statement
+    $success = $stmt->execute();
 
-    // Execute the DELETE query
-    if(mysqli_query($conn, $sql)) {
-        // Deletion successful
-        $response = array(
-            'success' => true,
-            'message' => 'Record deleted successfully.'
-        );
-        echo json_encode($response);
+    // Close statement and connection
+    $stmt->close();
+    $conn->close();
+
+    // Prepare response
+    $response = array();
+    if($success) {
+        $response['success'] = true;
+        $response['message'] = "Item successfully deleted.";
     } else {
-        // Error occurred while deleting
-        $response = array(
-            'success' => false,
-            'message' => 'Error deleting record: ' . mysqli_error($conn)
-        );
-        echo json_encode($response);
+        $response['success'] = false;
+        $response['message'] = "Failed to delete item.";
     }
 } else {
-    // ID parameter is missing
-    $response = array(
-        'success' => false,
-        'message' => 'ID parameter is missing.'
-    );
-    echo json_encode($response);
+    // ID is not provided
+    $response['success'] = false;
+    $response['message'] = "ID not provided.";
 }
+
+// Send JSON response
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

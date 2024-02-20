@@ -1,6 +1,17 @@
 <?php
 ?>
 
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+
+  <!--navbar-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+      <h2>  </h2>
+      </div>
+  </nav>
+  <!--navbar-->
+
 <div id="map-container mt-5">
   <div id="map"></div>
   <div class="form-container text-center">
@@ -11,12 +22,12 @@
       <div class="form-group">
         <label for="point-title" class="form-label">Title:</label>
         <select name="title" id="point-title" class="custom-select form-control-border">
-          <option value="bakery">Bake shop</option>
+          <option value="bakeshop">Bake shop</option>
           <option value="barbershop">Barbershop</option>
           <option value="cafe">Cafe/Restaurant</option>
           <option value="hospital">Hospital</option>
-          <option value="police">Police Station</option>
-          <option value="fire">Fire Station</option>
+          <option value="police_station">Police Station</option>
+          <option value="fire_station">Fire Station</option>
           <option value="bank">Bank</option>
           <option value="supermarket">Super Market</option>
           <option value="government">Government</option>
@@ -73,3 +84,6 @@
     </form>
   </div>
 </div>
+
+
+</div><!-- /.container-fluid -->
