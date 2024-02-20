@@ -99,8 +99,6 @@ map.on('draw.create', function(event) {
       var geojson = draw.getAll();
       var featureType = geojson.features[0].geometry.type;
       var coordinates = JSON.stringify(geojson.features[0].geometry.coordinates);
-      console.log(geojson)
-      console.log(featureType,coordinates);
       storeFormData(title, name, featureType, coordinates, );
     });
   }

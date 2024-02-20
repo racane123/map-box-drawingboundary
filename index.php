@@ -81,6 +81,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
       center: [121.04207,14.75782],
       zoom: 16
     });
+ 
 
 map.on('load', function () {
     map.loadImage(
