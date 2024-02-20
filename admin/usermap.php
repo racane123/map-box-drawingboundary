@@ -23,16 +23,14 @@
         .form-container form { display: none; background-color:#fff; padding:40px;border-radius:10px;}
     </style>
 
-<?php
-//include '../includes/header.php';
-include 'map.php';
-
-?>
-
 </head>
 <body>
 
+<?php
+include '../includes/header.php';
+include 'map.php';
 
+?>
 <script>
    
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
@@ -101,8 +99,6 @@ map.on('draw.create', function(event) {
       var geojson = draw.getAll();
       var featureType = geojson.features[0].geometry.type;
       var coordinates = JSON.stringify(geojson.features[0].geometry.coordinates);
-      console.log(geojson)
-      console.log(featureType,coordinates);
       storeFormData(title, name, featureType, coordinates, );
     });
   }

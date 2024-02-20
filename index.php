@@ -50,12 +50,12 @@ include "includes/navbar.php";
         <form id="filterForm">
           <select id="filterOptions" onchange="filterMarkers()" class="form-select">
             <option value="all">All</option>
-            <option value="bakeshop">Bake shop</option>
+            <option value="bakery">Bake shop</option>
             <option value="barbershop">Barbershop</option>
             <option value="cafe">Cafe/Restaurant</option>
             <option value="hospital">Hospital</option>
-            <option value="police_station">Police Station</option>
-            <option value="fire_station">Fire Station</option>
+            <option value="police">Police Station</option>
+            <option value="fire">Fire Station</option>
             <option value="bank">Bank</option>
             <option value="supermarket">Super Market</option>
             <option value="government">Government</option>
@@ -81,6 +81,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa
       center: [121.04207,14.75782],
       zoom: 16
     });
+ 
 
 map.on('load', function () {
     map.loadImage(
@@ -198,10 +199,10 @@ map.on('load', function () {
           ['get', 'title'],
           'hospital', 'hospital-icon',
           'cafe', 'cafe-icon',
-          'bakeshop', 'bakery-icon',
+          'bakery', 'bakery-icon',
           'barbershop', 'barbershop-icon',
-          'police_station', 'police-icon',
-          'fire_station', 'fire-icon',
+          'police', 'police-icon',
+          'fire', 'fire-icon',
           'bank', 'bank-icon',
           'supermarket', 'supermarket-icon',
           'government', 'government-icon',
@@ -257,20 +258,22 @@ map.on('load', function () {
     map.on('click', 'mergedLayer', function (e) {
     // Get the properties of the clicked feature
     var featureProperties = e.features[0].properties;
-      console.log(featureProperties)
-    // Update the card content with the feature properties
     updateCard(featureProperties);
     });
 
-            // Change the cursor to a pointer when the mouse is over the mergedLayer
-      map.on('mouseenter', 'mergedLayer', function () {
-        map.getCanvas().style.cursor = 'pointer';
-      });
+    map.on('touchend', 'mergedLayer', function (e) {
+    var featureProperties = e.features[0].properties;
+    updateCard(featureProperties);
+    });
 
-            // Change it back to a pointer when it leaves.
-      map.on('mouseleave', 'mergedLayer', function () {
-      map.getCanvas().style.cursor = '';
-      });
+      // Change the cursor to a pointer when the mouse is over the mergedLayer
+    map.on('mouseenter', 'mergedLayer', function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'mergedLayer', function () {
+    map.getCanvas().style.cursor = '';
+    });
 
     })
     .catch(error => {

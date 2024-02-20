@@ -12,6 +12,7 @@ $server = 'localhost';
 $db_name = 'gis';
 $username = 'root';
 $password = '';
+<<<<<<< HEAD
 $port = '3390';
 */
 
@@ -20,6 +21,9 @@ $db_name = 'grou_gis';
 $username = 'root';
 $password = 'LrsLsl+MB4qdrz!e';
 
+=======
+$port = '3308';
+>>>>>>> f6dabf5dc15d91aec44e79794763a4e7fc05f5ae
 
 // Create connection
 $dbconn = new mysqli($server, $username, $password, $db_name);
