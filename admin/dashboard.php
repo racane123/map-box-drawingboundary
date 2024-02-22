@@ -1,7 +1,10 @@
 <?php
 session_start();
+
+
 include_once ('../includes/template.php');
-include ('../includes/otherHeader.php');
+include('../includes/otherHeader.php');
+
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -40,10 +43,29 @@ include ('../includes/otherHeader.php');
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a  class="nav-link" onclick="">
+                <i class="nav-icon fa-solid fa-gauge"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link" onclick=''>
+                    <i class="nav-icon fas fa-chart-pie"></i>
+                    <p>Analytics Data</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                </li>
+              </ul>
+            </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" onclick="loadDashboardContent()">
+            <a  class="nav-link" onclick="loadDashboardContent()">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -61,21 +83,29 @@ include ('../includes/otherHeader.php');
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link" onclick="loadAdminGeoData()">
-              <i class="nav-icon fas fa-globe"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-table"></i>
               <p>
-                Geo Data
-                <i class="right fas fa-angle-right"></i>
+                Table Data
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <!--<ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="#" class="nav-link" onclick='loadAdminGeoData()'>
+                  <i class="nav-icon fas fa-globe"></i>
+                  <p>Geo Data</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="" class="nav-link">
+              <i class="nav-icon fa-solid fa-route"></i>
+              <p>Drivers Route</p>
+              </a>
               </li>
               <li class="nav-item">
               </li>
-              <li class="nav-item">
-              </li>
-            </ul>-->
+            </ul>
           </li>
 
           <li class="nav-item">
