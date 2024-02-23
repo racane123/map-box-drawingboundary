@@ -12,6 +12,10 @@ if(isset($_SESSION['email'])) {
         header("Location: index.php");
         exit;
     }
+    else if ($_SESSION['role'] === 'driver'){
+      header("Location: ../driver/driver-map.php");
+      exit;
+    }
 }
 
   ?>
@@ -97,7 +101,10 @@ $(document).ready(function() {
                             window.location.href="../admin/dashboard.php";
                         } else if (response.role === 'user') {
                             window.location.href="../index.php";
+                        } else if(response.role === 'driver'){
+                          window.location.href="../driver/driver-map.php";
                         }
+                        
                     }, 2200);
                 }
             },

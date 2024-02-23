@@ -2,8 +2,9 @@
 session_start();
 
 
-include_once ('../includes/template.php');
+include('../includes/template.php');
 include('../includes/otherHeader.php');
+include('../includes/header.php');
 
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -167,7 +168,6 @@ include('../includes/otherHeader.php');
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 
 
 <script>
