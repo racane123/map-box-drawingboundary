@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
 
 ?>
 
+=======
+>>>>>>> otherbranch
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +15,7 @@ session_start();
     <title>Driver Account</title>
 </head>
 <body>
+<<<<<<< HEAD
     <h1>drivers-map</h1>
 <aside>
 <?php
@@ -24,5 +28,8 @@ if(isset($_SESSION['email'])){
 
 
 
+=======
+    
+>>>>>>> otherbranch
 </body>
 </html>

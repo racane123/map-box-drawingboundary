@@ -91,7 +91,10 @@
 }
 </style>
 
+<<<<<<< HEAD
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+=======
+>>>>>>> otherbranch
 <script>
 function submitForm(event) {
     event.preventDefault();

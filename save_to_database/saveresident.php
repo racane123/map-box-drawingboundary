@@ -5,6 +5,7 @@ include '../db.php';
 $name = $_POST['name'];
 $age = $_POST['age'];
 $gender = $_POST['gender'];
+$Occupation = $_POST['Occupation'];
 $height = $_POST['height'];
 $weight = $_POST['weight'];
 $bmi = $_POST['bmi'];
@@ -13,8 +14,8 @@ $feature_id = $_POST['feature_id'];
 $brgy_no = $_POST['barangay_no'];
 
 
-$add_query = $dbconn->prepare("INSERT INTO residents (name, age,gender, height, weight,bmi,bmi_category, feature_id,brgy_no) VALUES (?,?,?,?,?,?,?,?,?)");
-$add_query->bind_param("sisiiisii", $name, $age, $gender,$height, $weight, $bmi,$bmi_category,$feature_id,$brgy_no);
+$add_query = $dbconn->prepare("INSERT INTO residents (name, age,gender,Occupation, height, weight,bmi,bmi_category, feature_id,brgy_no) VALUES (?,?,?,?,?,?,?,?,?,?)");
+$add_query->bind_param("sissiiisii", $name, $age, $gender, $Occupation, $height, $weight, $bmi,$bmi_category,$feature_id,$brgy_no);
 
 
 if ($add_query->execute()) {

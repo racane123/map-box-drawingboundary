@@ -188,6 +188,27 @@ var featureLayerSource = new ol.source.Vector();
   });
 
 
+  var chloroplethLayerSource = new ol.source.Vector();
+ 
+  function turnOnChloropleth(){
+  chloroplethLayerSource.clear(); 
+  fetch('../apiFolder/chloropleth.php')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    // Parse the GeoJSON data and add features to the vector source
+    var features = new ol.format.GeoJSON().readFeatures(data);  
+    chloroplethLayerSource.addFeatures(features);
+  })
+  .catch(function (error) {
+    console.error('Error fetching and processing GeoJSON:', error);
+  });
+  }
+
+ function turnOffChloropleth(){
+  chloroplethLayerSource.clear();
+ }
 
 function featureIdbyType(featureType){
   featureLayerSource.clear();
@@ -250,9 +271,74 @@ document.getElementById("refreshButton").addEventListener("click", function() {
  });
 
 
+
+
+var chloroplethLayer = new ol.layer.Vector({
+  source: chloroplethLayerSource,
+  style: function(feature){
+    var styles = [];
+
+      var name = feature.get('name'); // Get the name attribute of the feature
+      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
+    
+      var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; // Get the coordinates of the polygon
+      var centroid = calculateCentroid(polygonCoordinates); // Calculate centroid
+    
+      // Define a mapping between feature types and their respective icons
+      var iconMap = { 
+        'Boundary': '../assets/img/barangay.png', 
+      };
+    
+      var iconPath = iconMap[type] || '../assets/img/default.png'; 
+    
+      styles.push(
+        new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 128, 0, 0.2)',
+          }),
+          stroke: new ol.style.Stroke({
+            color: 'green',
+            width: 1,
+          }),
+        }),
+        new ol.style.Style({
+          geometry: new ol.geom.Point(centroid), // Assuming you have calculated centroid
+          image: new ol.style.Icon({
+            src: iconPath,
+            width: 25, // Adjust width and height as needed
+            height: 25,
+          }),
+        }),
+        new ol.style.Style({
+          geometry: new ol.geom.Point(centroid),
+          text: new ol.style.Text({
+            text: name,
+            fill: new ol.style.Fill({
+              color: 'black',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'white',
+              width: 3,
+            }),
+            offsetX: 0, 
+            offsetY: 20, 
+          }),
+        })
+      );
+    
+
+
+    return styles;
+  }
+
+})
+ 
+
 //
 // pag display ng mga feature sa map na may style depende kung point,linstring, or polygon
 //
+
+
 var featureLayer = new ol.layer.Vector({
   source: featureLayerSource,
   style: function (feature) {
@@ -477,7 +563,7 @@ fetch('../apiFolder/api.php')
 
 
 // Layer array
-var layerArray = [baselayer,featureLayer,drawLayer] 
+var layerArray = [baselayer,featureLayer,drawLayer,chloroplethLayer] 
 
 
 //Map
@@ -560,14 +646,23 @@ $('#cancelViewMoreShopInfo').on('click', function() {
 select.getFeatures().on(['add'], function (e) {
   if (!FlagisDrawingOn) {
     var feature = e.element;
-    var content = 
-    //'</br> <b> GEOM </b>:' + feature.getGeometry().getType() +
-    // '</br><b> BRGY </b>:'
-          '<b> TYPE </b>:' + feature.get("type") +
-          '</br> <b> NAME </b>:' + feature.get("name") +
-          '</br> <b> Feature ID </b>:' + feature.get("feature_id")+
-          '</br><b> BRGY </b>:' + feature.get("baranggay_no");
+    var type = feature.get("type");
+    var brgy_no = feature.get("barangay_no");
 
+    if( type === 'Boundary'){
+      var content = 
+      '<b> TYPE </b>:' + feature.get("type") +
+      '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br><b> BRGY </b>:' + feature.get("barangay_no");
+    }else {
+      var content = 
+      '<b> TYPE </b>:' + feature.get("type") +
+      '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br> <b> Feature ID </b>:' + feature.get("feature_id")+
+      '</br><b> BRGY </b>:' + feature.get("baranggay_no");
+    }
+         
     var geometryType = feature.getGeometry().getType();
     var coordinates;
     if (geometryType === 'Point') {
@@ -806,9 +901,9 @@ function removeViewRes() {
                                 console.log(result); // Log the entire parsed result
                         
                                 if (result.statusCode === 200) {
-                                    console.log('Data added successfully');
+                                  showToast('success', 'Feature updated successfully');
                                 } else {
-                                    console.log('Data not added successfully');
+                                  showToast('error', 'Feature not updated successfully');
                                 }
                             } catch (e) {
                                 console.error('Error parsing JSON:', e);
@@ -996,6 +1091,7 @@ function editResident(id, name, age, gender, height, weight) {
         var name = $("#name").val();
         var age = parseInt($("#age").val()); 
         var gender = $("#gender").val();
+        var Occupation = $("#Occupation").val();
         var height_cm = parseFloat($("#height").val()); 
         var weight_kg = parseFloat($("#weight").val()); 
         var feature_id = $("#feature_id_input").val();
@@ -1025,6 +1121,7 @@ function editResident(id, name, age, gender, height, weight) {
             name: name,
             age: age,
             gender: gender,
+            Occupation: Occupation,
             height: height_cm,
             weight: weight_kg,
             bmi: bmi,

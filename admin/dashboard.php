@@ -3,8 +3,13 @@ session_start();
 
 
 include('../includes/template.php');
+<<<<<<< HEAD
 include('../includes/otherHeader.php');
 include('../includes/header.php');
+=======
+include('../includes/header.php');
+include('../includes/otherHeader.php');
+>>>>>>> otherbranch
 
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -45,6 +50,7 @@ include('../includes/header.php');
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
+<<<<<<< HEAD
               <a  class="nav-link" onclick="">
                 <i class="nav-icon fa-solid fa-gauge"></i>
                 <p>
@@ -64,6 +70,15 @@ include('../includes/header.php');
                 <li class="nav-item">
                 </li>
               </ul>
+=======
+              <a  class="nav-link" onclick="loadAnalyticsContent()">
+                <i class="nav-icon fa-solid fa-gauge"></i>
+                <p>
+                  Analytics
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+>>>>>>> otherbranch
             </li>
           <li class="nav-item">
             <a  class="nav-link" onclick="loadDashboardContent()">
@@ -125,6 +140,7 @@ include('../includes/header.php');
               <p>
                 Admin Map 2
                 <i class="right fas fa-angle-right"></i>
+                
               </p>
             </a>
           </li>
@@ -170,6 +186,15 @@ include('../includes/header.php');
 <!-- ./wrapper -->
 
 
+<<<<<<< HEAD
+=======
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+>>>>>>> otherbranch
 <script>
     // Function to fetch and update dashboard content
     function updateDashboard() {
@@ -245,6 +270,24 @@ include('../includes/header.php');
         });
     }
 
+
+
+     // Function to analytics
+     function loadAnalyticsContent() {
+        $.ajax({
+            url: '../analytics.php', 
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard
+                $('.content-creation').html(data);
+         
+            },
+            error: function(error) {
+                alert('Error fetching dashboard data:', error);
+            }
+        });
+    }
 
     // Initial load of the dashboard
     loadDashboardContent();

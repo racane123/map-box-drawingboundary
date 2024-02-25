@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     // Query to retrieve total number of residents and other information
     $sql = "SELECT 
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179) AS total_residents,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND gender = 'Male') AS male_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND gender = 'Female') AS female_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND Occupation = 'yes' AND age > 26) AS employed_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND Occupation = 'no' AND age > 26) AS unemployed_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171) AS total_residents,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND gender = 'Male') AS male_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND gender = 'Female') AS female_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND Occupation = 'yes' AND age > 26) AS employed_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND Occupation = 'no' AND age > 26) AS unemployed_count,
     residents.ResidentID,
     residents.name,
     residents.age,
@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     residents.weight,
     residents.bmi,
     residents.bmi_category,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND bmi_category = 'Underweight') AS underweight_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND bmi_category = 'Normal Weight') AS normalweight_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND bmi_category = 'Overweight') AS overweight_count,
-    (SELECT COUNT(*) FROM residents WHERE brgy_no = 179 AND bmi_category = 'Obesity') AS obesity_count
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND bmi_category = 'Underweight') AS underweight_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND bmi_category = 'Normal Weight') AS normalweight_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND bmi_category = 'Overweight') AS overweight_count,
+    (SELECT COUNT(*) FROM residents WHERE brgy_no = 171 AND bmi_category = 'Obesity') AS obesity_count
     FROM residents
     INNER JOIN barangay ON residents.brgy_no = barangay.barangay_no
-    WHERE residents.brgy_no = 179
+    WHERE residents.brgy_no = 171
     GROUP BY
     residents.ResidentID,
     residents.name,
