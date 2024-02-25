@@ -5,11 +5,11 @@
 //$password = '045ExxP-3O3p4@xu'; 
 //$database = 'grou_localgovernment';
 
-$host = 'localhost';
-$username = 'root'; 
-$password = ''; 
-$database = 'localgovernment';
-$port = 3308;
+//$host = 'localhost';
+//$username = 'root'; 
+//$password = ''; 
+//$database = 'localgovernment';
+//$port = 3390;
 
 
 $conn = mysqli_connect($host, $username, $password, $database,$port);

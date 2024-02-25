@@ -217,7 +217,11 @@ map.on('load', function () {
         ],
         'text-field': [
           'case',
-          ['==', ['get', 'title'], 'none'], '', // If title is none, show empty string
+          ['==', ['get', 'title'], 'none'], '',
+          ['==', ['get', 'title'], 'building'], '',
+          ['==', ['get', 'title'], 'openlot'], '',
+          ['==', ['get', 'title'], 'residential_area'], '',
+          ['==', ['get', 'title'], 'commercial_area'], '',   // If title is none, show empty string
           ['get', 'name'] // Otherwise, show name
         ],
         'text-size': [
@@ -316,25 +320,11 @@ map.on('load', function () {
                     'fill-opacity': 0.5
                   }
                 });
-                var centroid = turf.centroid(data.features[0]).geometry.coordinates;
-                map.flyTo({
-                  center: centroid,
-                  zoom: 17,
-                  essential: true
-                });
-                
-                map.on('click', 'result-polygon', function (e) {
-                  var name = e.features[0].properties.name;
-
-                  // Calculate the centroid of the polygon
-                  var centroid = turf.centroid(e.features[0].geometry);
-
-                  });
-                
               } else if (data.features[0].geometry.type === 'Point') {
                 map.addLayer({
                   id: 'search-results',
                   type: 'circle',
+                  filter:['==', 'type', 'Point'],
                   source: 'search-results',
                   paint: {
                     'circle-radius': 10,
@@ -345,11 +335,6 @@ map.on('load', function () {
                   center: data.features[0].geometry.coordinates,
                   zoom: 17,
                   essential: true
-                });
-                map.on('click', 'search-results', function (e) {
-                  var coordinates = e.features[0].geometry.coordinates.slice();
-                  var name = e.features[0].properties.name;
-
                 });
               }
             }

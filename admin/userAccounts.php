@@ -47,6 +47,7 @@
             <select id="role" class="form-select" name="role" required>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
+                <option value="driver">Driver</option>
             </select>
         </div>
 
@@ -90,12 +91,15 @@
 }
 </style>
 
-
 <script>
-
-
 function submitForm(event) {
     event.preventDefault();
+
+    // Check if any required field is empty
+    if ($('#first_name').val() === '' || $('#last_name').val() === '' || $('#email').val() === '' || $('#password').val() === '' || $('#role').val() === '') {
+        $('#results').text("Please fill in all the required fields");
+        return; // Prevent form submission
+    }
 
     var formData = {
         'first_name': $('#first_name').val(),
@@ -111,19 +115,21 @@ function submitForm(event) {
         data: formData,
         dataType: 'json',
         encode: true,
-        success: function(xhr,response) {
+        success: function(xhr, response) {
             console.log(response)
-            $('#results').text("Successful Submiting the data");
+            $('#results').text("Successful Submitting the data");
+            $('#form-container')[0].reset(); // Clear form inputs
+            displayUsers(); // Refresh the user table
+
+            // Reload only the form section
+            $('#form-container').load(location.href + ' #form-container');
         },
         error: function(xhr, status, error){
-            console.error(xhr.responseText)
-            $('#results').text("Error Submitting the Data")
+            $('#results').text("Error Submitting the Data");
+            console.error("Submission Error: ", xhr.status);
         }
     });
-
-    location.reload();
 }
-
 
 $('#form-container').submit(submitForm);
 

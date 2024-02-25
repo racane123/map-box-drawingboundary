@@ -1,7 +1,11 @@
 <?php
 session_start();
-include_once ('../includes/template.php');
-include ('../includes/otherHeader.php');
+
+
+include('../includes/template.php');
+include('../includes/header.php');
+include('../includes/otherHeader.php');
+
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -40,10 +44,17 @@ include ('../includes/otherHeader.php');
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a  class="nav-link" onclick="loadAnalyticsContent()">
+                <i class="nav-icon fa-solid fa-gauge"></i>
+                <p>
+                  Analytics
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" onclick="loadDashboardContent()">
+            <a  class="nav-link" onclick="loadDashboardContent()">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -61,21 +72,29 @@ include ('../includes/otherHeader.php');
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link" onclick="loadAdminGeoData()">
-              <i class="nav-icon fas fa-globe"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-table"></i>
               <p>
-                Geo Data
-                <i class="right fas fa-angle-right"></i>
+                Table Data
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <!--<ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="#" class="nav-link" onclick='loadAdminGeoData()'>
+                  <i class="nav-icon fas fa-globe"></i>
+                  <p>Geo Data</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="" class="nav-link">
+              <i class="nav-icon fa-solid fa-route"></i>
+              <p>Drivers Route</p>
+              </a>
               </li>
               <li class="nav-item">
               </li>
-              <li class="nav-item">
-              </li>
-            </ul>-->
+            </ul>
           </li>
 
           <li class="nav-item">
@@ -94,6 +113,7 @@ include ('../includes/otherHeader.php');
               <p>
                 Admin Map 2
                 <i class="right fas fa-angle-right"></i>
+                
               </p>
             </a>
           </li>
@@ -137,6 +157,11 @@ include ('../includes/otherHeader.php');
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 
@@ -215,6 +240,24 @@ include ('../includes/otherHeader.php');
         });
     }
 
+
+
+     // Function to analytics
+     function loadAnalyticsContent() {
+        $.ajax({
+            url: '../analytics.php', 
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard
+                $('.content-creation').html(data);
+         
+            },
+            error: function(error) {
+                alert('Error fetching dashboard data:', error);
+            }
+        });
+    }
 
     // Initial load of the dashboard
     loadDashboardContent();

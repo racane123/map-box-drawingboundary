@@ -1,6 +1,6 @@
 <?php
 include ('../db/dbconn.php');
-include '../includes/template.php';
+
 ?>
 <style>
 .parent-alert {

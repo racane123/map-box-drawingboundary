@@ -3,10 +3,6 @@
 
 <body>
 
- <?php
- 
- include ('brgyChart_Table.php');
- ?> 
    
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -17,15 +13,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             
-            <li class="nav-item dropdown">
+
+          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Barangay No.
+               Chloropleth
               </a>
               <ul class="dropdown-menu">
-              <li><a class="dropdown-item" id="barangay179"  data-brgyno="179" onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
-              <li><a class="dropdown-item" id="barangay170"  data-brgyno="170" onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
+              <li><a class="dropdown-item"  onclick="turnOnChloropleth()">Turn on Chloropleth</a></li>
+              <li><a class="dropdown-item"  onclick="turnOffChloropleth()">Turn off Chloropleth</a></li>
               </ul>
             </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                Filter
@@ -58,10 +56,12 @@
     <!-- Map Div-->
     <div class="map" id="map"></div>
     
-
+    <?php
+ include ('brgyChart_Table.php');
+ ?>
 
     <!--start modify feature confirmation Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmModal">
       <div class="modal-dialog">
        <div class="modal-content">
           <div class="modal-header">
@@ -119,8 +119,8 @@
             <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Point</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">POLE,SIGNS,TREE etc..</h6>
+                 
+                 
                   <p class="card-text"><i class="fa-solid fa-location-dot fa-2x "></i></p>
                   <a onclick="startDraw('Point')" class="card-link">Add Point</a>
                 
@@ -131,8 +131,8 @@
             <div class="col-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Line</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Road,River,Sapa etc</h6>
+               
+                 
                   <p class="card-text"><i class="fa-solid fa-road fa-2x"></i></p>
                   <a onclick="startDraw('LineString')" class="card-link">Add Line</a>
                 
@@ -143,8 +143,8 @@
             <div class="col-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Polygon</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Building,Empty Lot etc..</h6>
+             
+                 
                   <p class="card-text"><i class="fa-solid fa-draw-polygon fa-2x"></i></p>
                   <a onclick="startDraw('Polygon')" class="card-link">Add Polygon</a>
                 </div>
@@ -194,13 +194,27 @@
           </div>
       </div>
 
+      
+
+  
+
+
+
+
+
+
+
+
+
+
+
   
     </div><!-- /.container-fluid -->
 
 
   <!--boostrap   js-->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
 
   <!--Custom JS-->
   <script src="..\javascript\main.js"></script>
