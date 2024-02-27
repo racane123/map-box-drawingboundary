@@ -3,13 +3,8 @@ session_start();
 
 
 include('../includes/template.php');
-<<<<<<< HEAD
-include('../includes/otherHeader.php');
-include('../includes/header.php');
-=======
 include('../includes/header.php');
 include('../includes/otherHeader.php');
->>>>>>> otherbranch
 
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -50,27 +45,6 @@ include('../includes/otherHeader.php');
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-<<<<<<< HEAD
-              <a  class="nav-link" onclick="">
-                <i class="nav-icon fa-solid fa-gauge"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link" onclick=''>
-                    <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>Analytics Data</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                </li>
-                <li class="nav-item">
-                </li>
-              </ul>
-=======
               <a  class="nav-link" onclick="loadAnalyticsContent()">
                 <i class="nav-icon fa-solid fa-gauge"></i>
                 <p>
@@ -78,7 +52,6 @@ include('../includes/otherHeader.php');
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
->>>>>>> otherbranch
             </li>
           <li class="nav-item">
             <a  class="nav-link" onclick="loadDashboardContent()">
@@ -114,10 +87,10 @@ include('../includes/otherHeader.php');
                 </a>
               </li>
               <li class="nav-item">
-              <a href="" class="nav-link">
-              <i class="nav-icon fa-solid fa-route"></i>
-              <p>Drivers Route</p>
-              </a>
+                <a href="#" class="nav-link" onclick='loadAdminRoutes()'>
+                  <i class="nav-icon fas fa-globe"></i>
+                  <p>Geo Data</p>
+                </a>
               </li>
               <li class="nav-item">
               </li>
@@ -186,15 +159,11 @@ include('../includes/otherHeader.php');
 <!-- ./wrapper -->
 
 
-<<<<<<< HEAD
-=======
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
-
->>>>>>> otherbranch
 <script>
     // Function to fetch and update dashboard content
     function updateDashboard() {
@@ -288,6 +257,23 @@ include('../includes/otherHeader.php');
             }
         });
     }
+
+    function loadAdminRoutes(){
+      $.ajax({
+            url: 'drivers-route.php', 
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard
+                $('.content-creation').html(data);
+         
+            },
+            error: function(error) {
+                alert('Error fetching dashboard data:', error);
+            }
+        });
+    }
+
 
     // Initial load of the dashboard
     loadDashboardContent();
