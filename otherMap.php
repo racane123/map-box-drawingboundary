@@ -175,11 +175,19 @@
                 <!-- Name and Address fields -->
                 <form id="newDrawn">
                 <div class="form-group">
-                
+
                   <label for="exampleInputtext1">NAME</label>
                   <input type="text" class="form-control" id="exampleInputtext1" name="name" aria-describedby="textHelp">
                   <!-- <small id="textHelp" class="form-text text-muted">Address, Name, etc.</small>-->
                   </div>
+
+                  <div class="form-group">
+
+                  <label for="exampleInputtext1">ADDRESS</label>
+                  <input type="text" class="form-control" id="exampleInputtext3" name="ADDRESS" aria-describedby="textHelp">
+                  <!-- <small id="textHelp" class="form-text text-muted">Address, Name, etc.</small>-->
+                  </div>
+
                   <div class="form-group">
                   <!-- BARANGAY -->
                   <label for="exampleInputtext2">BARANGAY NUMBER</label>

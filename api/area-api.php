@@ -1,6 +1,6 @@
 <?php
 
-include('./db/dbconn.php');
+include('../db/dbconn.php');
 
 // Set response header to JSON
 header('Content-Type: application/json');
@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 // Check if the request method is OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // Allow requests from any origin
-    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Origin: 127.0.0.1:5009');
     // Allow the GET method
     header('Access-Control-Allow-Methods: GET');
     // Allow content type application/json

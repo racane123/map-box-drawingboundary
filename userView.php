@@ -72,7 +72,7 @@ include 'useViewChart_Table.php';
               </a>
               <ul class="dropdown-menu">
               <li><a class="dropdown-item" id="barangay179"  data-brgyno="179" onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
-              <li><a class="dropdown-item" id="barangay170"  data-brgyno="170" onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
+              <li><a class="dropdown-item" id="barangay170"  data-brgyno="171" onclick="viewResidentChart_Table(this)">Barangay 171</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -98,6 +98,18 @@ include 'useViewChart_Table.php';
             </ul>
       
             </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Chloropleth
+              </a>
+              <ul class="dropdown-menu">
+              <li><a class="dropdown-item"  onclick="turnOnChloropleth()">Turn on Chloropleth</a></li>
+              <li><a class="dropdown-item"  onclick="turnOffChloropleth()">Turn off Chloropleth</a></li>
+              </ul>
+            </li>
+
+
             <li>
             <a class="nav-link" href="index.php" role="button" aria-expanded="false">
                Other Map
@@ -377,6 +389,34 @@ var baselayer = new ol.layer.Tile({
     })
 });
 
+
+
+
+var chloroplethLayerSource = new ol.source.Vector();
+ 
+  function turnOnChloropleth(){
+  chloroplethLayerSource.clear(); 
+  fetch('apiFolder/chloropleth.php')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    // Parse the GeoJSON data and add features to the vector source
+    var features = new ol.format.GeoJSON().readFeatures(data);  
+    chloroplethLayerSource.addFeatures(features);
+  })
+  .catch(function (error) {
+    console.error('Error fetching and processing GeoJSON:', error);
+  });
+  }
+
+ function turnOffChloropleth(){
+  chloroplethLayerSource.clear();
+ }
+
+
+
+
 //
 // source para sa featurelayer
 //
@@ -456,6 +496,78 @@ document.getElementById("refreshButton").addEventListener("click", function() {
   // Call the refresh function when the button is clicked
   getallfeature();
  });
+
+
+
+
+
+
+
+
+
+ var chloroplethLayer = new ol.layer.Vector({
+  source: chloroplethLayerSource,
+  style: function(feature){
+    var styles = [];
+
+      var name = feature.get('name'); // Get the name attribute of the feature
+      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
+    
+      var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; // Get the coordinates of the polygon
+      var centroid = calculateCentroid(polygonCoordinates); // Calculate centroid
+    
+      // Define a mapping between feature types and their respective icons
+      var iconMap = { 
+        'Boundary': 'assets/img/barangay.png', 
+      };
+    
+      var iconPath = iconMap[type] || '../assets/img/default.png'; 
+    
+      styles.push(
+        new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 128, 0, 0.2)',
+          }),
+          stroke: new ol.style.Stroke({
+            color: 'green',
+            width: 1,
+          }),
+        }),
+        new ol.style.Style({
+          geometry: new ol.geom.Point(centroid), // Assuming you have calculated centroid
+          image: new ol.style.Icon({
+            src: iconPath,
+            width: 25, // Adjust width and height as needed
+            height: 25,
+          }),
+        }),
+        new ol.style.Style({
+          geometry: new ol.geom.Point(centroid),
+          text: new ol.style.Text({
+            text: name,
+            fill: new ol.style.Fill({
+              color: 'black',
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'white',
+              width: 3,
+            }),
+            offsetX: 0, 
+            offsetY: 20, 
+          }),
+        })
+      );
+    
+
+
+    return styles;
+  }
+
+})
+
+
+
+
 
 
 //
@@ -659,7 +771,7 @@ function calculateCentroid(coordinates) {
 
 
 // Layer array
-var layerArray = [baselayer,featureLayer] 
+var layerArray = [baselayer,featureLayer,chloroplethLayer] 
 
 
 //Map

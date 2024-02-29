@@ -1,0 +1,143 @@
+
+
+
+
+
+
+ $('#loginForm').submit(function(e) {
+        e.preventDefault();
+
+        // Gather form data
+        var formData = $(this).serialize();
+
+        // Check if "Remember Me" checkbox is checked
+        var rememberMe = $('#remember').is(':checked');
+
+        // Send AJAX request
+        $.ajax({
+            url: 'authentication.php',
+            type: 'POST',
+            data: formData + '&remember=' + rememberMe, // Pass remember value to the server
+            dataType: 'json',  // Assuming the response is in JSON format
+            success: function(response) {
+                var alertClass = response.message.includes("successful") ? 'alert-success' : 'alert-danger';
+                var alertHTML = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert" id="Close">' +
+                    response.message +
+                    '<button type="button" class="btn-close text-left" data-bs-dismiss="alert" aria-label="Close" onclick="fClose()">X</button>' +
+                    '</div>';
+
+                $('#background').before(alertHTML);
+
+                if (response.message.includes("successful")) {
+                    // Check the role and redirect accordingly
+                    setTimeout(function (){
+                        if (response.role === 'admin') {
+                            window.location.href="../admin/dashboard.php";
+                        } else if (response.role === 'user') {
+                            window.location.href="../index.php";
+                        } else if(response.role === 'driver'){
+                          window.location.href="../driver/driver-map.php";
+                        }
+                        
+                    }, 2200);
+                }
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+
+
+
+
+    $('#loginForm').submit(function(e) {
+        e.preventDefault();
+
+        // Gather form data
+        var formData = $(this).serialize();
+
+        // Send AJAX request
+        $.ajax({
+            url: 'phpmailer.php',
+            type: 'POST',
+            data: formData, 
+            dataType: 'json',  
+            success: function(response) {
+               console.log(response)
+              
+              // Dynamically add OTP input field
+              var otpField = '<div class="input-group mb-3">' +
+                '<input type="text" class="form-control" id="otp" name="otp" placeholder="OTP Code" required>' +
+                '<div class="input-group-append">' +
+                '<div class="input-group-text">' +
+                '<span class="fas fa-lock"></span>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+              $('#loginForm').append(otpField);
+
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#loginForm').submit(function(e) {
+        e.preventDefault();
+
+        // Gather form data
+        var formData = $(this).serialize();
+
+        // Send AJAX request
+        $.ajax({
+            url: 'phpmailer.php',
+            type: 'POST',
+            data: formData, 
+            dataType: 'json',  
+            success: function(response) {
+               console.log(response)
+              
+              // Dynamically add OTP input field
+              var otpField = '<div class="input-group mb-3">' +
+                '<input type="text" class="form-control" id="otp" name="otp" placeholder="OTP Code" required>' +
+                '<div class="input-group-append">' +
+                '<div class="input-group-text">' +
+                '<span class="fas fa-lock"></span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+
+               '<div class="row">'+
+               '<div class="col-8">'+
+               '<div class="icheck-primary">'+
+               '<input type="checkbox" id="remember">'+
+               '<label for="remember"> Remember Me </label>'+
+               '</div>'+
+               '</div>'+
+               '<div class="col-4">'+
+               '<button type="submit" class="btn btn-primary btn-block">Sign In</button>'+
+               '</div>'+
+               '</div>';
+
+              $('#loginForm').append(otpField);
+
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+    });

@@ -18,6 +18,8 @@
               <ul class="dropdown-menu">
               <li><a class="dropdown-item" id="barangay179"  data-brgyno="179" onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
               <li><a class="dropdown-item" id="barangay171"  data-brgyno="171" onclick="viewResidentChart_Table(this)">Barangay 171</a></li>
+              <li><a class="dropdown-item" id="barangay171"  data-brgyno="170" onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
+              <li><a class="dropdown-item" id="barangay171"  data-brgyno="178" onclick="viewResidentChart_Table(this)">Barangay 178</a></li>
               </ul>
             </li>
           </ul>

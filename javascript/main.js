@@ -881,6 +881,7 @@ function removeViewRes() {
               var type = document.getElementById('typeoffeatures').value;
               var name = document.getElementById('exampleInputtext1').value;
               var barangay_no = document.getElementById('exampleInputtext2').value;
+              var address = document.getElementById('exampleInputtext3').value;
               var geom = JSON.stringify(geojsonFeatureArray[i].geometry);
 
               if (type !== '') {
@@ -920,6 +921,7 @@ function removeViewRes() {
                               typeofgeom: type,
                               nameofgeom: name,
                               barangaynoofgeom: barangay_no,
+                              address: address,
                               stringofgeom: geom
                           },
                           success: function(dataResult) {
