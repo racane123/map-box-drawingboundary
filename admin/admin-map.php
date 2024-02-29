@@ -9,12 +9,14 @@ include('../includes/template.php');
     #routeForm{
         position: absolute;
         top: 20px;
-        left: 20px;
+        left: 280px;
         background-color: white;
         padding: 10px;
         border-radius: 5px;
     }
 </style>
+
+ <!-- Content Wrapper. Contains page content -->
 
 <div id='map'></div>
 

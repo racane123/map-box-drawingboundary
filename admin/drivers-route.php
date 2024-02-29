@@ -8,12 +8,12 @@ require('../includes/template.php');
 <style>
     .card {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         margin-top: 20px; /* Adjust margin as needed */
     }
 </style>
-
+<div class="content-wrapper">
 <div class="card">
     <table id="routesTable" class="table table-striped table-bordered">
         <thead>
@@ -28,7 +28,7 @@ require('../includes/template.php');
         <tbody></tbody>
     </table>
 </div>
-
+</div>
 <script>
     $(document).ready(function() {
         // Function to fetch routes data via AJAX

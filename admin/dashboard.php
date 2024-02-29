@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-
 include('../includes/template.php');
+
 include('../includes/header.php');
 include('../includes/otherHeader.php');
+
 
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -53,6 +54,15 @@ include('../includes/otherHeader.php');
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a  class="nav-link" onclick="loaddriverAdmin()">
+                <i class="nav-icon fa-solid fa-gauge"></i>
+                <p>
+                  Driver Admin 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            </li>
           <li class="nav-item">
             <a  class="nav-link" onclick="loadDashboardContent()">
               <i class="nav-icon fas fa-users"></i>
@@ -87,9 +97,9 @@ include('../includes/otherHeader.php');
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link" onclick='loadAdminRoutes()'>
+                <a href="#" class="nav-link" onclick='loaddrivers()'>
                   <i class="nav-icon fas fa-globe"></i>
-                  <p>Geo Data</p>
+                  <p>Driver Route Table </p>
                 </a>
               </li>
               <li class="nav-item">
@@ -164,6 +174,7 @@ include('../includes/otherHeader.php');
 
 
 
+
 <script>
     // Function to fetch and update dashboard content
     function updateDashboard() {
@@ -203,6 +214,25 @@ include('../includes/otherHeader.php');
             }
         });
     }
+
+
+    // Function to load Admin Geo Data content
+    function loaddrivers() {
+        $.ajax({
+            url: 'drivers-route.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Update the content of the dashboard with Admin Geo Data
+                $('.content-creation').html(data);
+                $('h1').text('Geo Data');
+            },
+            error: function(error) {
+                alert('Error fetching Admin Geo Data:', error);
+            }
+        });
+    }
+
 
     // Function to load Map content
     function loadMap() {
@@ -258,9 +288,11 @@ include('../includes/otherHeader.php');
         });
     }
 
-    function loadAdminRoutes(){
-      $.ajax({
-            url: 'drivers-route.php', 
+
+    // Function to analytics
+    function loaddriverAdmin() {
+        $.ajax({
+            url: 'admin-map.php', 
             method: 'GET',
             dataType: 'html',
             success: function(data) {
@@ -273,7 +305,6 @@ include('../includes/otherHeader.php');
             }
         });
     }
-
 
     // Initial load of the dashboard
     loadDashboardContent();

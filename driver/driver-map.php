@@ -59,6 +59,7 @@ function successLocation(position) {
           return response.json();
         })
         .then(function(data) {
+          console.log(data)
 
           if (data.length > 0 && data[0].coordinates){
             var endPoint = data[0].coordinates; // Assuming 'coordinates' is the key for endpoint coordinates

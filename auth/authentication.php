@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include ('../db/dbconn.php');
 
@@ -24,21 +23,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = mysqli_fetch_assoc($result);
 
     if ($user && password_verify($password, $user['password'])) {
-        // Regenerate session ID after successful login
-        session_regenerate_id(true);
-        
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
-        
-        $response = [
-            'message' => "Login successful! Welcome, $email!",
-            'role' => $user['role'],
-        ];
-        echo json_encode($response);
+        // Check if OTP verification is required
+        if (isset($_SESSION['otp']) && isset($_POST['otp'])) {
+            $otp = $_POST['otp'];
+            // Verify OTP
+            if ($otp == $_SESSION['otp']) {
+                // OTP is correct, proceed with login
+                session_regenerate_id(true);
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role'];
+                $response = [
+                    'message' => "Login successful! Welcome, $email!",
+                    'role' => $user['role'],
+                ];
+                // Remove OTP from session after successful login
+                unset($_SESSION['otp']);
+            } else {
+                $response = ['message' => "Invalid OTP. Please try again."];
+            }
+        } else {
+            $response = ['message' => "OTP verification required."];
+        }
     } else {
         $response = ['message' => "Invalid username or password. Please try again."];
-        echo json_encode($response);
     }
+
+    echo json_encode($response);
 
     mysqli_stmt_close($stmt);
 } else {

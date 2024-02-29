@@ -22,7 +22,7 @@ function viewResidentChart_Table(element){
              var obesityCount = data[0].obesity_count;
 
              var Employed = data[0].employed_count;
-             var UnEmployed = data[0].employed_count;
+             var UnEmployed = data[0].unemployed_count;
               
              // Display total number of residents
              $("#population_data").html(" Barangay " + brgyno + " Total residents: " + data[0].total_residents);

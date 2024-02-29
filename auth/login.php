@@ -60,17 +60,56 @@ if(isset($_SESSION['email'])) {
                 </label>
               </div>
             </div>
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            </div>
+           
           </div>
         </form>
+            <div class="col-4 offset-8">
+            <button class="btn btn-primary btn-block" id="nextButton" onclick= "sendOtp()">NEXT</button>
+            </div>
       </div>
     </div>
   </div>
   <script>
+   function sendOtp(){
+    var email = document.getElementById('email').value;
+    document.getElementById("nextButton").style.display = "none";
+    $.ajax({
+            url: 'phpmailer.php',
+            type: 'POST',
+            data: { email: email},  
+            success: function(response) {
+               console.log(response)
+              
+              // Dynamically add OTP input field
+              var otpField = '<div class="input-group mb-3">' +
+                '<input type="text" class="form-control" id="otp" name="otp" placeholder="OTP Code" required>' +
+                '<div class="input-group-append">' +
+                '<div class="input-group-text">' +
+                '<span class="fas fa-lock"></span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+
+           
+               '<div class="col-4 offset-8">'+
+               '<button type="submit" class="btn btn-primary btn-block">Sign In</button>'+
+               '</div>'+
+               '</div>';
+
+              $('#loginForm').append(otpField);
+              
+
+            },
+            error: function(error) {
+                console.log('Error:', error);
+            }
+        });
+
+   }
+
+
 $(document).ready(function() {
-    $('#loginForm').submit(function(e) {
+  $('#loginForm').submit(function(e) {
         e.preventDefault();
 
         // Gather form data
@@ -113,6 +152,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
 
 function fClose(){
