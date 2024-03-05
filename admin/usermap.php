@@ -147,6 +147,37 @@ map.on('draw.selectionchange', function(event) {
 
 
 map.on('load', function() {
+  fetch('https://group65.towntechinnovations.com/emergency-response.php')
+  .then(response => response.json())
+  .then(data => {
+    // Extract the coordinates from the data and create map markers
+    data.reports.forEach(report => {
+      if (report.location && report.location.coordinates) {
+        var marker = new mapboxgl.Marker()
+          .setLngLat(report.location.coordinates)
+          .addTo(map);
+
+        // Add onclick event to the marker
+        marker.getElement().addEventListener('click', () => {
+          // Create a popup and set its HTML content
+          var popup = new mapboxgl.Popup()
+            .setHTML(
+              `<h3>${report.fullName}</h3>
+              <p>Mobile Number: ${report.mobileNumber}</p>
+              <p>Message: ${report.message}</p>
+              <p>Posting Date: ${report.postingDate}</p>`
+            );
+
+          // Attach the popup to the marker and open it
+          marker.setPopup(popup).togglePopup();
+        });
+      }
+    });
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+  
   fetch('../api/polyapi.php')
     .then(response => response.json())
     .then(data => {
