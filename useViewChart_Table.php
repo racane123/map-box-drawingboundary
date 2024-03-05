@@ -1,6 +1,6 @@
 <!-- VIEW RESIDENT CHART AND TABLE -->
 <div class="modal fade" id="viewResidentChart_Table" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
- <div class="modal-dialog modal-lg"> <!-- Use modal-lg class for large size -->
+ <div class="modal-dialog modal-lg" style="max-width: 90%;"> 
    <div class="modal-content">
      
                <!-- Modal Header -->
@@ -31,6 +31,16 @@
                    <canvas id="myChart2" width="500" height="400"></canvas>
                  </div>
                </div>
+
+                <!-- VIEW Employed Above 26 -->
+                <div class="card" style="width: 20rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Employed Above 26</h5>
+                            <hr>
+                            <canvas id="myChart3" width="300" height="300"></canvas>
+                        </div>
+                        </div>
+
              </div>
            </div>
 

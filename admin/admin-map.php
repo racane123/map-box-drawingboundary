@@ -1,5 +1,6 @@
 <?php
 include('../includes/template.php');
+
 ?>
 
 <style>

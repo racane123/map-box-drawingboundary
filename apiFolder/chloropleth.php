@@ -14,14 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     barangay.barangay_no,
     ST_AsGeoJSON(barangay.geom) as geometry,
     barangay.brgy_id
-    FROM barangay
-    INNER JOIN residents ON barangay.barangay_no = residents.brgy_no
-   
-    GROUP BY
+FROM 
+    barangay
+LEFT JOIN 
+    residents ON barangay.barangay_no = residents.brgy_no
+GROUP BY
     barangay.Type,
     barangay.Name,
     barangay.barangay_no,
-    barangay.brgy_id";
+    barangay.brgy_id;";
 
     
     $result = $dbconn->query($query);

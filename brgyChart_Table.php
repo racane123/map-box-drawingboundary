@@ -94,7 +94,7 @@
       
       <!-- Modal Footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel" onclick="removeViewRes()">Back</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel" onclick="removeViewRes()">Close</button>
   
       </div>
       
@@ -140,12 +140,33 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel" onclick="removeViewRes()">Close</button>
-        <button type="button" class="btn btn-primary" onclick="saveResidentChanges()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveResidentChanges()">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
+
+<!-- Edit delete resident info -->
+<div class="modal fade" id="deleteinfo" tabindex="-1" role="dialog" aria-labelledby="deleteinfoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+      </div>
+      <div class="modal-body">
+      <h5 class="modal-title" id="deleteinfoLabel">Deleting Resident, are you sure?..</h5>
+        <form id="deleteinfoForm">
+        <input type="hidden" id="deleteResidentID" name="ResidentID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel" onclick="removeViewRes()">Close</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="deleteResident()">Delete Resident</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -179,7 +200,7 @@
 </div>
       <!-- Modal Footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelViewMoreShopInfo" onclick="removeViewRes()">Back</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelViewMoreShopInfo">Back</button>
       </div>
     </div>
   </div>
@@ -215,10 +236,11 @@
       </select>
   </div>
     
-    <div class="form-group">
-      <label for="file">Upload Permit</label>
-      <input type="file" class="form-control-file" id="O_permit" name="file">
-  </div>
+      <div class="form-group">
+      <label for="file">Upload Permit (PDF only)</label>
+      <input type="file" class="form-control-file" id="O_permit" name="file" accept="application/pdf">
+      </div>
+
 
     <input type="hidden" id="shop_barangayNo">
     <input type="hidden" id="shop_featureID">
@@ -231,6 +253,30 @@
         <button type="button" class="btn btn-primary" id="saveButton" onclick="saveShopInfotodb()" >Save</button>
       </div>
       
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Edit deleteOwner info -->
+<div class="modal fade" id="deleteOwner" tabindex="-1" role="dialog" aria-labelledby="deleteOwnerLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+      </div>
+      <div class="modal-body">
+      <h5 class="modal-title" id="deleteOwnerLabel">Deleting Shop Owner are you sure?..</h5>
+        <form id="deleteOwnerForm">
+        <input type="hidden" id="deleteOwnerID" name="OwnerID">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Close</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="deleteOwner()">Delete Owner</button>
+      </div>
     </div>
   </div>
 </div>

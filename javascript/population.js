@@ -4,6 +4,13 @@ function viewResidentChart_Table(element){
      console.log(brgyno)
    
 
+     var ctx1 = document.getElementById('myChart').getContext('2d');
+     var ctx2 = document.getElementById('myChart2').getContext('2d');
+     var ctx3 = document.getElementById('myChart3').getContext('2d');
+     ctx1.clearRect(0, 0, ctx1.canvas.width, ctx1.canvas.height);
+     ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
+     ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
+
  $.ajax({
      url: "../apiFolder/brgy"+brgyno+"api.php",
      type: "GET",
@@ -29,8 +36,8 @@ function viewResidentChart_Table(element){
              
 
              // Use maleCount and femaleCount in Chart.js data
-             var ctx = document.getElementById('myChart').getContext('2d');
-             var myChart = new Chart(ctx, {
+             var ctx1 = document.getElementById('myChart').getContext('2d');
+             var myChart = new Chart(ctx1, {
                  type: 'bar',
                  data: {
                      labels: ['Male', 'Female'],
@@ -59,8 +66,8 @@ function viewResidentChart_Table(element){
                  }
              });
              
-             var ctx = document.getElementById('myChart2').getContext('2d');
-             var chart = new Chart(ctx, {
+             var ctx2 = document.getElementById('myChart2').getContext('2d');
+             var chart = new Chart(ctx2, {
                 type: 'bar',
              data: {
                     labels: ['Underweight', 'Normal weight','Overweight','Obesity'],
@@ -87,8 +94,8 @@ function viewResidentChart_Table(element){
 
 
 
-             var ctx = document.getElementById('myChart3').getContext('2d');
-             var chart = new Chart(ctx, {
+             var ctx3 = document.getElementById('myChart3').getContext('2d');
+             var chart = new Chart(ctx3, {
                 type: 'bar',
              data: {
                     labels: ['Employed', 'UnEmployed'],

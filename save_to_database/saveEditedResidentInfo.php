@@ -10,7 +10,7 @@ $height = $_POST['height'];
 $weight = $_POST['weight'];
 
 $add_query = $dbconn->prepare("UPDATE residents SET name=?, age=?, gender=?, height=?, weight=? WHERE ResidentID=?");
-$add_query->bind_param("sisiii", $name, $age, $gender, $height, $weight, $ResidentID); // 'sisiii' indicates string, integer, integer, integer, integer, integer data types
+$add_query->bind_param("sisiii", $name, $age, $gender, $height, $weight, $ResidentID); 
 
 // Execute the prepared statement
 if ($add_query->execute()) {

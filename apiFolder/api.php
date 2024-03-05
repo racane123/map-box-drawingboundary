@@ -1,7 +1,8 @@
 <?php
+
 include ('../db.php');
 
-header('Access-Control-Allow-Origin: http://trygis.infinityfreeapp.com/');
+header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Methods: GET');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -9,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['type'])) {
         // Sanitize the input to prevent SQL injection
         $type = $dbconn->real_escape_string($_GET['type']);
+      
         
-        // Query with type filter
         $query = "SELECT type, name, baranggay_no, ST_AsGeoJSON(geom) as geometry, feature_id  
                   FROM featuredrawn 
                   WHERE type = '$type'";

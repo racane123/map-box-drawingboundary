@@ -1,5 +1,11 @@
 <?php
 session_start();
+if(!isset($_SESSION['email'])){
+  
+    header('Location:..\auth\login.php');
+    exit();
+}
+
 
 include('../includes/template.php');
 
@@ -10,6 +16,7 @@ include('../includes/otherHeader.php');
 ?>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
+
 <div class="wrapper">
  
   <!-- Main Sidebar Container -->
@@ -148,7 +155,7 @@ include('../includes/otherHeader.php');
   </aside>
 
   
-
+          
     <!-- Main content -->
     <section class="content-creation">
 
@@ -156,6 +163,7 @@ include('../includes/otherHeader.php');
 
 
     </section>
+ 
     <!-- /.content -->
 </div>
   <!-- /.content-wrapper -->

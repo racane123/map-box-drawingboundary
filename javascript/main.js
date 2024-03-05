@@ -6,22 +6,23 @@ var feature_id
 
 var selectInt
 var modi
-var snapi
+
 var editdrawLayer
 
 var draw
-var snapii
+
 
 var FlagisDrawingOn = false
 var FlagisModifyOn = false
+var FlagisDeleteOn = false
 
-var PointType = ['Street Light','Signs','Tree']
+var PointType = ['Street Light','Tricycle Station','Jeepney Station','Bus Station','Signs','Tree']
 var LineType = ['Street','Sapa','National Highway','StateHighway',]
-var PolygonType = ['Residential','School','Church','Police Station','Barangay Station','Clinic','Karinderya','BarberShop','MilkTea Shop','Repair Shop','Empty Lot','Playground','Boundary','Evacuation Area']
+var PolygonType = ['Residential','School','Church','Police Station','Barangay Station','Gas Station','Clinic','Karinderya','Basketball Court','Pharmacy','SariSari Store','Waiting Shed','Convenience Store','Grocery Store','Chicken Meat Shop','Pet Food Shop','Market','BarberShop','MilkTea Shop','Repair Shop','Empty Lot','Park','Boundary','Evacuation Area']
 var selectedGeomType
 
 
-// custom control
+// FOR DRAWING FEATURES BUTTON
 window.apps = {};
  var apps = window.apps;
 
@@ -46,7 +47,7 @@ window.apps = {};
     
        }else {
             map.removeInteraction(draw)
-            map.removeInteraction(snapii) 
+          
             FlagisDrawingOn = false
             document.getElementById('drawbtn').innerHTML = '<i class="fa-solid fa-pen-ruler"></i>'
             defineTypeoffeature()
@@ -70,7 +71,7 @@ window.apps = {};
  ol.inherits(apps.DrawingApp, ol.control.Control);
 
 
-// custom control
+// FOR MODIFY FEATURE BUTTON 
 window.appss = {};
 var appss = window.appss;
 
@@ -97,7 +98,7 @@ appss.ModifyFeatureApp = function(opt_options) {
            map.removeLayer(editdrawLayer)
            map.removeInteraction(selectInt)
            map.removeInteraction(modi)
-           map.removeInteraction(snapi)
+  
            
            editSource.clear()        
            document.getElementById('editbtn').innerHTML = '<i class="fa-solid fa-pen-to-square"></i>'
@@ -109,7 +110,7 @@ appss.ModifyFeatureApp = function(opt_options) {
   button.addEventListener('touchstart', startStopApp, false);
 
   var element = document.createElement('div');
-  element.className = 'modify-app ol-control ol-bar ol-left';
+  element.className = 'modify-app ol-control ol-bar ol-top ol-left';
   element.appendChild(button);
 
   ol.control.Control.call(this, {
@@ -120,7 +121,56 @@ appss.ModifyFeatureApp = function(opt_options) {
 };
 ol.inherits(appss.ModifyFeatureApp, ol.control.Control);
 
+// FOR DELETE FEATURE BUTTON
 
+window.app = {};
+var app = window.app;
+
+/**
+ * @constructor
+ * @extends {ol.control.Control}
+ * @param {Object=} opt_options Control options.
+ */
+app.DeleteFeatureApp = function(opt_options) {
+
+  var options = opt_options || {};
+
+  var button = document.createElement('button');
+  button.id = 'dltbtn'
+  button.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+
+  var this_ = this;
+  var startStopApp = function() {
+      if (FlagisDeleteOn == false){
+        $('#confirmDeleteModal').modal('show')
+      }else {
+       
+           FlagisDeleteOn = false
+           map.removeLayer(editdrawLayer)
+           map.removeInteraction(selectInt)
+           map.removeInteraction(modi)
+  
+           
+           editSource.clear()        
+           document.getElementById('dltbtn').innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>'
+           $('#confirmDeleteFeatureModal').modal('show')
+      }
+  };
+
+  button.addEventListener('click', startStopApp, false);
+  button.addEventListener('touchstart', startStopApp, false);
+
+  var element = document.createElement('div');
+  element.className = 'delete-app ol-control ol-bar ol-left ol-group';
+  element.appendChild(button);
+
+  ol.control.Control.call(this, {
+    element: element,
+    target: options.target
+  });
+
+};
+ol.inherits(app.DeleteFeatureApp, ol.control.Control);
 
 
 
@@ -134,7 +184,7 @@ ol.inherits(appss.ModifyFeatureApp, ol.control.Control);
 // view
 //
 var cityCenter = [13473779.769599514, 1659650.641159134];
-var radius = 5000; 
+var radius = 8000; 
 var extent = [
   cityCenter[0] - radius, 
   cityCenter[1] - radius, 
@@ -210,6 +260,8 @@ var featureLayerSource = new ol.source.Vector();
   chloroplethLayerSource.clear();
  }
 
+// POLYGONS
+
 function featureIdbyType(featureType){
   featureLayerSource.clear();
   fetch('../apiFolder/api.php?type=' + featureType)
@@ -226,7 +278,6 @@ function featureIdbyType(featureType){
   });  
 }
 
-// 
 function getallfeature(){
   featureLayerSource.clear();
   fetch('../apiFolder/api.php?')
@@ -245,6 +296,7 @@ function getallfeature(){
 
 
 document.getElementById('getallfeature').addEventListener('click',function(){ getallfeature() })
+document.getElementById('getallfeatures').addEventListener('click',function(){ getallfeature() })
 document.getElementById('Residential').addEventListener('click',function(){ featureIdbyType('Residential') })
 document.getElementById('BarberShop').addEventListener('click',function(){ featureIdbyType('BarberShop') })
 document.getElementById('School').addEventListener('click',function(){ featureIdbyType('School') })
@@ -254,11 +306,29 @@ document.getElementById('Barangay Station').addEventListener('click',function(){
 document.getElementById('Clinic').addEventListener('click',function(){ featureIdbyType('Clinic') }) 
 document.getElementById('Karinderya').addEventListener('click',function(){ featureIdbyType('Karinderya') }) 
 document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('MilkTea Shop') }) 
+document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('SariSari Store') }) 
+document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('Market') }) 
 document.getElementById('Repair Shop').addEventListener('click',function(){ featureIdbyType('Police Station') }) 
 document.getElementById('Empty Lot').addEventListener('click',function(){ featureIdbyType('Empty Lot') }) 
 document.getElementById('Playground').addEventListener('click',function(){ featureIdbyType('Playground') }) 
-document.getElementById('Boundary').addEventListener('click',function(){ featureIdbyType('Boundary') })  
-document.getElementById('Evacuation Area').addEventListener('click',function(){ featureIdbyType('Evacuation Area') })  
+document.getElementById('Evacuation Area').addEventListener('click',function(){ featureIdbyType('Evacuation Area') })
+
+document.getElementById('Chicken Meat Shop').addEventListener('click',function(){ featureIdbyType('Chicken Meat Shop') })
+document.getElementById('Gas Station').addEventListener('click',function(){ featureIdbyType('Gas Station') })
+document.getElementById('Pet Food Shop').addEventListener('click',function(){ featureIdbyType('Pet Food Shop') })
+document.getElementById('Convenience Store').addEventListener('click',function(){ featureIdbyType('Convenience Store') })
+document.getElementById('Grocery Store').addEventListener('click',function(){ featureIdbyType('Grocery Store') })
+document.getElementById('SariSari Store').addEventListener('click',function(){ featureIdbyType('SariSari Store') })
+document.getElementById('Pharmacy').addEventListener('click',function(){ featureIdbyType('Pharmacy') })
+document.getElementById('Market').addEventListener('click',function(){ featureIdbyType('Market') })
+
+//point filter
+document.getElementById('Street Light').addEventListener('click',function(){ featureIdbyType('Street Light') })
+document.getElementById('Sign').addEventListener('click',function(){ featureIdbyType('Signs') })
+document.getElementById('Tricycle Station').addEventListener('click',function(){ featureIdbyType('Tricycle Station') })
+document.getElementById('Jeepney Station').addEventListener('click',function(){ featureIdbyType('Jeepney Station') })
+document.getElementById('Bus Station').addEventListener('click',function(){ featureIdbyType('Bus Station') })
+
 
 
 document.getElementById("refreshButton").addEventListener("click", function() {
@@ -346,25 +416,28 @@ var featureLayer = new ol.layer.Vector({
     var styles = [];
 
     if (geometry === 'Point') {
-      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
+      var type = feature.get('type'); 
       
       // Define a mapping between feature types and their respective icons
       var iconMap = {
           'Street Light': '../assets/img/streetlight.png',
           'Signs': '../assets/img/streetsign.png',
-          // Add more mappings as needed
+          'Signs': '../assets/img/streetsign.png',
+          'Tricycle Station': '../assets/img/tricycle.png',
+          'Jeepney Station': '../assets/img/jeep.png',
+          'Bus Station': '../assets/img/bus.png',
       };
   
-      // Determine the icon path based on feature type
-      var iconPath = iconMap[type] || '../assets/img/default.png'; // Default icon if type is not found
   
-      // Create a new style object for the point feature
+      var iconPath = iconMap[type] || '../assets/img/default.png'; 
+  
+   
       var pointStyleIcon = new ol.style.Style({
           image: new ol.style.Icon({
               src: iconPath,
-              // Adjust icon properties as needed
-              scale: 0.4, // Example scale adjustment
-              anchor: [0.67, 0.89] // Anchor at the middle bottom of the icon
+             
+              scale: 0.4, 
+              anchor: [0.67, 0.89]
           })
       })
       var pointStyle = new ol.style.Style({
@@ -441,66 +514,82 @@ if (map.getView().getResolution() >= minResolutionToShow &&
   
     
 } else if (geometry === 'Polygon') {
-      var name = feature.get('name'); // Get the name attribute of the feature
-      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
-    
-      var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; // Get the coordinates of the polygon
-      var centroid = calculateCentroid(polygonCoordinates); // Calculate centroid
-    
-      // Define a mapping between feature types and their respective icons
-      var iconMap = {
-        'Residential': '../assets/img/residential.png',
-        'School': '../assets/img/school.png',
-        'Church': '../assets/img/church.png',
-        'Police Station': '../assets/img/policestation.png',
-        'Barangay Station': '../assets/img/barangay.png',
-        'Clinic': '../assets/img/clinic.png',
-        'Karinderya': '../assets/img/karinderya.png',
-        'BarberShop': '../assets/img/barbershop.png',
-        'MilkTea Shop': '../assets/img/milkteashop.png',
-        'Repair Shop': '../assets/img/repairshop.png'
-        
-        
-      };
-    
-    
-      var iconPath = iconMap[type] || '../assets/img/default.png'; 
-    
-      styles.push(
-        new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: 'rgba(0, 128, 0, 0.2)',
-          }),
-          stroke: new ol.style.Stroke({
-            color: 'green',
-            width: 1,
-          }),
+  var name = feature.get('name'); 
+  var type = feature.get('type'); 
+  var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; 
+  var centroid = calculateCentroid(polygonCoordinates);
+
+  var polygonExtent = feature.getGeometry().getExtent();
+  var polygonWidth = Math.abs(polygonExtent[0] - polygonExtent[2]);
+  var polygonHeight = Math.abs(polygonExtent[1] - polygonExtent[3]);
+  var maxSize = 30; 
+  var sizeFactor = Math.min(polygonWidth, polygonHeight) / Math.max(polygonWidth, polygonHeight);
+  var iconSize = Math.round(sizeFactor * maxSize);
+
+  // Define a mapping between feature types and their respective icons
+  var iconMap = {
+    'Residential': '../assets/img/residential.png',
+    'School': '../assets/img/school.png',
+    'Church': '../assets/img/church.png',
+    'Police Station': '../assets/img/policestation.png',
+    'Barangay Station': '../assets/img/barangay.png',
+    'Clinic': '../assets/img/clinic.png',
+    'Karinderya': '../assets/img/karinderya.png',
+    'BarberShop': '../assets/img/barbershop.png',
+    'MilkTea Shop': '../assets/img/milkteashop.png',
+    'Repair Shop': '../assets/img/repairshop.png',
+    'SariSari Store': '../assets/img/karinderya.png',
+    'Gas Station': '../assets/img/gas-station.png',
+    'Market': '../assets/img/market.png',
+    'Chicken Meat Shop': '../assets/img/chicken.png',
+    'Pet Food Shop': '../assets/img/pet-shop.png',
+    'Convenience Store': '../assets/img/convenience-store .png',
+    'Grocery Store': '../assets/img/store.png',
+    'Pharmacy': '../assets/img/pharmacy.png',
+    'Waiting Shed': '../assets/img/waiting shed.png',
+    'Basketball Court': '../assets/img/basketball-court.png',
+    'Park': '../assets/img/park.png',
+  };
+
+  var iconPath = iconMap[type] || '../assets/img/default.png';
+
+  styles.push(
+    new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: 'rgba(0, 128, 0, 0.2)',
+      }),
+      stroke: new ol.style.Stroke({
+        color: 'green',
+        width: 1,
+      }),
+    }),
+    new ol.style.Style({
+      geometry: new ol.geom.Point(centroid), 
+      image: new ol.style.Icon({
+        src: iconPath,
+        scale: iconSize / 50,
+      }),
+    }),
+    new ol.style.Style({
+      geometry: new ol.geom.Point(centroid),
+      text: new ol.style.Text({
+        text: name,
+        fill: new ol.style.Fill({
+          color: 'black',
         }),
-        new ol.style.Style({
-          geometry: new ol.geom.Point(centroid), // Assuming you have calculated centroid
-          image: new ol.style.Icon({
-            src: iconPath,
-            width: 25, // Adjust width and height as needed
-            height: 25,
-          }),
+        stroke: new ol.style.Stroke({
+          color: 'white',
+          width: 1,
         }),
-        new ol.style.Style({
-          geometry: new ol.geom.Point(centroid),
-          text: new ol.style.Text({
-            text: name,
-            fill: new ol.style.Fill({
-              color: 'black',
-            }),
-            stroke: new ol.style.Stroke({
-              color: 'white',
-              width: 3,
-            }),
-            offsetX: 0, 
-            offsetY: 20, 
-          }),
-        })
-      );
-    }
+        font: '8px Arial', 
+        offsetX: 0,
+        offsetY: 13,
+      }),
+    })
+    
+  );
+}
+
     
     return styles;
   },
@@ -523,7 +612,7 @@ function calculateCentroid(coordinates) {
  
  // Popup overlay with popupClass=anim
  var popup = new ol.Overlay.Popup ({
-  popupClass: "default anim", //"tooltips", "warning" "black" "default", "tips", "shadow",
+  popupClass: "default anim", 
   closeBox: true,
   onclose: function(){ console.log("You close the box"); },
   positioning: 'auto',
@@ -574,7 +663,8 @@ var map = new ol.Map({
         }
       }).extend([
         new apps.DrawingApp(),
-        new appss.ModifyFeatureApp()
+        new appss.ModifyFeatureApp(),
+        new app.DeleteFeatureApp()
       ]),
 
     target:'map',
@@ -651,15 +741,12 @@ select.getFeatures().on(['add'], function (e) {
 
     if( type === 'Boundary'){
       var content = 
-      '<b> TYPE </b>:' + feature.get("type") +
-      '</br> <b> NAME </b>:' + feature.get("name") +
       '</br> <b> NAME </b>:' + feature.get("name") +
       '</br><b> BRGY </b>:' + feature.get("barangay_no");
     }else {
       var content = 
       '<b> TYPE </b>:' + feature.get("type") +
       '</br> <b> NAME </b>:' + feature.get("name") +
-      '</br> <b> Feature ID </b>:' + feature.get("feature_id")+
       '</br><b> BRGY </b>:' + feature.get("baranggay_no");
     }
          
@@ -739,7 +826,7 @@ popup.show(coordinates, content);
                           <td>${shopinfo.O_age}</td>
                           <td>${shopinfo.O_gender}</td>
                           <td><a href="data:application/pdf;base64,${shopinfo.O_permit}" download="permit.pdf">Download Permit</a></td>
-                          <td><button class="btn btn-primary" data-toggle="modal" data-target="#editinfo" onclick="editResident('${shopinfo.O_name}', '${shopinfo.O_age}', '${shopinfo.O_gender}','${shopinfo.O_permit}')">Edit</button></td>
+                          <td><button class="btn btn-primary" data-toggle="modal" data-target="#deleteOwner" onclick="editShopInfo('${shopinfo.OwnerID}')">Delete</button></td>
 
                           
                       `;
@@ -778,12 +865,14 @@ popup.show(coordinates, content);
               data.forEach(resident => {
                   var row = document.createElement('tr');
                   row.innerHTML = `
+               
                       <td>${resident.name}</td>
                       <td>${resident.age}</td>
                       <td>${resident.gender}</td>
                       <td>${resident.height}</td>
                       <td>${resident.weight}</td>
                       <td><button class="btn btn-primary" data-toggle="modal" data-target="#editinfo" onclick="editResident(${resident.ResidentID}, '${resident.name}', ${resident.age}, '${resident.gender}', ${resident.height}, ${resident.weight})">Edit</button></td>
+                      <td><button class="btn btn-secondary" data-toggle="modal" data-target="#deleteinfo" onclick="deleteResidentbyID(${resident.ResidentID})">Delete</button></td>
                   `;
                   tableBody.appendChild(row);
               });
@@ -811,9 +900,12 @@ select.getFeatures().on(['remove'], function (e) {
 
 
 function removeViewRes() {
-  $('#viewresident').modal('hide');
   $('#editinfo').modal('hide');
+  $('#deleteinfo').modal('hide');
   $('#myModals').modal('hide');
+  $('#deleteOwner').modal('hide');
+  $('#viewresident').modal('hide');
+  $('#viewMoreShopInfo').modal('hide'); 
   //$('#resident-table tbody').empty(); // Clear the table body
 }
 
@@ -825,14 +917,7 @@ function removeViewRes() {
               source:drawSource
           }) 
         $('#startdrawModal').modal('hide')
-
-        var snapii = new ol.interaction.SnapGuides({ 
-          vectorClass: ol.layer.VectorImage 
-        });
-        snapii.enableInitialGuides_ = true;
-        snapii.setDrawInteraction(draw);
         map.addInteraction(draw)
-        map.addInteraction(snapii);
         
         FlagisDrawingOn = true
         document.getElementById('drawbtn').innerHTML = '<i class="fa-solid fa-circle-stop"></i>'
@@ -881,7 +966,7 @@ function removeViewRes() {
               var type = document.getElementById('typeoffeatures').value;
               var name = document.getElementById('exampleInputtext1').value;
               var barangay_no = document.getElementById('exampleInputtext2').value;
-              var address = document.getElementById('exampleInputtext3').value;
+             var address = document.getElementById('exampleInputtext3').value;
               var geom = JSON.stringify(geojsonFeatureArray[i].geometry);
 
               if (type !== '') {
@@ -985,15 +1070,10 @@ function removeViewRes() {
           
       $('#confirmModal').modal('hide')
 
-      var snapi = new ol.interaction.SnapGuides({ 
-        vectorClass: ol.layer.VectorImage 
-      });
-      
-      snapi.enableInitialGuides_ = true;
-      snapi.setModifyInteraction(modi);
+   
       map.addInteraction(modi);
       map.addInteraction(selectInt);
-      map.addInteraction(snapi);
+     
 
       FlagisModifyOn = true
       document.getElementById('editbtn').innerHTML = '<i class="fa-solid fa-circle-stop"></i>'
@@ -1032,7 +1112,85 @@ function removeViewRes() {
       //close the modal
       $('#confirmFeatureModal').modal('hide')
 
-      refresh()
+      getallfeature()
+      }
+
+
+
+
+
+      // FUNCTION TO START delete FEATURES
+      function startdelete(){
+        var editdrawLayer = new ol.layer.Vector({
+          source : editSource,  
+          wrapX: false
+      })
+        map.addLayer(editdrawLayer);
+
+        selectInt = new ol.interaction.Select({
+          wrapX: false  });
+        modi = new ol.interaction.Modify({
+          features: selectInt.getFeatures()  });
+        modi.on('modifyend', function(e) {
+          var features = e.features.getArray();
+          console.log("num of fetaures",features.length);
+          for (var i=0;i<features.length;i++){
+          console.log("feature revision",features[i].getRevision())
+          }
+          console.log(features)
+          var geoJSONformat = new ol.format.GeoJSON();
+          var featuresGeojson = geoJSONformat.writeFeaturesObject(features);
+          var geojsonFeatureArray = featuresGeojson.features;
+          console.log(geojsonFeatureArray)
+          for (var i = 0; i < geojsonFeatureArray.length; i++) {
+          geoms = JSON.stringify(geojsonFeatureArray[i].geometry);
+          console.log(geoms);
+          feature_id = geojsonFeatureArray[i].properties.feature_id;
+          console.log("Feature ID:", feature_id);
+            
+        }    
+          })
+          
+      $('#confirmDeleteModal').modal('hide')
+
+      map.addInteraction(modi);
+      map.addInteraction(selectInt);
+
+      FlagisDeleteOn = true
+      document.getElementById('dltbtn').innerHTML = '<i class="fa-solid fa-circle-stop"></i>'
+      }
+
+// SAVE MODIFIED FEATURE TO DATABASE
+      function saveDeletetodb() {
+        var Id = feature_id
+        console.log(Id)
+        
+            $.ajax({
+                url: '../save_to_database/saveDeletemodi.php',
+                type: 'POST',
+                data: {
+                    feature_id_ofgeom: Id,                         
+                },
+                success: function(dataResult) {
+                  try {
+                      var result = JSON.parse(dataResult);
+                      console.log(result); // Log the entire parsed result
+              
+                      if (result.statusCode === 200) {
+                          console.log(' feature updated successfully');
+                      } else {
+                          console.log(' feature not updated successfully');
+                      }
+                  } catch (e) {
+                      console.error('Error parsing JSON:', e);
+                      console.log('Original dataResult:', dataResult);
+                  }
+              }
+            });
+      //close the modal
+      $('#confirmDeleteFeatureModal').modal('hide')
+
+      getallfeature()
       }
 
 // Function to handle editing resident info
@@ -1152,46 +1310,132 @@ function editResident(id, name, age, gender, height, weight) {
         $('#myModals').modal('hide');
       }
 
-// SAVE ADDED SHOP INFO TO DB
-      function saveShopInfotodb() {
-        // Get form data
-        var O_name = $("#O_name").val();
-        var O_age = parseInt($("#O_age").val());
-        var O_gender = $("#O_gender").val();
-        var O_permit = $("#O_permit").val();
-        var O_barangay_no = $("#shop_barangayNo").val(); 
-        var O_feature_id = $("#shop_featureID").val();
 
-        $.ajax({
-          type: "POST",
-          url: "../save_to_database/saveShopInfo.php",
-          data: {
-            O_name : O_name,
-            O_age: O_age,
-            O_gender: O_gender,
-            O_permit: O_permit,
-            O_barangay_no: O_barangay_no,
-            O_feature_id:O_feature_id,
-          },
-          success: function(dataResult) {
-            try {
-                var result = JSON.parse(dataResult);
-                console.log(result); // Log the entire parsed result
-        
-                if (result.statusCode === 200) {
-                  showToast('success', 'Feature updated successfully');
-              } else {
-                  showToast('error', 'Feature not updated successfully');
-              }
-            } catch (e) {
-                console.error('Error parsing JSON:', e);
-                console.log('Original dataResult:', dataResult);
-            }
+// Function to handle deleting resident info
+function deleteResidentbyID(ResidentID) {
+  document.getElementById('deleteResidentID').value = ResidentID;
+  $('#deleteinfo').modal('show');
+  $('#viewresident').modal('hide'); 
+}
+
+function deleteResident(){
+  var ResidentID = $("#deleteResidentID").val();
+  console.log(ResidentID);
+
+
+  // Send AJAX request
+  $.ajax({
+    type: "POST",
+    url: "../save_to_database/deleteResident.php",
+    data: {ResidentID: ResidentID,
+    },
+    success: function(dataResult) {
+      try {
+        var result = JSON.parse(dataResult);
+        console.log(result); // Log the entire parsed result
+
+        if (result.statusCode === 200) {
+          showToast('success', 'Resident Deleted Successfully');
+        } else {
+          showToast('error', 'Resident Deleted Unsuccessfully');
         }
-
-        });
-        $('#addShopInfo').modal('hide');
+      } catch (e) {
+        console.error('Error parsing JSON:', e);
+        console.log('Original dataResult:', dataResult);
       }
+    
+    }
+   
+  });
+  $('#deleteinfo').modal('hide');
+}
+
+// Function to handle editing shop info
+function editShopInfo(OwnerID) {
+  document.getElementById('deleteOwnerID').value = OwnerID;
+  $('#viewMoreShopInfo').modal('hide'); 
+ 
+  
+}
+
+function deleteOwner(){
+  var OwnerID = $("#deleteOwnerID").val();
+  console.log(OwnerID);
+
+    // Send AJAX request
+    $.ajax({
+      type: "POST",
+      url: "../save_to_database/deleteOwner.php",
+      data: {Owner_ID: OwnerID,
+      },
+      success: function(dataResult) {
+        try {
+          var result = JSON.parse(dataResult);
+          console.log(result); // Log the entire parsed result
+  
+          if (result.statusCode === 200) {
+            showToast('success', 'Shop Owner Deleted Successfully');
+          } else {
+            showToast('error', 'Shop Owner Deleted Unsuccessfully');
+          }
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+          console.log('Original dataResult:', dataResult);
+        }
+      
+      }
+
+    });
+
+}
+
+
+
+// SAVE ADDED SHOP INFO TO DB
+function saveShopInfotodb() {
+  // Get form data
+  var O_name = $("#O_name").val();
+  var O_age = parseInt($("#O_age").val());
+  var O_gender = $("#O_gender").val();
+  var O_permit = $("#O_permit")[0].files[0]; // Access the file input and get the first file
+  var O_barangay_no = $("#shop_barangayNo").val(); 
+  var O_feature_id = $("#shop_featureID").val();
+
+  // Create FormData object to send file data along with other form data
+  var formData = new FormData();
+  formData.append("O_name", O_name);
+  formData.append("O_age", O_age);
+  formData.append("O_gender", O_gender);
+  formData.append("O_permit", O_permit);
+  formData.append("O_barangay_no", O_barangay_no);
+  formData.append("O_feature_id", O_feature_id);
+
+  // Send AJAX request
+  $.ajax({
+    type: "POST",
+    url: "../save_to_database/saveShopInfo.php",
+    data: formData,
+    contentType: false, 
+    processData: false, 
+    success: function(dataResult) {
+      try {
+        var result = JSON.parse(dataResult);
+        console.log(result); // Log the entire parsed result
+
+        if (result.statusCode === 200) {
+          showToast('success', 'Feature updated successfully');
+        } else {
+          showToast('error', 'Feature not updated successfully');
+        }
+      } catch (e) {
+        console.error('Error parsing JSON:', e);
+        console.log('Original dataResult:', dataResult);
+      }
+    }
+  });
+
+  $('#addShopInfo').modal('hide');
+}
 
 // FUNCTION TO SHOW NOTIFICATION/TOAST
       function showToast(type, message) {

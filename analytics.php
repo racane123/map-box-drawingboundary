@@ -4,28 +4,35 @@
 
 <div class="content-wrapper"  style="padding-left:20px;">
 
-<!--navbar-->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+         <!--navbar-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             
-
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Select - Barangay Chart/Table.
+              Select Barangay 
               </a>
-              <ul class="dropdown-menu">
-              <li><a class="dropdown-item" id="barangay179"  data-brgyno="179" onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
-              <li><a class="dropdown-item" id="barangay171"  data-brgyno="171" onclick="viewResidentChart_Table(this)">Barangay 171</a></li>
-              <li><a class="dropdown-item" id="barangay171"  data-brgyno="170" onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
-              <li><a class="dropdown-item" id="barangay171"  data-brgyno="178" onclick="viewResidentChart_Table(this)">Barangay 178</a></li>
-              </ul>
+              <ul class="dropdown-menu" >  
+                <li> <a class="dropdown-item" id="barangay179" data-brgyno="179"
+                            onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
+                <li><a class="dropdown-item" id="barangay171" data-brgyno="171"
+                            onclick="viewResidentChart_Table(this)">Barangay 171</a></li> 
+                <li> <a class="dropdown-item" id="barangay170" data-brgyno="170"
+                            onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
+                <li> <a class="dropdown-item" id="barangay178" data-brgyno="178"
+                            onclick="viewResidentChart_Table(this)">Barangay 178</a></li>
+             </ul>
             </li>
+
+
+
           </ul>
         </div>
       </div>
     </nav>
+
 
 
 

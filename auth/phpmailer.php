@@ -16,13 +16,10 @@ if (!$conn) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
 
-    // Generate OTP code
     $otp = generateOTP();
-
-    // Store OTP in session
+   
     $_SESSION['otp'] = $otp;
 
-    // Send OTP code via email
     sendOTP($email, $otp);
 
     $response = [
@@ -48,27 +45,27 @@ function generateOTP() {
 function sendOTP($email, $otp) {
     $mail = new PHPMailer(true);
     try {
-       //Server settings
+      
         $mail->isSMTP();
-        $mail->Host       = 'smtp.elasticemail.com';  // Elastic Email SMTP server
-        $mail->SMTPAuth   = true;               // Enable SMTP authentication
-        $mail->Username   = 'samej.delacruz59@gmail.com';   // Your Elastic Email username
-        $mail->Password   = '61E0C1F8AB49921E4F7DDFA4381121C369AD';     // Your Elastic Email API key
-        $mail->SMTPSecure = 'tls';              // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = 2525;                // TCP port to connect to Elastic Email SMTP
+        $mail->Host       = 'smtp.gmail.com';  
+        $mail->SMTPAuth   = true;           
+        $mail->Username   = 'samej.delacruz59@gmail.com';   
+        $mail->Password   = 'ygmz ebex pilm kmhd';    
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;       
+        $mail->Port       = 465;            
 
-        //Recipients
+
         $mail->setFrom('samej.delacruz59@gmail.com', 'OTP CODE');
-        $mail->addAddress($email);                // Add a recipient
+        $mail->addAddress($email);              
 
-        // Content
-        $mail->isHTML(true);                     // Set email format to HTML
+       
+        $mail->isHTML(true);               
         $mail->Subject = 'OTP Code';
         $mail->Body    = "Your OTP code is: $otp";
 
         $mail->send();
     } catch (Exception $e) {
-        // Handle exception
+       
     }
 }
 ?>

@@ -26,27 +26,53 @@
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Filter
+               Parcel Filter
+              </a>
+                  <ul class="dropdown-menu multi-column" >  
+                  <li><a class="dropdown-item" id="getallfeatures"  >All</a></li>
+                  <li><a class="dropdown-item" id="Residential"  >Residential</a></li>
+                  <li><a class="dropdown-item" id="School"  >School</a></li>
+                  <li><a class="dropdown-item" id="Church"  >Church</a></li>
+                  <li><a class="dropdown-item" id="Police Station"  >Police Station</a></li>
+                  <li><a class="dropdown-item" id="Barangay Station"  >Barangay Station</a></li>
+
+                  <li><a class="dropdown-item" id="Chicken Meat Shop"  >Chicken Meat Shop</a></li>
+                  <li><a class="dropdown-item" id="Gas Station"  >Gas Station</a></li>
+                  <li><a class="dropdown-item" id="Pet Food Shop"  >Pet Food Shop</a></li>
+                  <li><a class="dropdown-item" id="Convenience Store"  >Convenience Store</a></li>
+                  <li><a class="dropdown-item" id="Grocery Store"  >Grocery Store</a></li>
+                  <li><a class="dropdown-item" id="SariSari Store"  >SariSari Store</a></li>
+                  <li><a class="dropdown-item" id="Pharmacy"  >Pharmacy</a></li>
+                  <li><a class="dropdown-item" id="Market"  >Market</a></li>
+
+                  <li><a class="dropdown-item" id="Clinic"  >Clinic</a></li>       
+                  <li><a class="dropdown-item" id="Karinderya"  >Karinderya</a></li>
+                  <li><a class="dropdown-item" id="BarberShop"  >BarberShop</a></li>
+                  <li><a class="dropdown-item" id="MilkTea Shop"  >MilkTea Shop</a></li>
+                  <li><a class="dropdown-item" id="Repair Shop"  >Repair Shop</a></li>
+                  <li><a class="dropdown-item" id="Empty Lot"  >Empty Lot</a></li>
+                  <li><a class="dropdown-item" id="Playground"  >Playground</a></li>
+                 
+                  <li><a class="dropdown-item" id="Evacuation Area"  >Evacuation Area</a></li>
+                 
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Point Filter
               </a>
               <ul class="dropdown-menu" >  
-              <li><a class="dropdown-item" id="getallfeature"  >All</a></li>
-              <li><a class="dropdown-item" id="Residential"  >Residential</a></li>
-              <li><a class="dropdown-item" id="School"  >School</a></li>
-              <li><a class="dropdown-item" id="Church"  >Church</a></li>
-              <li><a class="dropdown-item" id="Police Station"  >Police Station</a></li>
-              <li><a class="dropdown-item" id="Barangay Station"  >Barangay Station</a></li>
-              <li><a class="dropdown-item" id="Clinic"  >Clinic</a></li>
-              <li><a class="dropdown-item" id="Karinderya"  >Karinderya</a></li>
-              <li><a class="dropdown-item" id="BarberShop"  >BarberShop</a></li>
-              <li><a class="dropdown-item" id="MilkTea Shop"  >MilkTea Shop</a></li>
-              <li><a class="dropdown-item" id="Repair Shop"  >Repair Shop</a></li>
-              <li><a class="dropdown-item" id="Empty Lot"  >Empty Lot</a></li>
-              <li><a class="dropdown-item" id="Playground"  >Playground</a></li>
-              <li><a class="dropdown-item" id="Boundary"  >Boundary</a></li>
-              <li><a class="dropdown-item" id="Evacuation Area"  >Evacuation Area</a></li> 
-            </ul>
-      
+                <li><a class="dropdown-item" id="getallfeature"  >All</a></li>
+                <li><a class="dropdown-item" id="Street Light"  >Street Light</a></li> 
+                <li><a class="dropdown-item" id="Sign"  >Street Sign</a></li>
+                <li><a class="dropdown-item" id="Tricycle Station"  >Tricycle Station</a></li>
+                <li><a class="dropdown-item" id="Jeepney Station"  >Jeepney Station</a></li> 
+                <li><a class="dropdown-item" id="Bus Station"  >Bus Station</a></li>  
+             </ul>
             </li>
+
+
+
           </ul>
         </div>
       </div>
@@ -96,6 +122,52 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearEditSource()">NO</button>
             <button type="button" class="btn btn-primary" id="refreshButton2" onclick="saveModitodb()">YES</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!--end save update modify feature confirmation Modal -->
+
+
+
+
+       <!--start DELETE feature confirmation Modal -->
+    <div class="modal fade" id="confirmDeleteModal">
+      <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DELETING FEATURE ARE YOU SURE? </h1>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+         (CLICK A FEATURE THEN MOVE IT TO REGISTER)
+                                                                                    
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearEditSource()">NO</button>
+            <button type="button" class="btn btn-primary" onclick="startdelete()">YES</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!--end modify feature confirmation Modal -->
+
+
+      <!--start save DELETE feature confirmation Modal -->
+
+    <div class="modal fade" id="confirmDeleteFeatureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DELETING Points - Lines - Polygons</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          ARE YOU SURE?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearEditSource()">NO</button>
+            <button type="button" class="btn btn-primary" id="refreshButton2" onclick="saveDeletetodb()">YES</button>
           </div>
         </div>
       </div>
@@ -182,12 +254,12 @@
                   </div>
 
                   <div class="form-group">
-
+      
                   <label for="exampleInputtext1">ADDRESS</label>
                   <input type="text" class="form-control" id="exampleInputtext3" name="ADDRESS" aria-describedby="textHelp">
                   <!-- <small id="textHelp" class="form-text text-muted">Address, Name, etc.</small>-->
                   </div>
-
+               
                   <div class="form-group">
                   <!-- BARANGAY -->
                   <label for="exampleInputtext2">BARANGAY NUMBER</label>
@@ -202,21 +274,8 @@
           </div>
       </div>
 
-      
-
-  
 
 
-
-
-
-
-
-
-
-
-
-  
     </div><!-- /.container-fluid -->
 
 

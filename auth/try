@@ -141,3 +141,57 @@
             }
         });
     });
+
+
+
+    DH4eBK-!6nwC+w!2
+
+
+
+
+
+
+
+
+
+
+// Function to verify JWT token
+function verifyToken($token, $secretKey) {
+    // Split the token into its components: header, payload, and signature
+    list($header, $payload, $signature) = explode('.', $token);
+
+    // Recreate the signature using the provided header and payload
+    $expectedSignature = base64_encode(hash_hmac('sha256', "$header.$payload", $secretKey, true));
+
+    // Compare the recreated signature with the provided signature
+    if ($signature === $expectedSignature) {
+        // Signature is valid
+        return true;
+    } else {
+        // Signature is invalid
+        return false;
+    }
+}
+
+// Check if token is provided in the URL
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
+    $mysecretKey = '1306da56dce50f3b7e89dd11adb8626f308997d8a5df1080cd32b83c0eac120b';
+
+    // Verify the token using the secret key
+    if (verifyToken($token, $mysecretKey)) {
+        // Token is valid, perform necessary actions (e.g., set session variables)
+        $_SESSION['user_authenticated'] = true;
+    } else {
+        // Token is invalid, handle accordingly (e.g., redirect to login page)
+        header("Location:..\auth\login.php");
+        exit();
+    }
+} else {
+    // Token not provided, handle accordingly (e.g., redirect to login page)
+    header("Location:..\auth\login.php");
+    exit();
+}
+
+
+

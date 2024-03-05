@@ -1,6 +1,7 @@
 <?php
 include '../db.php';
 
+header('Access-Control-Allow-Origin:*');
 // Define the API endpoint
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if feature_id is set in the POST data
@@ -10,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Prepare and bind the SQL query with a parameter
         $sql = "SELECT DISTINCT
+                    residents.ResidentID,
                     residents.name,
                     residents.age,
                     residents.gender,

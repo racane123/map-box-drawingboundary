@@ -20,6 +20,8 @@ if (!is_user_logged_in()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!--fontawesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!---bootstrap css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!--OpenLayers CSS-->
@@ -28,8 +30,7 @@ if (!is_user_logged_in()) {
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <!--Custom CSS-->
     <link rel="stylesheet" href="custom\css\style.css">
-    <!--fontawesome icons-->
-    <link href="assets\fontawesome\css\all.css" rel="stylesheet">
+ 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="assets\js\search_ol-ext.js"></script>
     <!--crop-->
@@ -68,37 +69,15 @@ include 'useViewChart_Table.php';
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Barangay No.
+               Barangay Charts
               </a>
               <ul class="dropdown-menu">
               <li><a class="dropdown-item" id="barangay179"  data-brgyno="179" onclick="viewResidentChart_Table(this)">Barangay 179</a></li>
-              <li><a class="dropdown-item" id="barangay170"  data-brgyno="171" onclick="viewResidentChart_Table(this)">Barangay 171</a></li>
+              <li><a class="dropdown-item" id="barangay171"  data-brgyno="171" onclick="viewResidentChart_Table(this)">Barangay 171</a></li>
+              <li><a class="dropdown-item" id="barangay171"  data-brgyno="170" onclick="viewResidentChart_Table(this)">Barangay 170</a></li>
+              <li><a class="dropdown-item" id="barangay171"  data-brgyno="178" onclick="viewResidentChart_Table(this)">Barangay 178</a></li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Filter
-              </a>
-              <ul class="dropdown-menu" >  
-              <li><a class="dropdown-item" id="getallfeature"  >All</a></li>
-              <li><a class="dropdown-item" id="Residential"  >Residential</a></li>
-              <li><a class="dropdown-item" id="School"  >School</a></li>
-              <li><a class="dropdown-item" id="Church"  >Church</a></li>
-              <li><a class="dropdown-item" id="Police Station"  >Police Station</a></li>
-              <li><a class="dropdown-item" id="Barangay Station"  >Barangay Station</a></li>
-              <li><a class="dropdown-item" id="Clinic"  >Clinic</a></li>
-              <li><a class="dropdown-item" id="Karinderya"  >Karinderya</a></li>
-              <li><a class="dropdown-item" id="BarberShop"  >BarberShop</a></li>
-              <li><a class="dropdown-item" id="MilkTea Shop"  >MilkTea Shop</a></li>
-              <li><a class="dropdown-item" id="Repair Shop"  >Repair Shop</a></li>
-              <li><a class="dropdown-item" id="Empty Lot"  >Empty Lot</a></li>
-              <li><a class="dropdown-item" id="Playground"  >Playground</a></li>
-              <li><a class="dropdown-item" id="Boundary"  >Boundary</a></li>
-              <li><a class="dropdown-item" id="Evacuation Area"  >Evacuation Area</a></li> 
-            </ul>
-      
-            </li>
-
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                Chloropleth
@@ -107,6 +86,58 @@ include 'useViewChart_Table.php';
               <li><a class="dropdown-item"  onclick="turnOnChloropleth()">Turn on Chloropleth</a></li>
               <li><a class="dropdown-item"  onclick="turnOffChloropleth()">Turn off Chloropleth</a></li>
               </ul>
+            </li>
+
+
+
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Parcel Filter
+              </a>
+                  <ul class="dropdown-menu multi-column" >  
+                  <li><a class="dropdown-item" id="getallfeatures"  >All</a></li>
+                  <li><a class="dropdown-item" id="Residential"  >Residential</a></li>
+                  <li><a class="dropdown-item" id="School"  >School</a></li>
+                  <li><a class="dropdown-item" id="Church"  >Church</a></li>
+                  <li><a class="dropdown-item" id="Police Station"  >Police Station</a></li>
+                  <li><a class="dropdown-item" id="Barangay Station"  >Barangay Station</a></li>
+
+                  <li><a class="dropdown-item" id="Chicken Meat Shop"  >Chicken Meat Shop</a></li>
+                  <li><a class="dropdown-item" id="Gas Station"  >Gas Station</a></li>
+                  <li><a class="dropdown-item" id="Pet Food Shop"  >Pet Food Shop</a></li>
+                  <li><a class="dropdown-item" id="Convenience Store"  >Convenience Store</a></li>
+                  <li><a class="dropdown-item" id="Grocery Store"  >Grocery Store</a></li>
+                  <li><a class="dropdown-item" id="SariSari Store"  >SariSari Store</a></li>
+                  <li><a class="dropdown-item" id="Pharmacy"  >Pharmacy</a></li>
+                  <li><a class="dropdown-item" id="Market"  >Market</a></li>
+
+                  <li><a class="dropdown-item" id="Clinic"  >Clinic</a></li>       
+                  <li><a class="dropdown-item" id="Karinderya"  >Karinderya</a></li>
+                  <li><a class="dropdown-item" id="BarberShop"  >BarberShop</a></li>
+                  <li><a class="dropdown-item" id="MilkTea Shop"  >MilkTea Shop</a></li>
+                  <li><a class="dropdown-item" id="Repair Shop"  >Repair Shop</a></li>
+                  <li><a class="dropdown-item" id="Empty Lot"  >Empty Lot</a></li>
+                  <li><a class="dropdown-item" id="Playground"  >Playground</a></li>
+                 
+                  <li><a class="dropdown-item" id="Evacuation Area"  >Evacuation Area</a></li>
+                 
+                </ul>
+            </li>
+
+        
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Point Filter
+              </a>
+              <ul class="dropdown-menu" >  
+                <li><a class="dropdown-item" id="getallfeature"  >All</a></li>
+                <li><a class="dropdown-item" id="Street Light"  >Street Light</a></li> 
+                <li><a class="dropdown-item" id="Sign"  >Street Sign</a></li>
+                <li><a class="dropdown-item" id="Tricycle Station"  >Tricycle Station</a></li>
+                <li><a class="dropdown-item" id="Jeepney Station"  >Jeepney Station</a></li> 
+                <li><a class="dropdown-item" id="Bus Station"  >Bus Station</a></li>  
+             </ul>
             </li>
 
 
@@ -326,35 +357,26 @@ include 'useViewChart_Table.php';
 <!--Custom JS-->
 <script>
 
+
 // global variable
 var featureLayer
-var geoms
-var feature_id
 
-var selectInt
-var modi
-var snapi
-var editdrawLayer
-
-var draw
-var snapii
 
 var FlagisDrawingOn = false
 var FlagisModifyOn = false
+var FlagisDeleteOn = false
 
-var PointType = ['Street Light','Signs','Tree']
+var PointType = ['Street Light','Tricycle Station','Jeepney Station','Bus Station','Signs','Tree']
 var LineType = ['Street','Sapa','National Highway','StateHighway',]
-var PolygonType = ['Residential','School','Church','Police Station','Barangay Station','Clinic','Karinderya','BarberShop','MilkTea Shop','Repair Shop','Empty Lot','Playground','Boundary','Evacuation Area']
+var PolygonType = ['Residential','School','Church','Police Station','Barangay Station','Gas Station','Clinic','Karinderya','Basketball Court','Pharmacy','SariSari Store','Waiting Shed','Convenience Store','Grocery Store','Chicken Meat Shop','Pet Food Shop','Market','BarberShop','MilkTea Shop','Repair Shop','Empty Lot','Park','Boundary','Evacuation Area']
 var selectedGeomType
 
 
 //
 // view
 //
-
-
 var cityCenter = [13473779.769599514, 1659650.641159134];
-var radius = 5000; 
+var radius = 8000; 
 var extent = [
   cityCenter[0] - radius, 
   cityCenter[1] - radius, 
@@ -389,10 +411,26 @@ var baselayer = new ol.layer.Tile({
     })
 });
 
+//
+// source para sa featurelayer
+//
+var featureLayerSource = new ol.source.Vector();
+
+  fetch('apiFolder/api.php')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    // Parse the GeoJSON data and add features to the vector source
+    var features = new ol.format.GeoJSON().readFeatures(data);  
+    featureLayerSource.addFeatures(features);
+  })
+  .catch(function (error) {
+    console.error('Error fetching and processing GeoJSON:', error);
+  });
 
 
-
-var chloroplethLayerSource = new ol.source.Vector();
+  var chloroplethLayerSource = new ol.source.Vector();
  
   function turnOnChloropleth(){
   chloroplethLayerSource.clear(); 
@@ -414,28 +452,7 @@ var chloroplethLayerSource = new ol.source.Vector();
   chloroplethLayerSource.clear();
  }
 
-
-
-
-//
-// source para sa featurelayer
-//
-var featureLayerSource = new ol.source.Vector();
-
-  fetch('apiFolder/api.php')
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    // Parse the GeoJSON data and add features to the vector source
-    var features = new ol.format.GeoJSON().readFeatures(data);  
-    featureLayerSource.addFeatures(features);
-  })
-  .catch(function (error) {
-    console.error('Error fetching and processing GeoJSON:', error);
-  });
-
-
+// POLYGONS
 
 function featureIdbyType(featureType){
   featureLayerSource.clear();
@@ -453,7 +470,6 @@ function featureIdbyType(featureType){
   });  
 }
 
-// 
 function getallfeature(){
   featureLayerSource.clear();
   fetch('apiFolder/api.php?')
@@ -472,6 +488,7 @@ function getallfeature(){
 
 
 document.getElementById('getallfeature').addEventListener('click',function(){ getallfeature() })
+document.getElementById('getallfeatures').addEventListener('click',function(){ getallfeature() })
 document.getElementById('Residential').addEventListener('click',function(){ featureIdbyType('Residential') })
 document.getElementById('BarberShop').addEventListener('click',function(){ featureIdbyType('BarberShop') })
 document.getElementById('School').addEventListener('click',function(){ featureIdbyType('School') })
@@ -481,11 +498,29 @@ document.getElementById('Barangay Station').addEventListener('click',function(){
 document.getElementById('Clinic').addEventListener('click',function(){ featureIdbyType('Clinic') }) 
 document.getElementById('Karinderya').addEventListener('click',function(){ featureIdbyType('Karinderya') }) 
 document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('MilkTea Shop') }) 
+document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('SariSari Store') }) 
+document.getElementById('MilkTea Shop').addEventListener('click',function(){ featureIdbyType('Market') }) 
 document.getElementById('Repair Shop').addEventListener('click',function(){ featureIdbyType('Police Station') }) 
 document.getElementById('Empty Lot').addEventListener('click',function(){ featureIdbyType('Empty Lot') }) 
 document.getElementById('Playground').addEventListener('click',function(){ featureIdbyType('Playground') }) 
-document.getElementById('Boundary').addEventListener('click',function(){ featureIdbyType('Boundary') })  
-document.getElementById('Evacuation Area').addEventListener('click',function(){ featureIdbyType('Evacuation Area') })  
+document.getElementById('Evacuation Area').addEventListener('click',function(){ featureIdbyType('Evacuation Area') })
+
+document.getElementById('Chicken Meat Shop').addEventListener('click',function(){ featureIdbyType('Chicken Meat Shop') })
+document.getElementById('Gas Station').addEventListener('click',function(){ featureIdbyType('Gas Station') })
+document.getElementById('Pet Food Shop').addEventListener('click',function(){ featureIdbyType('Pet Food Shop') })
+document.getElementById('Convenience Store').addEventListener('click',function(){ featureIdbyType('Convenience Store') })
+document.getElementById('Grocery Store').addEventListener('click',function(){ featureIdbyType('Grocery Store') })
+document.getElementById('SariSari Store').addEventListener('click',function(){ featureIdbyType('SariSari Store') })
+document.getElementById('Pharmacy').addEventListener('click',function(){ featureIdbyType('Pharmacy') })
+document.getElementById('Market').addEventListener('click',function(){ featureIdbyType('Market') })
+
+//point filter
+document.getElementById('Street Light').addEventListener('click',function(){ featureIdbyType('Street Light') })
+document.getElementById('Sign').addEventListener('click',function(){ featureIdbyType('Signs') })
+document.getElementById('Tricycle Station').addEventListener('click',function(){ featureIdbyType('Tricycle Station') })
+document.getElementById('Jeepney Station').addEventListener('click',function(){ featureIdbyType('Jeepney Station') })
+document.getElementById('Bus Station').addEventListener('click',function(){ featureIdbyType('Bus Station') })
+
 
 
 document.getElementById("refreshButton").addEventListener("click", function() {
@@ -500,12 +535,7 @@ document.getElementById("refreshButton").addEventListener("click", function() {
 
 
 
-
-
-
-
-
- var chloroplethLayer = new ol.layer.Vector({
+var chloroplethLayer = new ol.layer.Vector({
   source: chloroplethLayerSource,
   style: function(feature){
     var styles = [];
@@ -521,7 +551,7 @@ document.getElementById("refreshButton").addEventListener("click", function() {
         'Boundary': 'assets/img/barangay.png', 
       };
     
-      var iconPath = iconMap[type] || '../assets/img/default.png'; 
+      var iconPath = iconMap[type] || 'assets/img/default.png'; 
     
       styles.push(
         new ol.style.Style({
@@ -564,15 +594,13 @@ document.getElementById("refreshButton").addEventListener("click", function() {
   }
 
 })
-
-
-
-
-
+ 
 
 //
 // pag display ng mga feature sa map na may style depende kung point,linstring, or polygon
 //
+
+
 var featureLayer = new ol.layer.Vector({
   source: featureLayerSource,
   style: function (feature) {
@@ -580,25 +608,28 @@ var featureLayer = new ol.layer.Vector({
     var styles = [];
 
     if (geometry === 'Point') {
-      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
+      var type = feature.get('type'); 
       
       // Define a mapping between feature types and their respective icons
       var iconMap = {
           'Street Light': 'assets/img/streetlight.png',
           'Signs': 'assets/img/streetsign.png',
-          // Add more mappings as needed
+          'Signs': 'assets/img/streetsign.png',
+          'Tricycle Station': 'assets/img/tricycle.png',
+          'Jeepney Station': 'assets/img/jeep.png',
+          'Bus Station': 'assets/img/bus.png',
       };
   
-      // Determine the icon path based on feature type
-      var iconPath = iconMap[type] || 'assets/img/default.png'; // Default icon if type is not found
   
-      // Create a new style object for the point feature
+      var iconPath = iconMap[type] || 'assets/img/default.png'; 
+  
+   
       var pointStyleIcon = new ol.style.Style({
           image: new ol.style.Icon({
               src: iconPath,
-              // Adjust icon properties as needed
-              scale: 0.4, // Example scale adjustment
-              anchor: [0.67, 0.89] // Anchor at the middle bottom of the icon
+             
+              scale: 0.4, 
+              anchor: [0.67, 0.89]
           })
       })
       var pointStyle = new ol.style.Style({
@@ -675,66 +706,82 @@ if (map.getView().getResolution() >= minResolutionToShow &&
   
     
 } else if (geometry === 'Polygon') {
-      var name = feature.get('name'); // Get the name attribute of the feature
-      var type = feature.get('type'); // Assuming 'type' is the attribute containing feature type
-    
-      var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; // Get the coordinates of the polygon
-      var centroid = calculateCentroid(polygonCoordinates); // Calculate centroid
-    
-      // Define a mapping between feature types and their respective icons
-      var iconMap = {
-        'Residential': 'assets/img/residential.png',
-        'School': 'assets/img/school.png',
-        'Church': 'assets/img/church.png',
-        'Police Station': 'assets/img/policestation.png',
-        'Barangay Station': 'assets/img/barangay.png',
-        'Clinic': 'assets/img/clinic.png',
-        'Karinderya': 'assets/img/karinderya.png',
-        'BarberShop': 'assets/img/barbershop.png',
-        'MilkTea Shop': 'assets/img/milkteashop.png',
-        'Repair Shop': 'assets/img/repairshop.png'
-        
-        
-      };
-    
-    
-      var iconPath = iconMap[type] || '../assets/img/default.png'; 
-    
-      styles.push(
-        new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: 'rgba(0, 128, 0, 0.2)',
-          }),
-          stroke: new ol.style.Stroke({
-            color: 'green',
-            width: 1,
-          }),
+  var name = feature.get('name'); 
+  var type = feature.get('type'); 
+  var polygonCoordinates = feature.getGeometry().getCoordinates()[0]; 
+  var centroid = calculateCentroid(polygonCoordinates);
+
+  var polygonExtent = feature.getGeometry().getExtent();
+  var polygonWidth = Math.abs(polygonExtent[0] - polygonExtent[2]);
+  var polygonHeight = Math.abs(polygonExtent[1] - polygonExtent[3]);
+  var maxSize = 30; 
+  var sizeFactor = Math.min(polygonWidth, polygonHeight) / Math.max(polygonWidth, polygonHeight);
+  var iconSize = Math.round(sizeFactor * maxSize);
+
+  // Define a mapping between feature types and their respective icons
+  var iconMap = {
+    'Residential': 'assets/img/residential.png',
+    'School': 'assets/img/school.png',
+    'Church': 'assets/img/church.png',
+    'Police Station': 'assets/img/policestation.png',
+    'Barangay Station': 'assets/img/barangay.png',
+    'Clinic': 'assets/img/clinic.png',
+    'Karinderya': 'assets/img/karinderya.png',
+    'BarberShop': 'assets/img/barbershop.png',
+    'MilkTea Shop': 'assets/img/milkteashop.png',
+    'Repair Shop': 'assets/img/repairshop.png',
+    'SariSari Store': 'assets/img/karinderya.png',
+    'Gas Station': 'assets/img/gas-station.png',
+    'Market': 'assets/img/market.png',
+    'Chicken Meat Shop': 'assets/img/chicken.png',
+    'Pet Food Shop': 'assets/img/pet-shop.png',
+    'Convenience Store': 'assets/img/convenience-store .png',
+    'Grocery Store': 'assets/img/store.png',
+    'Pharmacy': 'assets/img/pharmacy.png',
+    'Waiting Shed': 'assets/img/waiting shed.png',
+    'Basketball Court': 'assets/img/basketball-court.png',
+    'Park': 'assets/img/park.png',
+  };
+
+  var iconPath = iconMap[type] || 'assets/img/default.png';
+
+  styles.push(
+    new ol.style.Style({
+      fill: new ol.style.Fill({
+        color: 'rgba(0, 128, 0, 0.2)',
+      }),
+      stroke: new ol.style.Stroke({
+        color: 'green',
+        width: 1,
+      }),
+    }),
+    new ol.style.Style({
+      geometry: new ol.geom.Point(centroid), 
+      image: new ol.style.Icon({
+        src: iconPath,
+        scale: iconSize / 50,
+      }),
+    }),
+    new ol.style.Style({
+      geometry: new ol.geom.Point(centroid),
+      text: new ol.style.Text({
+        text: name,
+        fill: new ol.style.Fill({
+          color: 'black',
         }),
-        new ol.style.Style({
-          geometry: new ol.geom.Point(centroid), // Assuming you have calculated centroid
-          image: new ol.style.Icon({
-            src: iconPath,
-            width: 25, // Adjust width and height as needed
-            height: 25,
-          }),
+        stroke: new ol.style.Stroke({
+          color: 'white',
+          width: 1,
         }),
-        new ol.style.Style({
-          geometry: new ol.geom.Point(centroid),
-          text: new ol.style.Text({
-            text: name,
-            fill: new ol.style.Fill({
-              color: 'black',
-            }),
-            stroke: new ol.style.Stroke({
-              color: 'white',
-              width: 3,
-            }),
-            offsetX: 0, 
-            offsetY: 20, 
-          }),
-        })
-      );
-    }
+        font: '8px Arial', 
+        offsetX: 0,
+        offsetY: 13,
+      }),
+    })
+    
+  );
+}
+
     
     return styles;
   },
@@ -757,7 +804,7 @@ function calculateCentroid(coordinates) {
  
  // Popup overlay with popupClass=anim
  var popup = new ol.Overlay.Popup ({
-  popupClass: "default anim", //"tooltips", "warning" "black" "default", "tips", "shadow",
+  popupClass: "default anim", 
   closeBox: true,
   onclose: function(){ console.log("You close the box"); },
   positioning: 'auto',
@@ -768,6 +815,25 @@ function calculateCentroid(coordinates) {
   }
 });
 
+
+// vector source para sa edit features
+var editSource = new ol.source.Vector()
+
+fetch('apiFolder/api.php')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    // Parse the GeoJSON data and add features to the vector source
+    var features = new ol.format.GeoJSON().readFeatures(data);
+    editSource.addFeatures(features);
+    
+    // Zoom to the extent of the loaded features
+   // map.getView().fit(featureLayerSource.getExtent());
+  })
+  .catch(function (error) {
+    console.error('Error fetching and processing GeoJSON:', error);
+  });
 
 
 // Layer array
@@ -821,19 +887,24 @@ search.on('select', function(e) {
     });
 });
 
- 
 
 select.getFeatures().on(['add'], function (e) {
   if (!FlagisDrawingOn) {
     var feature = e.element;
-    var content = 
-    //'</br> <b> GEOM </b>:' + feature.getGeometry().getType() +
-    // '</br><b> BRGY </b>:'
-          '<b> TYPE </b>:' + feature.get("type") +
-          '</br> <b> NAME </b>:' + feature.get("name") +
-          '</br> <b> Feature ID </b>:' + feature.get("feature_id")+
-          '</br><b> BRGY </b>:' + feature.get("baranggay_no");
+    var type = feature.get("type");
+    var brgy_no = feature.get("barangay_no");
 
+    if( type === 'Boundary'){
+      var content = 
+      '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br><b> BRGY </b>:' + feature.get("barangay_no");
+    }else {
+      var content = 
+      '<b> TYPE </b>:' + feature.get("type") +
+      '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br><b> BRGY </b>:' + feature.get("baranggay_no");
+    }
+         
     var geometryType = feature.getGeometry().getType();
     var coordinates;
     if (geometryType === 'Point') {
@@ -843,8 +914,9 @@ select.getFeatures().on(['add'], function (e) {
     } else if (geometryType === 'Polygon') {
         coordinates = ol.extent.getCenter(feature.getGeometry().getExtent());
     }
+    
 
-    popup.show(coordinates,content);
+popup.show(coordinates, content);
 
   }
 
@@ -857,13 +929,46 @@ select.getFeatures().on(['remove'], function (e) {
 });
 
 
+               
+
+    
+
+
+
+   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function viewResidentChart_Table(element){
   
      var brgyno = element.getAttribute("data-brgyno");
      console.log(brgyno)
+
+     var ctx1 = document.getElementById('myChart').getContext('2d');
+     var ctx2 = document.getElementById('myChart2').getContext('2d');
+     var ctx3 = document.getElementById('myChart3').getContext('2d');
+     ctx1.clearRect(0, 0, ctx1.canvas.width, ctx1.canvas.height);
+     ctx2.clearRect(0, 0, ctx2.canvas.width, ctx2.canvas.height);
+     ctx3.clearRect(0, 0, ctx3.canvas.width, ctx3.canvas.height);
      
 
- $.ajax({
+     $.ajax({
      url: "apiFolder/brgy"+brgyno+"api.php",
      type: "GET",
      dataType: "json",
@@ -879,13 +984,17 @@ function viewResidentChart_Table(element){
              var normalweightCount = data[0].normalweight_count;
              var overweightCount = data[0].overweight_count;
              var obesityCount = data[0].obesity_count;
+
+             var Employed = data[0].employed_count;
+             var UnEmployed = data[0].unemployed_count;
               
              // Display total number of residents
              $("#population_data").html(" Barangay " + brgyno + " Total residents: " + data[0].total_residents);
+             
 
              // Use maleCount and femaleCount in Chart.js data
-             var ctx = document.getElementById('myChart').getContext('2d');
-             var myChart = new Chart(ctx, {
+             var ctx1 = document.getElementById('myChart').getContext('2d');
+             var myChart = new Chart(ctx1, {
                  type: 'bar',
                  data: {
                      labels: ['Male', 'Female'],
@@ -914,8 +1023,8 @@ function viewResidentChart_Table(element){
                  }
              });
              
-             var ctx = document.getElementById('myChart2').getContext('2d');
-             var chart = new Chart(ctx, {
+             var ctx2 = document.getElementById('myChart2').getContext('2d');
+             var chart = new Chart(ctx2, {
                 type: 'bar',
              data: {
                     labels: ['Underweight', 'Normal weight','Overweight','Obesity'],
@@ -937,9 +1046,35 @@ function viewResidentChart_Table(element){
                          }
                     }
              });
+
+
+
+
+
+             var ctx3 = document.getElementById('myChart3').getContext('2d');
+             var chart = new Chart(ctx3, {
+                type: 'bar',
+             data: {
+                    labels: ['Employed', 'UnEmployed'],
+                    datasets: [{
+                    label: 'Barangay' + brgyno + ' Population',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [Employed, UnEmployed]
+                  }]
+               },
+
+             options: {
+                 scales: {
+                    yAxes: [{
+                      ticks: {
+                          suggestedMin: 0  // Set the suggested minimum to 0
+                              }
+                           }]
+                         }
+                    }
+             });
              
-
-
          }
          
 

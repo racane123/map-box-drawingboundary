@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../assets/css/search_ol-ext.css">
     <!--pop up-->
     <link rel="stylesheet" href="../assets/css/ol-ext.css">
-    <!--<script src="assets\js\ol-ext.js"></script>-->
+
     
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
