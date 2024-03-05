@@ -742,7 +742,9 @@ select.getFeatures().on(['add'], function (e) {
     if( type === 'Boundary'){
       var content = 
       '</br> <b> NAME </b>:' + feature.get("name") +
+      '</br> <b> POPULATION </b>:' + feature.get("total_residents_"+brgy_no) +
       '</br><b> BRGY </b>:' + feature.get("barangay_no");
+
     }else {
       var content = 
       '<b> TYPE </b>:' + feature.get("type") +

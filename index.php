@@ -1,14 +1,12 @@
 <?php
 session_start();
-function is_user_logged_in() {
 
-  return isset($_SESSION['email']);
+if(!isset($_SESSION['email'])){
+  
+    header('Location:..\MAP\auth\login.php');
+    exit();
 }
 
-if (!is_user_logged_in()) {
-  header("Location: ./auth/login.php");
-  exit();
-}
   
 ?>
 

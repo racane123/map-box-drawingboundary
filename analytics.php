@@ -88,7 +88,7 @@
                             <th scope="col">Weight</th>
                             <th scope="col">B.M.I</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Edit Info</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -99,7 +99,6 @@
             </li>
         </ul>
 </div>
-
 
 
 <!-- Custom JS  -->  

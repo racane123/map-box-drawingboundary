@@ -42,7 +42,7 @@ include "template.php";
                 ?>
                 <div class="dropdown-divider"></div>
                 <?php
-                echo '<a class="dropdown-item dropdown-item-title text-dark mr-5" href="' . $_SERVER['REQUEST_URI'] . '/../auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>';
+                echo '<a class="dropdown-item dropdown-item-title text-dark mr-5" href="https://group68.towntechinnovations.com/auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>';
                 ?>
             </a>
         </div>

@@ -131,7 +131,7 @@ function viewResidentChart_Table(element){
                      <td>${resident.weight}</td>
                      <td>${resident.bmi}</td>
                      <td>${resident.bmi_category}</td>
-                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#editinfo" onclick="editResident('${resident.name}', ${resident.age}, '${resident.gender}', ${resident.height}, ${resident.weight})">Edit</button></td>
+                    
                  `;
                  tableBody.appendChild(row);
              });
@@ -158,3 +158,6 @@ function clearChart_table() {
  $('#resident-tables tbody tr').empty(); // Clear the table body
  $('#population_data').empty();
 }
+
+
+

@@ -6,10 +6,10 @@ header('Access-Control-Allow-Origin:*');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if feature_id is set in the POST data
     if (isset($_POST['feature_id'])) {
-        // Extract feature_id from POST data
+      
         $feature_id = $_POST['feature_id'];
-
-        // Prepare and bind the SQL query with a parameter
+        
+       
         $sql = "SELECT DISTINCT
                     residents.ResidentID,
                     residents.name,

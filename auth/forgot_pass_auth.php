@@ -6,9 +6,6 @@ if (!$conn) {
     die("Connection to the Database is not established: " . mysqli_connect_error());
 }
 
-if (isset($_POST['remember'])) {
-    setcookie('rememberedEmail', $_POST['email'], time() + (86400 * 30), "/"); // 30 days
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -29,11 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($otp == $_SESSION['otp']) {
                 // OTP is correct, proceed with login
                 session_regenerate_id(true);
-                $_SESSION['email'] = $user['email'];
+                //$_SESSION['email'] = $user['email'];
+                $_SESSION['validToChangePassword'] = true;
                 $response = [
                     'message' => "Email verified you can now reset your password, $email!",
                 ];
-                // Remove OTP from session after successful login
+                
                 unset($_SESSION['otp']);
             } else {
                 $response = ['message' => "Invalid OTP. Please try again."];

@@ -1,11 +1,14 @@
 <?php
 include ("../includes/template.php");
+session_start();
+
+if(!isset($_SESSION['validToChangePassword'])){
+  
+    header('Location:..\auth\login.php');
+    exit();
+}
 
 ?>
-
-<style>
-
-</style>
 
 <body class="hold-transition login-page" id="background">
 
@@ -20,7 +23,8 @@ include ("../includes/template.php");
 
                 <form id="resetPassForm">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Re-Enter your Email" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -29,7 +33,7 @@ include ("../includes/template.php");
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Password">
+                            placeholder="Your New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -44,8 +48,12 @@ include ("../includes/template.php");
         </div>
     </div>
     </div>
+
+
+
     <script>
     function resetPass() {
+
         var email = document.getElementById('email').value;
         var newPass = document.getElementById('password').value;
         $.ajax({
@@ -55,25 +63,20 @@ include ("../includes/template.php");
                 email: email,
                 newPass: newPass
             },
-            success: function(dataResult) {
-                try {
-                    var result = JSON.parse(dataResult);
-                    console.log(result); // Log the entire parsed result
+            dataType: 'json',
+            success: function(response) {
+                window.location.href = "../auth/login.php";   
 
-                    if (result.statusCode === 200) {
-                        showToast('success', 'Feature updated successfully');
-                    } else {
-                        showToast('error', 'Feature not updated successfully');
-                    }
-                } catch (e) {
-                    console.error('Error parsing JSON:', e);
-                    console.log('Original dataResult:', dataResult);
-                }
+            },
+            error: function(error) {
+                console.log('Error:', error);
             }
 
-        });
 
+        });
     }
+
     </script>
+
 
 </body>

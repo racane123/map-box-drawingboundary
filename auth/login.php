@@ -1,57 +1,7 @@
   <?php
 
 include ("../includes/template.php");
-session_start();
-function verifyJWT($token, $secretKey) {
-  $tokenParts = explode('.', $token);
-  if (count($tokenParts) === 3) {     
-      $payload = json_decode(base64_decode($tokenParts[1]), true); 
-      if (isset($payload['exp']) && isset($payload['email'])) {     
-          $signature = base64_decode($tokenParts[2]);
-          $expectedSignature = hash_hmac('sha256', $tokenParts[0] . '.' . $tokenParts[1], $secretKey, true);
-          if (hash_equals($signature, $expectedSignature)) {
-              
-              if (time() <= $payload['exp']) {
-                  return $payload['email']; 
-              }
-          }
-      }
-  }
-  return null; 
-}
 
-if (isset($_GET['token'])) {
-  $token = $_GET['token'];
-  $secretKey = '1306da56dce50f3b7e89dd11adb8626f308997d8a5df1080cd32b83c0eac120b';
-  $email = verifyJWT($token, $secretKey);
-  if ($email !== null) {
-      session_start();
-      $_SESSION['email'] = $email;
-      header("Location: ../admin/dashboard.php");
-      exit();
-  } else {
-
-      echo "Invalid token";
-  }
-} else {
-
-  //echo "Token not provided";
-}
-
-if(isset($_SESSION['email'])) {
-    // If already logged in, redirect to the appropriate page based on role
-    if ($_SESSION['role'] === 'admin') {
-        header("Location: ../admin/dashboard.php");
-        exit;
-    } else if ($_SESSION['role'] === 'user') {
-        header("Location: index.php");
-        exit;
-    }
-    else if ($_SESSION['role'] === 'driver'){
-      header("Location: ../driver/driver-map.php");
-      exit;
-    }
-}
 
   ?>
 

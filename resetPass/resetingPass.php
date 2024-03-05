@@ -1,30 +1,39 @@
 <?php
-include '../db.php';
+session_start();
+include ('../db/dbconn.php');
 
-// Check if email and new password are provided
-if(isset($_POST['email']) && isset($_POST['newPass'])) {
-    $email = $_POST['email'];
-    $newPass = password_hash($_POST['newPass'], PASSWORD_DEFAULT);
-   
-    $add_query = $dbconn->prepare("UPDATE users SET `password` = ? WHERE email = ?");
-    
-    if (!$add_query) {
-        echo json_encode(array("statusCode" => 500, "error" => "Error preparing query: " . $dbconn->error));
+if (!$conn) {
+    die("Connection to the Database is not established: " . mysqli_connect_error());
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $newPass = $_POST['newPass'];
+
+    $sql = "UPDATE users SET password = ? WHERE email = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (!$stmt) {
+        $response = ['message' => 'Error preparing query: ' . mysqli_error($conn)];
+        echo json_encode($response);
         exit;
     }
 
-    $add_query->bind_param("ss", $newPass, $email); 
-
-    if ($add_query->execute()) {
-        echo json_encode(array("statusCode" => 200));
+    $hashedNewPass = password_hash($newPass, PASSWORD_DEFAULT);
+    mysqli_stmt_bind_param($stmt, "ss", $hashedNewPass, $email);
+    
+    if (mysqli_stmt_execute($stmt)) {
+        $response = ['message' => 'Password successfully changed'];
     } else {
-        echo json_encode(array("statusCode" => 201, "error" => "Error executing query: " . $add_query->error));
+        $response = ['message' => 'Error executing query: ' . mysqli_error($conn)];
     }
-   
-    $add_query->close();
+    
+    echo json_encode($response);
+    mysqli_stmt_close($stmt);
 } else {
-    echo json_encode(array("statusCode" => 400, "error" => "Missing email or new password"));
+    $response = ['message' => 'Invalid request method.'];
+    echo json_encode($response);
 }
 
-$dbconn->close();
+mysqli_close($conn);
 ?>
