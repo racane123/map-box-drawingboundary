@@ -92,7 +92,7 @@
     }
 
     // Function to send data to another system
-    function sendDataToAnotherSystem(data) {
+   function sendDataToAnotherSystem(data) {
         // Example URL of the other system's API endpoint
         const apiUrl = '../api/price-boundary.php';
 
