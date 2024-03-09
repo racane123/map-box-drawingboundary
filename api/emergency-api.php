@@ -1,15 +1,18 @@
 <?php
 require('../db/dbconn.php');
 
-// Function to fetch geocoding details using Mapbox API
-function fetchGeocodingDetails($latitude, $longitude) {
+// Function to fetch geocoding details using Mapbox API and extract place_name
+function fetchPlaceName($latitude, $longitude) {
     $mapbox_access_token = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
     $mapbox_url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $longitude . ',' . $latitude . '.json?access_token=' . $mapbox_access_token;
     
     $geocoding_response = file_get_contents($mapbox_url);
     $geocoding_data = json_decode($geocoding_response, true);
 
-    return $geocoding_data;
+    // Extract place_name
+    $place_name = $geocoding_data['features'][0]['place_name'];
+
+    return $place_name;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -28,18 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $latitude = $coordinates[1];
         $longitude = $coordinates[0];
 
-        // Create a new array with name, latitude, and longitude
+        // Fetch place name using Mapbox API
+        $place_name = fetchPlaceName($latitude, $longitude);
+
+        // Create a new array with name and place_name
         $location = array(
             'name' => $row['name'],
-            'latitude' => $latitude,
-            'longitude' => $longitude
+            'place_name' => $place_name
         );
-
-        // Fetch geocoding details using Mapbox API
-        $geocoding_data = fetchGeocodingDetails($latitude, $longitude);
-
-        // Add geocoding details to the location array
-        $location['geocoding'] = $geocoding_data;
 
         // Add the new location array to the data array
         $data[] = $location;
