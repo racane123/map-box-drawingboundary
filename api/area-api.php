@@ -32,25 +32,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $response = array();
 
     // Iterate through the result set
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Decode the GeoJSON coordinates
-        $coord = json_decode($row['geojson'], true); // Decode as associative array
-        $name = $row['name'];
+// Iterate through the result set
+while ($row = mysqli_fetch_assoc($result)) {
+    // Decode the GeoJSON coordinates
+    $coord = json_decode($row['geojson'], true); // Decode as associative array
+    $name = $row['name'];
 
-        // Extract coordinates
-        $coordinates = $coord['coordinates'][0];
-
-        // Ensure coordinates are in array format
-        if (!is_array($coordinates)) {
-            continue; // Skip this polygon if coordinates are not in expected format
-        }
-
-        // Calculate area using Haversine formula
-        $area = calculatePolygonArea($coordinates);
-
-        // Add area to response
-        $response[] = array('name' => $name, 'area' => $area);
+    // Check if coordinates key exists
+    if (!isset($coord['coordinates'])) {
+        continue; // Skip this feature if coordinates are not available
     }
+    
+    // Extract coordinates
+    $coordinates = $coord['coordinates'][0];
+
+    // Ensure coordinates are in array format
+    if (!is_array($coordinates)) {
+        continue; // Skip this polygon if coordinates are not in expected format
+    }
+
+    // Calculate area using Haversine formula
+    $area = calculatePolygonArea($coordinates);
+
+    // Add area to response
+    $response[] = array('name' => $name, 'area' => $area);
+}
+
 
     // Encode the response as JSON and echo it
     echo json_encode($response);
