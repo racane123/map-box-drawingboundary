@@ -22,6 +22,18 @@
           flex-direction: column;
           align-items: center;
         }
+        .p-coordinates{
+          display: flex;
+        }
+        #coordinates{
+          position: absolute; 
+          top: 10%;
+          right: 50%; 
+          transform: translate(50%, -50%);
+          background-color: rgba(255, 255, 255, 0.8); 
+          padding: 5px; 
+          border-radius: 5px;
+        }
         .form-container form { display: none; background-color:#fff; padding:40px;border-radius:10px;}
     </style>
 
@@ -33,6 +45,21 @@ include '../includes/header.php';
 include 'map.php';
 
 ?>
+
+<table>
+  <th>
+
+  </th>
+  <td>
+    <tr>
+      
+    </tr>
+  </td>
+</table>
+
+<div class="p-coordinates">
+<div id="coordinates"></div>
+</div> 
 <script>
    
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFjYW5lMTIzIiwiYSI6ImNscDJhZ2xmbDBwdmEybG9pa2w4Yms0emEifQ.vyLoKd0CBDl14MKI_9JDCQ';
@@ -41,6 +68,13 @@ var map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/satellite-streets-v11',
   center: [121.04207,14.75782],
   zoom: 16
+});
+
+map.on('mousemove', function (e) {
+    var coordinates = e.lngLat;
+    document.getElementById('coordinates').innerHTML =
+        'Longitude: ' + coordinates.lng.toFixed(4) +
+        ' Latitude: ' + coordinates.lat.toFixed(4);
 });
 
 
