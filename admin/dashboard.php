@@ -53,10 +53,10 @@ include('../includes/otherHeader.php');
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a class="nav-link" onclick="loadAnalyticsContent()">
+              <a class="nav-link" onclick="loadLandComputation()">
                 <i class="nav-icon fa-solid fa-gauge"></i>
                 <p>
-                  Dashboard
+                  Land Computation
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -290,6 +290,24 @@ include('../includes/otherHeader.php');
     function loadAnalyticsContent() {
       $.ajax({
         url: '../analytics.php',
+        method: 'GET',
+        dataType: 'html',
+        success: function(data) {
+          // Update the content of the dashboard
+          $('.content-creation').html(data);
+
+        },
+        error: function(error) {
+          alert('Error fetching dashboard data:', error);
+        }
+      });
+    }
+
+
+    // Function to LandComputation
+    function loadLandComputation() {
+      $.ajax({
+        url: 'land-computation.php',
         method: 'GET',
         dataType: 'html',
         success: function(data) {

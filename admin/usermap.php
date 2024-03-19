@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <title>Group 68</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -54,7 +53,7 @@
       border-radius: 10px;
     }
 
-    button {
+    .form-container {
       position: absolute;
       top: 10%;
       left: 50%;
@@ -67,11 +66,7 @@
 
 </head>
 
-<body>
-  <button class="btn btn-primary">View</button>
-  <?php
-  include 'residents-data.php';
-  ?>
+
   <?php
   include '../includes/header.php';
   include 'map.php';
@@ -332,6 +327,7 @@
       setInterval(fetchEmergencyData, 60000);
 
     });
+    
   </script>
 </body>
 

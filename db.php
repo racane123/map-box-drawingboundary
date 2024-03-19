@@ -9,7 +9,7 @@ $port = '3306';
 */
 
 $server = 'localhost';
-$db_name = 'gis';
+$db_name = 'LGU';
 $username = 'root';
 $password = '';
 $port = '3390';

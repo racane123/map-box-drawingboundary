@@ -9,7 +9,7 @@ $database = 'grou_localgovernment';
 $host = 'localhost';
 $username = 'root'; 
 $password = ''; 
-$database = 'gis';
+$database = 'LGU';
 $port = 3390;
 
 

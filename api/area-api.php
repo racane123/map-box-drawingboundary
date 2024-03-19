@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Access-Control-Allow-Origin: *');
 
     // SQL query to fetch name and coordinates as GeoJSON from database
-    $query = "SELECT name, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features";
+    $query = "SELECT name,title, ST_AsGeoJSON(coordinates) AS geojson FROM drawn_features";
 
     // Execute the query
     $result = $conn->query($query);
@@ -37,6 +37,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Decode the GeoJSON coordinates
     $coord = json_decode($row['geojson'], true); // Decode as associative array
     $name = $row['name'];
+    $title = $row['title'];
 
     // Check if coordinates key exists
     if (!isset($coord['coordinates'])) {
@@ -53,9 +54,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     // Calculate area using Haversine formula
     $area = calculatePolygonArea($coordinates);
-
     // Add area to response
-    $response[] = array('name' => $name, 'area' => $area);
+    $response[] = array('name' => $name,'title' => $title, 'area' => $area );
 }
 
 

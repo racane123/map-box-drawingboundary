@@ -66,8 +66,8 @@
       <div class="mb-3">
       <label for="polygon-title">Title:</label>
       <select name="title" id="polygon-title" class="custom-select form-control-border">
-        <option value="building">Building</option>
-        <option value="openlot">Open Lot</option>
+        <option value="Agricultural">Agricultural</option>
+        <option value="Industrial">Industrial</option>
         <option value="residential_area">Residential Area</option>
         <option value="commercial_area">Commercial Area</option>
         <option value="none">None</option>
