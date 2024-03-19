@@ -21,19 +21,9 @@
     }
 
     .form-container {
-      position: absolute;
-      top: 50%;
-      right: 50%;
-      transform: translate(50%, -50%);
-      width: 30%;
-      padding: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    .p-coordinates {
-      display: flex;
     }
 
     #coordinates {
@@ -48,6 +38,7 @@
 
     .form-container form {
       display: none;
+      padding-top:1000px;
       background-color: #fff;
       padding: 40px;
       border-radius: 10px;
@@ -55,7 +46,7 @@
 
     .form-container {
       position: absolute;
-      top: 10%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 30%;
