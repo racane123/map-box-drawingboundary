@@ -10,7 +10,7 @@ $host = 'localhost';
 $username = 'root'; 
 $password = ''; 
 $database = 'LGU';
-$port = 3390;
+$port = 3306;
 
 
 

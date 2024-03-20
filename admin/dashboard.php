@@ -1,15 +1,16 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
+
+if (!isset ($_SESSION['email'])) {
 
   header('Location: ..\auth\login.php');
   exit();
 }
 
 
-include('../includes/template.php');
+include ('../includes/template.php');
 
-include('../includes/otherHeader.php');
+include ('../includes/otherHeader.php');
 
 
 ?>
@@ -37,7 +38,7 @@ include('../includes/otherHeader.php');
           <div class="info">
             <a href="#" class="d-block">
               <?php
-              if (isset($_SESSION['email'])) {
+              if (isset ($_SESSION['email'])) {
                 echo $_SESSION['email'];
               }
               ?>
@@ -52,6 +53,17 @@ include('../includes/otherHeader.php');
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadDashboard()">
+                <i class="nav-icon fa-solid fa-gauge"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" onclick="loadLandComputation()">
                 <i class="nav-icon fa-solid fa-gauge"></i>
@@ -161,7 +173,8 @@ include('../includes/otherHeader.php');
 
       <div class="sidebar-custom">
         <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
-        <a href="../auth/logout.php" class="btn btn-secondary hide-on-collapse pos-right"><i class="fas fa-sign-out-alt"></i></a>
+        <a href="../auth/logout.php" class="btn btn-secondary hide-on-collapse pos-right"><i
+            class="fas fa-sign-out-alt"></i></a>
       </div>
       <!-- /.sidebar-custom -->
     </aside>
@@ -196,18 +209,35 @@ include('../includes/otherHeader.php');
 
 
   <script>
+
+function loadDashboard() {
+      $.ajax({
+        url: 'admin-dashboard.php',
+        method: 'GET',
+        dataType: 'html',
+        success: function (data) {
+          // Update the content of the dashboard
+          $('.content-creation').html(data);
+          $('h2').text('Dashboard');
+        },
+        error: function (error) {
+          alert('Error fetching dashboard data:', error);
+        }
+      });
+    }
+
     // Function to fetch and update dashboard content
     function updateDashboard() {
       $.ajax({
         url: 'userAccounts.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
           $('h2').text('Account Management');
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching dashboard data:', error);
         }
       });
@@ -219,12 +249,12 @@ include('../includes/otherHeader.php');
         url: 'admin-geodata.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard with Admin Geo Data
           $('.content-creation').html(data);
           $('h1').text('Geo Data');
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching Admin Geo Data:', error);
         }
       });
@@ -237,12 +267,12 @@ include('../includes/otherHeader.php');
         url: 'drivers-route.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard with Admin Geo Data
           $('.content-creation').html(data);
           $('h1').text('Geo Data');
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching Admin Geo Data:', error);
         }
       });
@@ -255,12 +285,12 @@ include('../includes/otherHeader.php');
         url: 'usermap.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
 
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching dashboard data:', error);
         }
       });
@@ -273,12 +303,12 @@ include('../includes/otherHeader.php');
         url: '../otherMap.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
 
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching dashboard data:', error);
         }
       });
@@ -292,12 +322,12 @@ include('../includes/otherHeader.php');
         url: '../analytics.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
 
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching dashboard data:', error);
         }
       });
@@ -310,12 +340,12 @@ include('../includes/otherHeader.php');
         url: 'land-computation.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
 
         },
-        error: function(error) {
+        error: function (error) {
           alert('Error fetching dashboard data:', error);
         }
       });
@@ -327,12 +357,12 @@ include('../includes/otherHeader.php');
         url: 'admin-map.php',
         method: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
           // Update the content of the dashboard
           $('.content-creation').html(data);
           $('h2').text('drivers Map');
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
           console.error('Error fetching dashboard data:', error); // Improved error handling
           alert('Error fetching dashboard data:', error);
         }
@@ -342,7 +372,7 @@ include('../includes/otherHeader.php');
 
 
     function loadDashboardContent() {
-      updateDashboard();
+      loadDashboard();
     }
     // Initial load of the dashboard
     loadDashboardContent();

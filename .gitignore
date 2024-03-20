@@ -8,3 +8,4 @@ package.json
 vendor
 
 .env
+node_modules

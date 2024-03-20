@@ -12,7 +12,7 @@ $server = 'localhost';
 $db_name = 'LGU';
 $username = 'root';
 $password = '';
-$port = '3390';
+$port = 3306;
 
 //$host = 'localhost';
 //$username = 'grou_racane123'; 

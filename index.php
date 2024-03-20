@@ -3,7 +3,7 @@ session_start();
 
 if(!isset($_SESSION['email'])){
   
-    header('Location:..\MAP\auth\login.php');
+    header('Location: auth\login.php');
     exit();
 }
 

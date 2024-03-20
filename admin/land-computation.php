@@ -41,7 +41,7 @@
                     <th>Name</th>
                     <th>Area (sqm)</th>
                     <th>Property Type</th>
-                    <th>Price ($)</th>
+                    <th>Price (₱)</th>
                     <th>Send</th>
                 </tr>
             </thead>
@@ -63,7 +63,7 @@
 
         // Function to calculate the price based on the population
         function calculatePrice(area) {
-            // Example pricing strategy: $10 per square meter
+            
             const pricePerSquareMeter = 5000;
             return area * pricePerSquareMeter;
         }
@@ -102,20 +102,19 @@
             });
         }
 
-        const sendButton = document.getElementById('sendButton');
 
-        sendButton.addEventListener('click', function() {
+        //sendButton.addEventListener('click', function() {
             // Disable the button to prevent spam clicks
-            sendButton.disabled = true;
+            //sendButton.disabled = true;
 
             // Call your function to send data to another system
-            sendDataToAnotherSystem(item);
+            //sendDataToAnotherSystem(item);
 
             // Enable the button after 3 seconds
-            setTimeout(function() {
-                sendButton.disabled = false;
-            }, 3000); // 3000 milliseconds = 3 seconds
-        });
+            //setTimeout(function() {
+                //sendButton.disabled = false;
+            //}, 3000); // 3000 milliseconds = 3 seconds
+        //});
 
         // Function to send data to another system
         function sendDataToAnotherSystem(data) {
