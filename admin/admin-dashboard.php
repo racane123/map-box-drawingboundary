@@ -1,4 +1,4 @@
-<?php include ('../includes/admin-temp.php') ?>
+<?php include('../includes/admin-temp.php') ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -28,8 +28,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -53,8 +52,7 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 mr-3 img-circle">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Brad Diesel
@@ -70,8 +68,7 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         John Pierce
@@ -87,13 +84,11 @@
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
+                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">The subject goes here</p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -138,8 +133,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
-                        role="button">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                         <i class="fas fa-th-large"></i>
                     </a>
                 </li>
@@ -177,15 +171,14 @@
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>150</h3>
+                                    <h3 id="reportCount"></h3>
 
-                                    <p>New Orders</p>
+                                    <p>Emergency Reports</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-bag"></i>
+                                    <i class="fa-regular fa-hospital"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -200,8 +193,7 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -216,8 +208,7 @@
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -232,8 +223,7 @@
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -253,8 +243,7 @@
                                     <div class="card-tools">
                                         <ul class="nav nav-pills ml-auto">
                                             <li class="nav-item">
-                                                <a class="nav-link active" href="#revenue-chart"
-                                                    data-toggle="tab">Area</a>
+                                                <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
@@ -265,15 +254,11 @@
                                 <div class="card-body">
                                     <div class="tab-content p-0">
                                         <!-- Morris chart - Sales -->
-                                        <div class="chart tab-pane active" id="revenue-chart"
-                                            style="position: relative; height: 300px;">
-                                            <canvas id="revenue-chart-canvas" height="300"
-                                                style="height: 300px;"></canvas>
+                                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
+                                            <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                                         </div>
-                                        <div class="chart tab-pane" id="sales-chart"
-                                            style="position: relative; height: 300px;">
-                                            <canvas id="sales-chart-canvas" height="300"
-                                                style="height: 300px;"></canvas>
+                                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+                                            <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                                         </div>
                                     </div>
                                 </div><!-- /.card-body -->
@@ -285,7 +270,7 @@
 
                             <!-- TO DO List -->
                             <div class="card">
-                                
+
                             </div>
                             <!-- /.card -->
                         </section>
@@ -302,12 +287,10 @@
                                     </h3>
                                     <!-- card tools -->
                                     <div class="card-tools">
-                                        <button type="button" class="btn btn-primary btn-sm daterange"
-                                            title="Date range">
+                                        <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
                                             <i class="far fa-calendar-alt"></i>
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
-                                            title="Collapse">
+                                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
@@ -358,29 +341,25 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <canvas class="chart" id="line-chart"
-                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer bg-transparent">
                                     <div class="row">
                                         <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="20"
-                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60" data-fgColor="#39CCCC">
 
                                             <div class="text-white">Mail-Orders</div>
                                         </div>
                                         <!-- ./col -->
                                         <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="50"
-                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#39CCCC">
 
                                             <div class="text-white">Online</div>
                                         </div>
                                         <!-- ./col -->
                                         <div class="col-4 text-center">
-                                            <input type="text" class="knob" data-readonly="true" value="30"
-                                                data-width="60" data-height="60" data-fgColor="#39CCCC">
+                                            <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#39CCCC">
 
                                             <div class="text-white">In-Store</div>
                                         </div>
@@ -404,8 +383,7 @@
                                     <div class="card-tools">
                                         <!-- button with a dropdown -->
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-success btn-sm dropdown-toggle"
-                                                data-toggle="dropdown" data-offset="-52">
+                                            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
                                                 <i class="fas fa-bars"></i>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
@@ -415,8 +393,7 @@
                                                 <a href="#" class="dropdown-item">View calendar</a>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-success btn-sm"
-                                            data-card-widget="collapse">
+                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
                                         <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
@@ -449,5 +426,35 @@
         </aside>
         <!-- /.control-sidebar -->
     </div>
+    <script>
+        function fetchReportCount() {
+            fetch('https://group65.towntechinnovations.com/emergency-response.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!Array.isArray(data.reports) || data.reports.length === 0) {
+                        throw new Error('Response data is not in the expected format');
+                    }
 
+                    const numberOfReports = data.reports.length;
+
+                    // Update the HTML content with the count of reports
+                    document.getElementById('reportCount').textContent = numberOfReports;
+                })
+                .catch(error => {
+                    // Handle errors here
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        // Initially fetch report count
+        fetchReportCount();
+
+        // Set interval to fetch data every 30 seconds
+        setInterval(fetchReportCount, 30000);
+    </script>
 </body>
