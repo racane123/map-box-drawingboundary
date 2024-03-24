@@ -93,7 +93,7 @@ include ('../includes/otherHeader.php');
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" onclick="loadDashboardContent()">
+              <a class="nav-link" onclick="updateDashboard()">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                   Users
