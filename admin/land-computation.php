@@ -39,6 +39,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Address</th>
                     <th>Area (sqm)</th>
                     <th>Property Type</th>
                     <th>Price (₱)</th>
@@ -63,11 +64,12 @@
 
         // Function to calculate the price based on the population
         function calculatePrice(area) {
-            
+
             const pricePerSquareMeter = 5000;
             return area * pricePerSquareMeter;
         }
 
+        // Function to display data in table
         // Function to display data in table
         function displayData(data) {
             const tableBody = document.querySelector('#data-table tbody');
@@ -75,11 +77,14 @@
 
             // Loop through data and create table rows
             data.forEach(item => {
+                console.log(item); // Log the item object to check its structure
                 const row = document.createElement('tr');
                 const nameCell = document.createElement('td');
                 nameCell.textContent = item.name;
                 const titleCell = document.createElement('td');
                 titleCell.textContent = item.title;
+                const addressCell = document.createElement('td');
+                addressCell.textContent = item.address; // Make sure address is properly populated
                 const areaCell = document.createElement('td');
                 areaCell.textContent = item.area.toFixed(2); // Display area with two decimal places
                 const priceCell = document.createElement('td');
@@ -94,8 +99,9 @@
                 });
                 sendCell.appendChild(sendButton);
                 row.appendChild(nameCell);
+                row.appendChild(addressCell); // Add address cell to the row
                 row.appendChild(areaCell);
-                row.appendChild(titleCell)
+                row.appendChild(titleCell);
                 row.appendChild(priceCell);
                 row.appendChild(sendCell);
                 tableBody.appendChild(row);
@@ -103,23 +109,24 @@
         }
 
 
+
         //sendButton.addEventListener('click', function() {
-            // Disable the button to prevent spam clicks
-            //sendButton.disabled = true;
+        // Disable the button to prevent spam clicks
+        //sendButton.disabled = true;
 
-            // Call your function to send data to another system
-            //sendDataToAnotherSystem(item);
+        // Call your function to send data to another system
+        //sendDataToAnotherSystem(item);
 
-            // Enable the button after 3 seconds
-            //setTimeout(function() {
-                //sendButton.disabled = false;
-            //}, 3000); // 3000 milliseconds = 3 seconds
+        // Enable the button after 3 seconds
+        //setTimeout(function() {
+        //sendButton.disabled = false;
+        //}, 3000); // 3000 milliseconds = 3 seconds
         //});
 
         // Function to send data to another system
         function sendDataToAnotherSystem(data) {
             // Example URL of the other system's API endpoint
-            const apiUrl = 'http://192.168.100.114/adminlte/api/landcomp.php';
+            const apiUrl = 'http://192.168.1.42/adminlte/api/landcomp.php';
 
             // Example data format to send
             const requestData = {
@@ -127,7 +134,9 @@
                 area: data.area,
                 title: data.title,
                 price: calculatePrice(data.area),
+                address: data.address,
             };
+            console.log(requestData);
 
             // Example fetch request to send data
             fetch(apiUrl, {
@@ -137,9 +146,13 @@
                     },
                     body: JSON.stringify(requestData)
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error: ' + response.status + ' ' + response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(result => {
-                    // Handle the response from the other system if needed
                     console.log('Response from other system:', result);
                 })
                 .catch(error => {
