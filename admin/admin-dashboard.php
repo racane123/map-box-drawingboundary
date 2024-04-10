@@ -201,7 +201,14 @@
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>44</h3>
+                                    <?php include ('../db/dbconn.php');
+
+                                    $sqlcount = "SELECT COUNT(*) AS  total_users FROM users" ;
+                                    $result = mysqli_query($conn,$sqlcount);
+                                    while ( $row = $result->fetch_assoc() ){
+                                        echo "<h3>". number_format($row['total_users'])."</h3>";
+                                    }
+                                    ?>
 
                                     <p>User Registrations</p>
                                 </div>
